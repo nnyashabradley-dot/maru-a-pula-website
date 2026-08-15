@@ -173,13 +173,32 @@
   }
   .mobile-utility .search-menu{min-width:220px; max-width:calc(100vw - 40px);}
 
+  .menu-toggle{
+    display:none; background:none; border:none; cursor:pointer;
+    width:40px; height:40px; align-items:center; justify-content:center;
+    flex-shrink:0; position:relative;
+  }
+  .menu-toggle span{
+    display:block; position:absolute; left:9px; width:22px; height:2px;
+    background:var(--black); border-radius:2px;
+    transition: transform .25s ease, opacity .2s ease, top .25s ease;
+  }
+  .menu-toggle span:nth-child(1){top:14px;}
+  .menu-toggle span:nth-child(2){top:20px;}
+  .menu-toggle span:nth-child(3){top:26px;}
+  .menu-toggle.open span:nth-child(1){top:20px; transform:rotate(45deg);}
+  .menu-toggle.open span:nth-child(2){opacity:0;}
+  .menu-toggle.open span:nth-child(3){top:20px; transform:rotate(-45deg);}
+
   .subnav{
-    display:none;
     background:rgba(255,255,255,0.94);
     backdrop-filter: blur(14px) saturate(1.2);
     -webkit-backdrop-filter: blur(14px) saturate(1.2);
     border-bottom:1px solid rgba(0,0,0,0.07);
+    max-height:0; overflow:hidden;
+    transition: max-height .32s cubic-bezier(.16,.84,.44,1);
   }
+  .subnav.open{max-height:80px;}
   .subnav-inner{
     max-width:1360px; margin:0 auto; padding:9px 24px;
     display:flex; align-items:center; justify-content:space-between; gap:10px;
@@ -496,7 +515,7 @@
   /* ===== RESPONSIVE ===== */
   @media (max-width:1120px){
     .nav-actions{display:none;}
-    .subnav{display:block;}
+    .menu-toggle{display:flex;}
     .hero-inner{grid-template-columns:1fr;}
     .setswana-note{justify-self:start; margin-top:20px;}
     .qa-grid{grid-template-columns:repeat(3,1fr);}
@@ -639,6 +658,9 @@
           </div>
         </div>
       </div>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="subnav">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
 </header>
@@ -1258,6 +1280,29 @@
     wireDropdown('searchDropdownMobile', 'searchToggleMobile', function(){
       var input = document.getElementById('searchInputMobile');
       if(input) setTimeout(function(){ input.focus(); }, 50);
+    });
+  })();
+</script>
+<script>
+  (function(){
+    var toggle = document.getElementById('menuToggle');
+    var subnav = document.getElementById('subnav');
+    if(!toggle || !subnav) return;
+    function closeSubnav(){
+      subnav.classList.remove('open');
+      toggle.classList.remove('open');
+      toggle.setAttribute('aria-expanded','false');
+    }
+    function openSubnav(){
+      subnav.classList.add('open');
+      toggle.classList.add('open');
+      toggle.setAttribute('aria-expanded','true');
+    }
+    toggle.addEventListener('click', function(){
+      if(subnav.classList.contains('open')){ closeSubnav(); } else { openSubnav(); }
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape') closeSubnav();
     });
   })();
 </script>
