@@ -1,0 +1,1444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maru-a-Pula School — Clouds of Rain, Promise of Blessing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B0B0C;
+    --black:#000000;
+    --mid:#6B6B6B;
+    --paper:#FFFFFF;
+    --fog:#F3F3F3;
+    --line: rgba(0,0,0,0.14);
+    --sun-1:#FFE29A;
+    --sun-2:#F2A73B;
+    --sun-3:#C2540B;
+    --radius: 14px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth; overflow-x:hidden;}
+  body{
+    font-family:'Inter', sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{ font-family:'Fraunces', serif; letter-spacing:-0.01em; }
+  .mono{ font-family:'JetBrains Mono', monospace; letter-spacing:0.03em; }
+  a{color:inherit; text-decoration:none;}
+  img,svg{display:block; max-width:100%;}
+  .wrap{max-width:1360px; margin:0 auto; padding:0 32px;}
+  section{position:relative;}
+  .photo{overflow:hidden; border-radius:var(--radius); background:var(--fog);}
+  .photo img{width:100%; height:100%; object-fit:cover; display:block;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+
+  /* ===== HEADER ===== */
+  header{
+    position:sticky; top:0; z-index:100;
+    padding:18px 20px 0; background:transparent;
+    transition: padding .3s ease;
+  }
+  header.scrolled{padding-top:10px;}
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:10px 10px 10px 26px; max-width:1360px; margin:0 auto;
+    gap:16px;
+    background:rgba(255,255,255,0.78);
+    backdrop-filter: blur(18px) saturate(1.4);
+    -webkit-backdrop-filter: blur(18px) saturate(1.4);
+    border:1px solid rgba(0,0,0,0.06);
+    border-radius:100px;
+    box-shadow:0 1px 2px rgba(0,0,0,0.04), 0 12px 32px -12px rgba(0,0,0,0.14);
+    transition: box-shadow .3s ease, border-radius .3s ease;
+  }
+  header.scrolled .nav{
+    box-shadow:0 1px 2px rgba(0,0,0,0.05), 0 16px 36px -10px rgba(0,0,0,0.2);
+  }
+  .logo{
+    display:flex; align-items:center; gap:12px;
+    font-family:'Fraunces', serif; font-weight:700; font-size:1.2rem;
+    color:var(--black); flex-shrink:0;
+  }
+  .logo-mark{ height:40px; width:auto; flex-shrink:0; border-radius:8px; }
+  footer .logo-mark{height:38px;}
+  header .logo-text{display:none;}
+  @media (min-width:1121px){
+    header .logo{display:none;}
+  }
+  .logo-text{white-space:nowrap;}
+  .logo-text sup{
+    font-family:'JetBrains Mono', monospace; font-size:0.55rem; font-weight:600;
+    color:var(--mid); display:block; letter-spacing:0.12em; margin-top:-4px;
+    white-space:nowrap;
+  }
+  header nav{display:none;}
+  nav ul{ display:flex; gap:2px; list-style:none; }
+  nav ul a{
+    font-size:0.88rem; font-weight:500; color:var(--ink); white-space:nowrap;
+    padding:9px 14px; border-radius:100px; display:block; transition: background .2s ease, color .2s ease;
+  }
+  nav ul a:hover{background:rgba(0,0,0,0.055);}
+  .nav-actions{display:flex; align-items:center; gap:10px; flex-shrink:0;}
+  .nav-link-text{
+    font-size:0.88rem; font-weight:600; color:var(--ink); white-space:nowrap;
+    padding:9px 14px; border-radius:100px; transition: background .2s ease;
+  }
+  .nav-link-text:hover{background:rgba(0,0,0,0.055);}
+  .btn{
+    display:inline-flex; align-items:center; gap:6px;
+    padding:11px 20px; border-radius:100px;
+    font-weight:600; font-size:0.86rem;
+    border:1.5px solid transparent;
+    cursor:pointer; transition: all .2s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{background:var(--black); color:#fff;}
+  .btn-primary:hover{background:#2A2A2A; transform:translateY(-1px); box-shadow:0 8px 18px -6px rgba(0,0,0,0.4);}
+  .btn-ghost{border-color:var(--line); color:var(--ink); background:none;}
+  .btn-ghost:hover{border-color:var(--black);}
+  .btn-invert{background:#fff; color:var(--black);}
+  .btn-invert:hover{background:#EDEDED; transform:translateY(-1px);}
+
+  .dropdown{position:relative;}
+  .dropdown-menu{
+    position:absolute; top:calc(100% + 14px); right:0; min-width:190px;
+    background:rgba(255,255,255,0.92); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+    border:1px solid rgba(0,0,0,0.06); border-radius:16px;
+    box-shadow:0 24px 44px -16px rgba(0,0,0,0.28);
+    padding:8px; display:none; flex-direction:column; gap:2px; z-index:150;
+  }
+  .dropdown.open .dropdown-menu{display:flex;}
+  .dropdown-menu a{
+    padding:10px 12px; border-radius:10px; font-size:0.86rem; font-weight:500;
+    color:var(--ink); white-space:nowrap; transition: background .15s ease;
+  }
+  .dropdown-menu a:hover{background:var(--fog);}
+
+  .nav-divider{width:1px; height:22px; background:rgba(0,0,0,0.1); flex-shrink:0; margin:0 4px;}
+  .icon-pod{
+    display:flex; align-items:center; gap:2px;
+    background:rgba(0,0,0,0.045); border-radius:100px; padding:4px; flex-shrink:0;
+  }
+  .icon-btn{
+    width:36px; height:36px; border-radius:50%; border:none;
+    background:transparent; display:flex; align-items:center; justify-content:center;
+    cursor:pointer; color:var(--ink); flex-shrink:0; transition: all .2s ease;
+  }
+  .icon-btn:hover{background:#fff; color:var(--black); box-shadow:0 2px 6px rgba(0,0,0,0.1);}
+  .icon-btn svg{width:16px; height:16px;}
+  .nav-mid-label{
+    font-family:'Fraunces', serif; font-style:italic; font-weight:600;
+    font-size:1.4rem; color:var(--black); white-space:nowrap; flex-shrink:0;
+    transition: opacity .2s ease;
+  }
+  .nav-mid-label:hover{opacity:0.7;}
+  .search-menu{min-width:260px;}
+  .search-form{display:flex; gap:8px; padding:2px;}
+  .search-form input{
+    flex:1; border:1px solid var(--line); border-radius:8px; padding:9px 12px;
+    font-family:'Inter',sans-serif; font-size:0.88rem; color:var(--ink); outline:none;
+  }
+  .search-form input:focus{border-color:var(--black);}
+  .search-form button{
+    width:38px; height:38px; border-radius:8px; background:var(--black); color:#fff;
+    border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0;
+  }
+  .search-form button svg{width:15px; height:15px;}
+
+  .nav-search-bar{
+    display:flex; align-items:center; gap:10px; flex:1; min-width:0;
+    background:rgba(0,0,0,0.045); border-radius:100px; padding:9px 10px 9px 18px;
+    transition: background .2s ease;
+  }
+  .nav-search-bar:focus-within{background:rgba(0,0,0,0.07);}
+  .nav-search-bar svg{width:16px; height:16px; color:var(--mid); flex-shrink:0;}
+  .nav-search-bar input{
+    flex:1; min-width:0; border:none; background:transparent; outline:none;
+    font-family:'Inter',sans-serif; font-size:0.9rem; color:var(--ink);
+  }
+  .nav-search-bar input::placeholder{color:var(--mid);}
+
+  .dropdown-label{
+    font-family:'JetBrains Mono', monospace; font-size:0.68rem; text-transform:uppercase;
+    letter-spacing:0.07em; color:var(--mid); padding:8px 12px 2px;
+  }
+  .dropdown-divider{height:1px; background:var(--line); margin:6px 4px;}
+
+  .nav-right{display:flex; align-items:center; gap:14px; flex:1; min-width:0;}
+  .nav-cta-group{display:flex; align-items:center; gap:10px; flex-shrink:0;}
+  .mobile-utility{display:none; align-items:center; gap:6px;}
+  @media (max-width:1120px){
+    .nav-mid-label{display:none;}
+    .nav-search-bar{display:none;}
+    .mobile-utility{display:flex; margin-left:auto;}
+    .nav-cta-group{display:none;}
+  }
+  .mobile-utility .search-menu{min-width:220px; max-width:calc(100vw - 40px);}
+
+  .menu-toggle{
+    display:flex; background:none; border:none; cursor:pointer;
+    width:40px; height:40px; align-items:center; justify-content:center;
+    flex-shrink:0; position:relative; z-index:210;
+  }
+  .menu-toggle span{
+    display:block; position:absolute; left:9px; width:22px; height:2px;
+    background:var(--black); border-radius:2px;
+    transition: transform .25s ease, opacity .2s ease, top .25s ease;
+  }
+  .menu-toggle span:nth-child(1){top:14px;}
+  .menu-toggle span:nth-child(2){top:20px;}
+  .menu-toggle span:nth-child(3){top:26px;}
+  .menu-toggle.open span:nth-child(1){top:20px; transform:rotate(45deg);}
+  .menu-toggle.open span:nth-child(2){opacity:0;}
+  .menu-toggle.open span:nth-child(3){top:20px; transform:rotate(-45deg);}
+
+  .mobile-menu{
+    display:none; position:fixed; inset:0; z-index:200;
+    background:#fff; overflow-y:auto;
+  }
+  .mobile-menu.open{display:block;}
+
+  .drawer-close{
+    position:sticky; top:0; z-index:2; background:#fff;
+    display:flex; align-items:center; gap:8px;
+    padding:24px 28px 16px; margin:0;
+    border:none; background:#fff; cursor:pointer;
+    font-family:'Inter',sans-serif; font-size:0.9rem; font-weight:600; color:var(--ink);
+  }
+  .drawer-close svg{width:18px; height:18px;}
+  .drawer-close:hover{color:var(--sun-3);}
+
+  .mm-wrap{
+    max-width:1360px; margin:0 auto; padding:10px 28px 60px;
+    display:grid; grid-template-columns:1fr; gap:50px;
+  }
+  @media (min-width:900px){
+    .mm-wrap{grid-template-columns:1.3fr 1fr; gap:80px; padding:20px 48px 70px;}
+  }
+
+  .mm-col-main .mm-eyebrow{
+    font-family:'JetBrains Mono', monospace; font-size:0.72rem; text-transform:uppercase;
+    letter-spacing:0.1em; color:var(--sun-3); margin-bottom:18px;
+  }
+  .mobile-menu ul{list-style:none;}
+  .mobile-menu ul a{
+    display:block; padding:17px 2px; font-size:1.5rem; font-weight:600;
+    color:var(--ink); border-bottom:1px solid var(--line); font-family:'Fraunces', serif;
+    transition: color .2s ease, padding-left .2s ease;
+  }
+  .mobile-menu ul a:hover{color:var(--sun-3); padding-left:10px;}
+  @media (min-width:900px){
+    .mobile-menu ul a{font-size:2rem;}
+  }
+
+  .mm-col-side{display:flex; flex-direction:column; gap:26px;}
+  .mm-panel{
+    background:var(--fog); border-radius:20px; padding:26px;
+    display:flex; flex-direction:column; gap:18px;
+  }
+  .mm-actions{display:flex; flex-direction:column; gap:12px;}
+  .mm-actions .btn{width:100%; justify-content:center; padding:14px 22px;}
+  .mm-signin-label{
+    font-family:'JetBrains Mono', monospace; font-size:0.7rem; text-transform:uppercase;
+    letter-spacing:0.08em; color:var(--mid);
+  }
+  .mm-signin-row{display:flex; gap:8px; flex-wrap:wrap;}
+  .mm-signin-row .btn{flex:1 1 auto; min-width:100px; padding:12px 10px; font-size:0.82rem;}
+  .mm-extra-links{display:flex; gap:10px;}
+  .mm-extra-links .btn{flex:1;}
+
+  .mm-quote{
+    position:relative; overflow:hidden; border-radius:20px;
+    background:var(--black); color:#fff; padding:36px 30px;
+    display:flex; flex-direction:column; justify-content:center; min-height:200px; flex:1;
+  }
+  .mm-quote-glow{
+    position:absolute; top:-40%; right:-20%; width:260px; height:260px; border-radius:50%;
+    background: radial-gradient(circle at 35% 30%, var(--sun-1), var(--sun-2) 55%, var(--sun-3) 100%);
+    opacity:0.85; filter:blur(2px);
+  }
+  .mm-quote p{
+    position:relative; z-index:1; font-family:'Fraunces', serif; font-style:italic;
+    font-weight:500; font-size:1.4rem; line-height:1.3;
+  }
+  .mm-quote span{
+    position:relative; z-index:1; display:block; margin-top:14px;
+    font-family:'JetBrains Mono', monospace; font-size:0.72rem; color:rgba(255,255,255,0.6);
+    text-transform:uppercase; letter-spacing:0.06em;
+  }
+
+  /* ===== HERO ===== */
+  .hero{ position:relative; overflow:hidden; background: var(--black); color:#fff; padding:100px 0 0; }
+  .hero-photo{ position:absolute; inset:0; z-index:0; }
+  .hero-photo img{ width:100%; height:100%; object-fit:cover; opacity:0.42; }
+  .hero-photo::after{
+    content:''; position:absolute; inset:0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.72) 55%, #000 100%);
+  }
+  .hero-sun{
+    position:absolute; top:-140px; right:-90px; width:480px; height:480px;
+    border-radius:50%; z-index:1;
+    background: radial-gradient(circle at 38% 35%, var(--sun-1) 0%, var(--sun-2) 42%, var(--sun-3) 72%, rgba(194,84,11,0) 100%);
+    filter: blur(1px);
+    animation: pulse-sun 3.5s ease-in-out infinite;
+  }
+  @keyframes pulse-sun{
+    0%,100%{ transform:scale(1); opacity:0.92;}
+    50%{ transform:scale(1.05); opacity:1;}
+  }
+  .hero-ring{
+    position:absolute; border-radius:50%; z-index:1;
+    border: 1.5px solid rgba(255,255,255,0.18);
+  }
+  .hero-ring.r2{ width:600px; height:600px; top:-220px; right:-160px; border-color:rgba(255,255,255,0.12);}
+  .hero-ring.r3{ width:340px; height:340px; top:-60px; right:-20px; border-color:rgba(255,255,255,0.22);}
+  .cloud-drift{position:absolute; opacity:0.55; animation: drift 18s linear infinite; z-index:1;}
+  .cloud-drift.c2{animation-duration:25s; opacity:0.35; top:70px;}
+  .cloud-drift.c3{animation-duration:32s; opacity:0.25; top:230px;}
+  @keyframes drift{ from{ transform:translateX(-10%);} to{ transform:translateX(110%);} }
+  .hero-inner{
+    position:relative; z-index:2;
+    max-width:1360px; margin:0 auto; padding:60px 32px 0;
+    display:grid; grid-template-columns:1.15fr 0.85fr; gap:40px; align-items:end;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:'JetBrains Mono', monospace; font-size:0.75rem; font-weight:600;
+    letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--sun-2); margin-bottom:22px;
+  }
+  .eyebrow::before{content:''; width:26px; height:1px; background:var(--sun-2);}
+  .section-head .eyebrow{color:var(--sun-3);}
+  .hero h1{ font-size:clamp(2.6rem, 5.4vw, 4.4rem); font-weight:600; line-height:1.03; max-width:760px; }
+  .hero h1 em{ font-style:italic; font-weight:500; color:var(--sun-1); }
+  .hero p.lede{ margin-top:26px; font-size:1.15rem; color:rgba(255,255,255,0.78); max-width:520px; font-weight:400; }
+  .hero-cta{display:flex; gap:16px; margin-top:36px; flex-wrap:wrap;}
+  .setswana-note{
+    font-family:'Fraunces', serif; font-style:italic; font-weight:500;
+    font-size:1.05rem; color:rgba(255,255,255,0.68);
+    border-left:2px solid var(--sun-2); padding-left:18px; max-width:300px;
+    justify-self:end;
+  }
+  .horizon{position:relative; z-index:2; margin-top:100px; line-height:0;}
+  .horizon svg{width:100%; height:auto; display:block;}
+
+  /* ===== QUICK ACTIONS ===== */
+  .quick-actions{background:var(--paper);}
+  .qa-grid{
+    max-width:1360px; margin:0 auto; padding:0 32px;
+    display:grid; grid-template-columns:repeat(6,1fr);
+    transform:translateY(-18px);
+    box-shadow:0 20px 50px -24px rgba(0,0,0,0.25);
+    border-radius:var(--radius); overflow:hidden; background:#fff; border:1px solid var(--line);
+  }
+  .qa-item{
+    padding:26px 18px; text-align:center; border-right:1px solid var(--line);
+    display:flex; flex-direction:column; align-items:center; gap:10px;
+    transition: background .2s ease, transform .2s ease;
+  }
+  .qa-item:last-child{border-right:none;}
+  .qa-item:hover{background:var(--fog); transform:translateY(-2px);}
+  .qa-item svg{width:26px; height:26px; color:var(--ink); transition: color .2s ease;}
+  .qa-item:hover svg{color:var(--sun-3);}
+  .qa-item span{font-size:0.82rem; font-weight:600; color:var(--ink);}
+
+  .section-pad{padding:110px 0 90px;}
+  .section-head{ display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:52px; gap:40px; flex-wrap:wrap; }
+  .section-head h2{ font-size:clamp(1.9rem, 3vw, 2.6rem); font-weight:600; color:var(--black); max-width:560px; }
+  .section-head p{color:var(--mid); max-width:380px; font-size:1rem;}
+
+  /* ===== STORY ===== */
+  .story{background:#fff;}
+  .story-grid{ display:grid; grid-template-columns:0.9fr 1.1fr; gap:70px; align-items:center; }
+  .story-mark{ aspect-ratio:1/1; }
+  .tribute{background:var(--black); display:flex; align-items:center; justify-content:center;}
+  .tribute-inner{text-align:center; color:#fff; padding:30px;}
+  .tribute-monogram{
+    font-family:'Fraunces', serif; font-weight:700; font-size:3rem; color:var(--sun-1);
+    border:2px solid var(--sun-2); border-radius:50%; width:120px; height:120px;
+    display:flex; align-items:center; justify-content:center; margin:0 auto 22px;
+  }
+  .tribute-name{font-family:'Fraunces', serif; font-weight:600; font-size:1.5rem;}
+  .tribute-role{
+    font-family:'JetBrains Mono', monospace; font-size:0.78rem; color:rgba(255,255,255,0.6);
+    margin-top:10px; line-height:1.6; letter-spacing:0.03em;
+  }
+  .story h3{ font-size:1.9rem; color:var(--black); font-weight:600; margin-bottom:20px; line-height:1.2; }
+  .story p{color:#3d3d3d; font-size:1.02rem; margin-bottom:16px;}
+  .story .pull{
+    font-family:'Fraunces', serif; font-style:italic; font-size:1.3rem;
+    color:var(--sun-3); margin:24px 0; line-height:1.4;
+    padding-left:18px; border-left:2px solid var(--sun-2);
+    position:relative;
+  }
+  .story .pull::before{
+    content:'"'; position:absolute; left:14px; top:-22px;
+    font-family:'Fraunces', serif; font-style:normal; font-weight:700;
+    font-size:3.2rem; color:var(--sun-1); line-height:1;
+  }
+
+  /* ===== STATS (flip-card rotator) ===== */
+  .stats{background:var(--black); color:#fff; overflow:hidden;}
+  .stats-photo{position:absolute; inset:0; z-index:0;}
+  .stats-photo img{width:100%; height:100%; object-fit:cover; opacity:0.28;}
+  .stats-photo::after{content:''; position:absolute; inset:0; background:rgba(0,0,0,0.72);}
+  .stats .wrap{position:relative; z-index:1;}
+  .stats-head{text-align:center; padding-top:70px; margin-bottom:44px;}
+  .stats-head .eyebrow{justify-content:center; color:var(--sun-2);}
+  .stats-head .eyebrow::before{display:none;}
+  .stats-head h2{ color:#fff; font-size:clamp(1.7rem,2.6vw,2.2rem); font-weight:600; }
+
+  .stat-rotator{
+    max-width:1360px; margin:0 auto; padding-bottom:70px;
+    display:flex; align-items:center; justify-content:center; gap:18px;
+  }
+  .stat-arrow{
+    width:44px; height:44px; border-radius:50%; border:1px solid rgba(255,255,255,0.25);
+    background:rgba(255,255,255,0.06); color:#fff; display:flex; align-items:center; justify-content:center;
+    cursor:pointer; transition: background .2s ease; flex-shrink:0;
+  }
+  .stat-arrow:hover{background:rgba(255,255,255,0.16);}
+  .stat-arrow svg{width:16px; height:16px;}
+
+  .stat-cards-row{display:flex; gap:22px; flex:1; justify-content:center;}
+  .stat-card-wrap{ perspective:1400px; flex:1 1 0; min-width:0; max-width:340px; }
+  .stat-card{
+    background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.16); border-radius:20px;
+    padding:36px 26px; text-align:center; min-height:230px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    transform-style:preserve-3d; backface-visibility:hidden;
+    transition: transform .5s cubic-bezier(.4,.1,.2,1), opacity .5s ease;
+  }
+  .stat-card.flipping{ transform:rotateY(90deg); opacity:0.2; }
+  .stat-card .stat-icon{
+    width:56px; height:56px; margin:0 auto 18px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    background: radial-gradient(circle at 35% 30%, var(--sun-1), var(--sun-2) 55%, var(--sun-3) 100%);
+    color:var(--black);
+  }
+  .stat-card .stat-icon svg{width:24px; height:24px;}
+  .stat-card .num{ font-family:'JetBrains Mono', monospace; font-weight:600; font-size:clamp(1.4rem, 1.8vw, 1.8rem); color:#fff; }
+  .stat-card .label{font-size:0.84rem; color:rgba(255,255,255,0.68); margin-top:10px; line-height:1.4;}
+
+  .stats-controls{display:flex; align-items:center; justify-content:center; gap:14px; margin-top:26px;}
+  .stats-dots{display:flex; gap:7px;}
+  .stats-dots button{
+    width:7px; height:7px; border-radius:50%; border:none; background:rgba(255,255,255,0.28);
+    cursor:pointer; padding:0; transition: background .2s ease, transform .2s ease;
+  }
+  .stats-dots button.active{background:var(--sun-2); transform:scale(1.3);}
+
+  /* ===== PILLARS ===== */
+  .pillars{background:var(--fog);}
+  .pillar-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:26px;}
+  .pillar-card{
+    background:#fff; border-radius:var(--radius); padding:34px 28px; border:1px solid var(--line);
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .pillar-card:hover{transform:translateY(-4px); box-shadow:0 20px 40px -26px rgba(0,0,0,0.3);}
+  .pillar-card .icon{
+    width:44px; height:44px; border-radius:10px; background:var(--black);
+    display:flex; align-items:center; justify-content:center; margin-bottom:20px; color:var(--sun-1);
+  }
+  .pillar-card h4{ font-family:'Fraunces', serif; font-size:1.25rem; font-weight:600; color:var(--black); margin-bottom:10px; }
+  .pillar-card p{color:var(--mid); font-size:0.95rem;}
+
+  /* ===== GALLERY ===== */
+  .gallery{background:#fff;}
+  .gallery-grid{ display:grid; grid-template-columns:1.3fr 1fr 1fr; grid-template-rows:200px 200px; gap:16px; }
+  .gallery-grid a{ border-radius:var(--radius); overflow:hidden; position:relative; display:block; }
+  .gallery-grid img{ width:100%; height:100%; object-fit:cover; transition: transform .5s ease; }
+  .gallery-grid a:hover img{transform:scale(1.06);}
+  .gallery-grid a.big{grid-row:span 2;}
+  .gallery-cap{
+    position:absolute; left:0; right:0; bottom:0; padding:16px; color:#fff; font-size:0.82rem; font-weight:600;
+    background: linear-gradient(0deg, rgba(0,0,0,0.75), transparent);
+  }
+
+  /* ===== NEWS ===== */
+  .news{background:var(--fog);}
+  .news-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:26px; align-items:stretch;}
+  .news-side{display:flex; flex-direction:column; gap:26px;}
+  .news-card{
+    display:block; background:#fff; border-radius:var(--radius); overflow:hidden;
+    border:1px solid var(--line); cursor:pointer;
+    transition: transform .25s ease, box-shadow .25s ease, opacity .18s ease;
+  }
+  .news-card:hover{transform:translateY(-5px); box-shadow:0 26px 46px -26px rgba(0,0,0,0.35);}
+  .news-thumb{overflow:hidden;}
+  .news-thumb img{width:100%; height:100%; object-fit:cover; object-position:center 25%; display:block; transition: transform .5s ease;}
+  .news-card:hover .news-thumb img{transform:scale(1.06);}
+  .news-card-body{padding:20px 22px 24px;}
+  .news-tag{
+    font-family:'JetBrains Mono', monospace; font-size:0.7rem; color:var(--sun-3);
+    text-transform:uppercase; letter-spacing:0.08em; font-weight:600;
+  }
+  .news-card h4{font-size:1.05rem; margin:8px 0; color:var(--black); font-weight:600; line-height:1.3;}
+  .news-card p{font-size:0.9rem; color:var(--mid);}
+
+  .news-card.featured{display:flex; flex-direction:column; height:100%;}
+  .news-card.featured .news-thumb{height:auto;}
+  .news-card.featured .news-thumb img{height:auto; object-fit:contain; background:#000;}
+  .news-card.featured .news-card-body{padding:30px;}
+  .news-card.featured h4{font-size:1.6rem; line-height:1.25; margin:12px 0 14px;}
+  .news-card.featured p{font-size:1.02rem;}
+
+  .news-card.side{display:flex; flex-direction:row;}
+  .news-card.side .news-thumb{width:150px; flex-shrink:0;}
+  .news-card.side .news-card-body{padding:18px 20px; flex:1;}
+
+  /* ===== EVENTS CAROUSEL ===== */
+  .events-carousel{background:var(--fog);}
+  .carousel-nav{display:flex; gap:10px;}
+  .car-btn{
+    width:44px; height:44px; border-radius:50%; border:1px solid var(--line);
+    background:#fff; display:flex; align-items:center; justify-content:center;
+    cursor:pointer; transition: all .2s ease; flex-shrink:0;
+  }
+  .car-btn:hover{background:var(--black); border-color:var(--black);}
+  .car-btn:hover svg{stroke:#fff;}
+  .car-btn svg{width:18px; height:18px; stroke:var(--black); transition: stroke .2s ease;}
+  .carousel-track{
+    display:flex; gap:20px; overflow-x:auto; scroll-snap-type:x mandatory;
+    padding-bottom:10px; scrollbar-width:none; -ms-overflow-style:none;
+  }
+  .carousel-track::-webkit-scrollbar{display:none;}
+  .event-card{
+    position:relative; flex:0 0 290px; height:380px; border-radius:var(--radius);
+    overflow:hidden; scroll-snap-align:start; display:block; background:var(--fog);
+  }
+  .event-card img{width:100%; height:100%; object-fit:cover; transition: transform .5s ease;}
+  .event-card:hover img{transform:scale(1.07);}
+  .event-card::after{
+    content:''; position:absolute; inset:0;
+    background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 55%, rgba(0,0,0,0) 75%);
+  }
+  .ec-tag{
+    position:absolute; top:18px; left:18px; z-index:2;
+    font-family:'JetBrains Mono', monospace; font-size:0.66rem; text-transform:uppercase;
+    letter-spacing:0.06em; background:rgba(255,255,255,0.95); color:var(--black);
+    padding:5px 10px; border-radius:100px; font-weight:600;
+  }
+  .ec-date{
+    position:absolute; top:18px; right:18px; z-index:2;
+    font-family:'JetBrains Mono', monospace; font-size:0.7rem; font-weight:700;
+    color:var(--black); background:var(--sun-1); padding:6px 10px; border-radius:8px;
+    line-height:1.1; text-align:center;
+  }
+  .event-card-body{ position:absolute; left:18px; right:18px; bottom:18px; z-index:2; }
+  .ec-title{ color:#fff; font-family:'Fraunces',serif; font-weight:600; font-size:1.12rem; line-height:1.25; }
+  .ec-meta{ color:rgba(255,255,255,0.7); font-size:0.8rem; margin-top:6px; }
+
+  /* ===== CTA BANNER ===== */
+  .cta-banner{position:relative; overflow:hidden; background:var(--black); color:#fff; padding:100px 0;}
+  .cta-photo{position:absolute; inset:0; z-index:0;}
+  .cta-photo img{width:100%; height:100%; object-fit:cover; object-position:center 30%; opacity:0.4;}
+  .cta-photo::after{
+    content:''; position:absolute; inset:0;
+    background: linear-gradient(100deg, #000 10%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0.3) 100%);
+  }
+  .cta-inner{ position:relative; z-index:2; max-width:640px; }
+  .cta-inner .eyebrow{color:var(--sun-1);}
+  .cta-inner h2{font-size:clamp(2rem,3.6vw,3rem); font-weight:600; line-height:1.15; color:#fff;}
+  .cta-inner p{font-size:1.08rem; color:rgba(255,255,255,0.75); margin-top:20px; max-width:480px;}
+  .cta-buttons{display:flex; gap:16px; margin-top:34px; flex-wrap:wrap;}
+
+  /* ===== FOOTER ===== */
+  footer{background:var(--black); color:rgba(255,255,255,0.72); padding:70px 0 30px;}
+  .footer-grid{
+    display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px;
+    padding-bottom:50px; border-bottom:1px solid rgba(255,255,255,0.14);
+  }
+  .footer-grid h5{ color:#fff; font-size:0.85rem; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:18px; font-weight:600; }
+  .footer-grid ul{list-style:none;}
+  .footer-grid li{margin-bottom:10px; font-size:0.88rem;}
+  .footer-grid li a:hover{color:var(--sun-1); text-decoration:underline;}
+  .footer-brand .logo{color:#fff;}
+  .footer-brand p{font-size:0.88rem; margin-top:14px; max-width:280px; color:rgba(255,255,255,0.5);}
+  .socials{display:flex; gap:12px; margin-top:20px;}
+  .socials a{
+    width:34px; height:34px; border-radius:50%; border:1px solid rgba(255,255,255,0.22);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .socials a:hover{background:var(--sun-2); border-color:var(--sun-2); color:var(--black);}
+  .footer-bottom{
+    display:flex; justify-content:space-between; padding-top:26px;
+    font-size:0.78rem; color:rgba(255,255,255,0.4); flex-wrap:wrap; gap:12px;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width:1120px){
+    .nav-mid-label{display:none;}
+    .nav-actions{display:none;}
+    .menu-toggle{display:flex;}
+    .hero-inner{grid-template-columns:1fr;}
+    .setswana-note{justify-self:start; margin-top:20px;}
+    .qa-grid{grid-template-columns:repeat(3,1fr);}
+    .qa-item:nth-child(3){border-right:none;}
+    .story-grid{grid-template-columns:1fr;}
+    .pillar-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+    .gallery-grid{grid-template-columns:1fr 1fr; grid-template-rows:160px 160px 160px;}
+    .gallery-grid a.big{grid-row:span 1;}
+    .event-card{flex-basis:250px; height:340px;}
+    .stat-card{padding:28px 18px; min-height:210px;}
+    .stat-card .label{font-size:0.8rem;}
+    .news-grid{grid-template-columns:1fr;}
+  }
+  @media (max-width:640px){
+    .wrap{padding:0 20px;}
+    header{padding:12px 12px 0;}
+    .nav{padding:8px 8px 8px 18px;}
+    .nav-right{gap:10px;}
+    .logo-mark{height:34px;}
+    .logo-text{display:none;}
+    .mobile-utility .icon-pod{padding:3px; gap:0;}
+    .mobile-utility .icon-btn{width:34px; height:34px;}
+    .mobile-utility .icon-btn svg{width:15px; height:15px;}
+    .menu-toggle{width:36px; height:36px;}
+    .hero{padding-top:0;}
+    .hero-inner{padding:36px 20px 0; gap:22px;}
+    .hero-sun{width:240px; height:240px; top:-50px; right:-50px;}
+    .hero-ring.r2{width:320px; height:320px; top:-100px; right:-80px;}
+    .hero-ring.r3{width:190px; height:190px; top:-24px; right:-6px;}
+    .horizon{margin-top:48px;}
+    .cloud-drift{transform:scale(0.72);}
+    .cloud-drift.c1{top:60px !important;}
+    .cloud-drift.c2{top:44px !important;}
+    .cloud-drift.c3{top:150px !important;}
+    .hero h1{font-size:clamp(2rem, 8vw, 2.6rem);}
+    .hero p.lede{font-size:1rem;}
+    .section-pad{padding:64px 0 56px;}
+    .stats-head{padding-top:48px; margin-bottom:32px;}
+    .stat-rotator{padding-bottom:48px; gap:10px;}
+    .stat-cards-row{flex-direction:column; width:100%;}
+    .stat-card-wrap{max-width:none;}
+    .stat-card{padding:30px 22px; min-height:auto;}
+    .stat-arrow{width:38px; height:38px;}
+    .section-head{margin-bottom:34px;}
+    .news-card.featured .news-card-body{padding:22px;}
+    .news-card.featured h4{font-size:1.3rem;}
+    .news-card.side{flex-direction:column;}
+    .news-card.side .news-thumb{width:100%; height:170px;}
+  }
+  @media (max-width:560px){
+    .qa-grid{grid-template-columns:repeat(2,1fr);}
+    .qa-item:nth-child(3){border-right:1px solid var(--line);}
+    .qa-item:nth-child(2n){border-right:none;}
+    .footer-grid{grid-template-columns:1fr;}
+    .cta-inner{padding:48px 0; text-align:center; justify-content:center;}
+    .gallery-grid{grid-template-columns:1fr; grid-template-rows:none;}
+    .gallery-grid a{height:220px;}
+    .event-card{flex-basis:220px; height:300px;}
+  }
+  body.menu-open{overflow:hidden;}
+
+  /* ===== SCROLL REVEAL ===== */
+  .reveal{
+    opacity:0; transform:translateY(28px);
+    transition: opacity .7s ease, transform .7s cubic-bezier(.16,.84,.44,1);
+  }
+  .reveal.in-view{opacity:1; transform:translateY(0);}
+  .reveal-left{
+    opacity:0; transform:translateX(-48px);
+    transition: opacity 1.3s ease, transform 1.3s cubic-bezier(.22,1,.36,1);
+  }
+  .reveal-left.in-view{opacity:1; transform:translateX(0);}
+  .reveal-fade{
+    opacity:0; transform:translateY(16px); filter:blur(5px);
+    transition: opacity .9s ease, transform .9s cubic-bezier(.16,.84,.44,1), filter .9s ease;
+  }
+  .reveal-fade.in-view{opacity:1; transform:translateY(0); filter:blur(0);}
+  .d1{transition-delay:.1s;}
+  .d2{transition-delay:.22s;}
+  .d3{transition-delay:.36s;}
+
+  a:focus-visible, button:focus-visible{outline:2px solid var(--sun-2); outline-offset:3px;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a href="#" class="logo">
+      <img class="logo-mark" src="https://www.maruapula.org/wp-content/uploads/2025/05/maura-a-pula-logo.jpg" alt="Maru-a-Pula School logo" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 120 120%27%3E%3Crect width=%27120%27 height=%27120%27 rx=%2720%27 fill=%27%23000%27/%3E%3Ctext x=%2760%27 y=%2774%27 font-family=%27Georgia,serif%27 font-size=%2740%27 fill=%27%23fff%27 text-anchor=%27middle%27%3EMaP%3C/text%3E%3C/svg%3E';">
+      <span class="logo-text">Maru-a-Pula<sup>SCHOOL · EST. 1972</sup></span>
+    </a>
+    <div class="nav-right">
+      <nav>
+        <ul>
+          <li><a href="#story">About</a></li>
+          <li><a href="#academics">Academics</a></li>
+          <li><a href="#community">Community &amp; Arts</a></li>
+          <li><a href="#news">News</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Donate</a></li>
+        </ul>
+      </nav>
+      <a href="#" class="nav-mid-label">Maru-a-Pula</a>
+      <form class="nav-search-bar" onsubmit="return false;">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input type="text" placeholder="Search the site…" aria-label="Search the site">
+      </form>
+      <div class="mobile-utility">
+        <div class="icon-pod">
+          <div class="dropdown" id="searchDropdownMobile">
+            <button class="icon-btn dropdown-toggle" id="searchToggleMobile" aria-haspopup="true" aria-expanded="false" aria-label="Search">
+              <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+            <div class="dropdown-menu search-menu" id="searchMenuMobile">
+              <form class="search-form" onsubmit="return false;">
+                <input type="text" id="searchInputMobile" placeholder="Search the site…" aria-label="Search the site">
+                <button type="submit" aria-label="Submit search">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+              </form>
+            </div>
+          </div>
+          <a href="#" class="icon-btn" aria-label="Shop">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M6 8h12l-1 12H7L6 8z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 8V6a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.8"/></svg>
+          </a>
+          <div class="dropdown" id="signinDropdownMobile">
+            <button class="icon-btn dropdown-toggle" id="signinToggleMobile" aria-haspopup="true" aria-expanded="false" aria-label="Sign in">
+              <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.6" stroke="currentColor" stroke-width="1.8"/><path d="M5 20c0-3.6 3.1-6.4 7-6.4s7 2.8 7 6.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </button>
+            <div class="dropdown-menu" id="signinMenuMobile">
+              <a href="#">Parents</a>
+              <a href="#">Students</a>
+              <a href="#">Teachers &amp; Staff</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-cta-group">
+        <a href="#" class="icon-btn" aria-label="Shop">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M6 8h12l-1 12H7L6 8z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 8V6a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.8"/></svg>
+        </a>
+        <div class="dropdown" id="applyDropdown">
+          <button class="btn btn-primary dropdown-toggle" id="applyToggle" aria-haspopup="true" aria-expanded="false">Apply Now</button>
+          <div class="dropdown-menu" id="applyMenu">
+            <a href="#">Apply for Admission</a>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-label">Sign in as</div>
+            <a href="#">Parents</a>
+            <a href="#">Students</a>
+            <a href="#">Teachers &amp; Staff</a>
+          </div>
+        </div>
+      </div>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="drawer-close" id="drawerClose" aria-label="Close menu">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M19 12H5M11 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Back to site
+  </button>
+  <div class="mm-wrap">
+    <div class="mm-col-main">
+      <div class="mm-eyebrow">Explore MaP</div>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#story">About</a></li>
+        <li><a href="#academics">Academics</a></li>
+        <li><a href="#community">Community &amp; Arts</a></li>
+        <li><a href="#news">News</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div class="mm-col-side">
+      <div class="mm-panel">
+        <form class="search-form" onsubmit="return false;">
+          <input type="text" placeholder="Search the site…" aria-label="Search the site">
+          <button type="submit" aria-label="Submit search">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </form>
+        <div>
+          <div class="mm-signin-label">Sign in as</div>
+          <div class="mm-signin-row" style="margin-top:10px;">
+            <a href="#" class="btn btn-ghost">Parents</a>
+            <a href="#" class="btn btn-ghost">Students</a>
+            <a href="#" class="btn btn-ghost">Teachers &amp; Staff</a>
+          </div>
+        </div>
+        <div class="mm-extra-links">
+          <a href="#" class="btn btn-ghost">Donate</a>
+          <a href="#" class="btn btn-ghost">Shop</a>
+        </div>
+        <a href="#" class="btn btn-primary">Apply Now</a>
+      </div>
+      <div class="mm-quote">
+        <div class="mm-quote-glow" aria-hidden="true"></div>
+        <p>"Clouds of rain. The promise of blessing."</p>
+        <span>The meaning behind Maru-a-Pula</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="hero-photo" aria-hidden="true">
+    <img src="https://www.maruapula.org/wp-content/uploads/2022/02/Maru-a-pula-2019-10009.jpg" alt="">
+  </div>
+  <div class="hero-sun" aria-hidden="true"></div>
+  <div class="hero-ring r2" aria-hidden="true"></div>
+  <div class="hero-ring r3" aria-hidden="true"></div>
+  <svg class="cloud-drift c1" width="220" height="70" viewBox="0 0 220 70" aria-hidden="true" style="top:100px;">
+    <ellipse cx="60" cy="40" rx="60" ry="24" fill="#fff" opacity="0.9"/>
+    <ellipse cx="120" cy="30" rx="50" ry="28" fill="#fff" opacity="0.9"/>
+  </svg>
+  <svg class="cloud-drift c2" width="160" height="50" viewBox="0 0 160 50" aria-hidden="true">
+    <ellipse cx="60" cy="30" rx="55" ry="18" fill="#fff"/>
+  </svg>
+  <svg class="cloud-drift c3" width="260" height="60" viewBox="0 0 260 60" aria-hidden="true">
+    <ellipse cx="80" cy="30" rx="70" ry="22" fill="#fff"/>
+    <ellipse cx="160" cy="24" rx="50" ry="20" fill="#fff"/>
+  </svg>
+
+  <div class="hero-inner">
+    <div>
+      <div class="eyebrow">Gaborone, Botswana · Grades 7–13</div>
+      <h1>Clouds of rain.<br>The <em>promise</em> of blessing.</h1>
+      <p class="lede">Maru-a-Pula means exactly that in Setswana — and for over 50 years it's been the name behind one of Africa's leading independent schools, built on rigorous Cambridge academics and a deep commitment to community.</p>
+      <div class="hero-cta">
+        <a href="#" class="btn btn-invert">Apply for Admission</a>
+        <a href="#academics" class="btn btn-ghost" style="border-color:rgba(255,255,255,0.35); color:#fff;">Explore Academics ↓</a>
+      </div>
+    </div>
+    <p class="setswana-note">"Pula" — rain — is Botswana's greatest blessing. It's even the name of the currency. So Maru-a-Pula carries a promise in its name.</p>
+  </div>
+
+  <div class="horizon" aria-hidden="true">
+    <svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path d="M0 90V40C240 10 480 0 720 12C960 24 1200 60 1440 40V90H0Z" fill="#FFFFFF"/></svg>
+  </div>
+</section>
+
+<section class="quick-actions">
+  <div class="qa-grid">
+    <a href="#" class="qa-item">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V9l-5-6z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 3v6h5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 15.5l1.5-3.8 5-5 2.3 2.3-5 5-3.8 1.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+      <span>Apply Now</span>
+    </a>
+    <a href="#" class="qa-item">
+      <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.6"/></svg>
+      <span>School Calendar</span>
+    </a>
+    <a href="#" class="qa-item">
+      <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.4" stroke="currentColor" stroke-width="1.6"/><path d="M5 21c1.5-4.5 5-6 7-6s5.5 1.5 7 6" stroke="currentColor" stroke-width="1.6"/></svg>
+      <span>Parent Portal</span>
+    </a>
+    <a href="#" class="qa-item">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M9 19V6l10-2v13" stroke="currentColor" stroke-width="1.6"/><circle cx="7" cy="19" r="2" stroke="currentColor" stroke-width="1.6"/><circle cx="17" cy="17" r="2" stroke="currentColor" stroke-width="1.6"/></svg>
+      <span>Maitisong Arts</span>
+    </a>
+    <a href="#" class="qa-item">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-5-7-11a7 7 0 0114 0c0 6-7 11-7 11z" stroke="currentColor" stroke-width="1.6"/></svg>
+      <span>Community Service</span>
+    </a>
+    <a href="#" class="qa-item">
+      <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span>Contact Us</span>
+    </a>
+  </div>
+</section>
+
+<section class="story section-pad" id="story">
+  <div class="wrap story-grid">
+    <div class="photo story-mark tribute">
+      <div class="tribute-inner">
+        <div class="tribute-monogram">DY</div>
+        <div class="tribute-name">Deane Yates</div>
+        <div class="tribute-role">FOUNDING HEADMASTER<br>1972 – 1980</div>
+      </div>
+    </div>
+    <div>
+      <div class="eyebrow reveal">Our story</div>
+      <h3 class="reveal d1">Founded on 50 acres given by the nation of Botswana.</h3>
+      <p class="reveal-fade d2">In 1972, at the invitation of the Botswana Government, Maru-a-Pula was established as a non-profit trust — one of the first schools in southern Africa built on explicitly multiracial ideals, at a time when that was a radical act.</p>
+      <p class="pull reveal-fade d2">"Rain is a great blessing here — you wish someone well by saying 'Pula.' Maru-a-Pula, rainclouds, comes to mean the promise of blessing."</p>
+      <p class="reveal-fade d3">Today MaP is home to over 800 students and around 70 teachers from more than 35 nationalities, two-thirds of whom are Batswana — a school that is deeply international and deeply rooted at once.</p>
+    </div>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="stats-photo" aria-hidden="true">
+    <img src="https://www.maruapula.org/wp-content/uploads/2021/12/Maru-a-pula-2019-11085.jpg" alt="">
+  </div>
+  <div class="wrap">
+    <div class="stats-head">
+      <div class="eyebrow reveal">The MaP difference</div>
+      <h2 class="reveal d1">Our Distinctions</h2>
+    </div>
+    <div class="stat-rotator">
+      <button class="stat-arrow" id="statPrev" aria-label="Previous distinctions">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="stat-cards-row" id="statCardsRow">
+        <div class="stat-card-wrap">
+          <div class="stat-card" data-slot="0">
+            <div class="stat-icon"></div>
+            <div class="num"></div>
+            <div class="label"></div>
+          </div>
+        </div>
+        <div class="stat-card-wrap">
+          <div class="stat-card" data-slot="1">
+            <div class="stat-icon"></div>
+            <div class="num"></div>
+            <div class="label"></div>
+          </div>
+        </div>
+        <div class="stat-card-wrap">
+          <div class="stat-card" data-slot="2">
+            <div class="stat-icon"></div>
+            <div class="num"></div>
+            <div class="label"></div>
+          </div>
+        </div>
+      </div>
+      <button class="stat-arrow" id="statNext" aria-label="Next distinctions">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <div class="stats-controls">
+      <div class="stats-dots" id="statsDots"></div>
+    </div>
+  </div>
+</section>
+
+<section class="pillars section-pad" id="academics">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow reveal">What sets MaP apart</div>
+        <h2 class="reveal d1">A rigorous Cambridge education, built around service and character.</h2>
+      </div>
+      <p class="reveal-fade d2">We prepare students for the IGCSE, AS and A-Level examinations — and for the harder work of becoming people who give back.</p>
+    </div>
+    <div class="pillar-grid">
+      <div class="pillar-card">
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h9l5 5v10a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.6"/><path d="M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.6"/></svg></div>
+        <h4>Cambridge Academics</h4>
+        <p>Rigorous IGCSE, AS and A-Level preparation from Form 1 through Upper Six, taught by a faculty of about 70 educators.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-5-7-11a7 7 0 0114 0c0 6-7 11-7 11z" stroke="currentColor" stroke-width="1.6"/></svg></div>
+        <h4>Required Community Service</h4>
+        <p>Every student and full-time teacher serves weekly — from village primary schools to Old Naledi and the SOS Children's Village.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 19V6l10-2v13" stroke="currentColor" stroke-width="1.6"/><circle cx="7" cy="19" r="2" stroke="currentColor" stroke-width="1.6"/><circle cx="17" cy="17" r="2" stroke="currentColor" stroke-width="1.6"/></svg></div>
+        <h4>Maitisong &amp; the Arts</h4>
+        <p>Home to Maitisong, Botswana's premier performing arts centre and host of the country's largest annual arts festival.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 21V10l8-6 8 6v11" stroke="currentColor" stroke-width="1.6"/><path d="M9 21v-6h6v6" stroke="currentColor" stroke-width="1.6"/></svg></div>
+        <h4>Day &amp; Boarding</h4>
+        <p>A 50-acre campus in the heart of Gaborone, welcoming day students and boarders living within a close-knit residential community.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4.5L6 21l1.5-7.5L2 9h7z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></div>
+        <h4>Global Outcomes</h4>
+        <p>Graduates go on to highly selective universities worldwide, with 94 alumni currently enrolled at the world's top 100 institutions.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h4>Access &amp; Financial Aid</h4>
+        <p>Full scholarships for orphans and vulnerable children, including refugees, alongside need-based financial aid for eligible families.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery section-pad">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow reveal">Campus life</div>
+        <h2 class="reveal d1">Life on a 50-acre campus in Gaborone</h2>
+      </div>
+    </div>
+    <div class="gallery-grid">
+      <a href="#" class="big">
+        <img src="https://www.maruapula.org/wp-content/uploads/2022/02/Maru-a-pula-2019-11694.jpg" alt="Students at Maru-a-Pula School">
+        <span class="gallery-cap">Admissions Open Days</span>
+      </a>
+      <a href="#">
+        <img src="https://www.maruapula.org/wp-content/uploads/2024/03/IMG_5620-375x375.jpg" alt="Campus at Maru-a-Pula School">
+        <span class="gallery-cap">Around Campus</span>
+      </a>
+      <a href="#">
+        <img src="https://www.maruapula.org/wp-content/uploads/2021/12/Maru-a-pula-2019-11085.jpg" alt="In the classroom at Maru-a-Pula School">
+        <span class="gallery-cap">In the Classroom</span>
+      </a>
+      <a href="#">
+        <img src="https://www.maruapula.org/wp-content/uploads/2022/02/MaP-Photos-In-Class-10327.jpg" alt="Students at Maru-a-Pula School">
+        <span class="gallery-cap">Student Life</span>
+      </a>
+      <a href="#">
+        <img src="https://www.maruapula.org/wp-content/uploads/2022/02/Maru-a-pula-2019-10009.jpg" alt="Welcome back at Maru-a-Pula School">
+        <span class="gallery-cap">Community &amp; Service</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="events-carousel section-pad" id="events">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow reveal">What's happening</div>
+        <h2 class="reveal d1">Upcoming events &amp; activities</h2>
+      </div>
+      <div class="carousel-nav">
+        <button class="car-btn" id="carPrev" aria-label="Previous events">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="car-btn" id="carNext" aria-label="Next events">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="carousel-track" id="eventsTrack">
+      <a href="#" class="event-card">
+        <img src="https://www.maruapula.org/wp-content/uploads/2022/02/Maru-a-pula-2019-11694.jpg" alt="Open Day at Maru-a-Pula School">
+        <span class="ec-tag">Admissions</span>
+        <span class="ec-date">18<br>AUG</span>
+        <div class="event-card-body">
+          <div class="ec-title">Open Day for Prospective Families</div>
+          <div class="ec-meta">9:00 AM · Main Campus</div>
+        </div>
+      </a>
+      <a href="#" class="event-card">
+        <img src="https://www.maruapula.org/wp-content/uploads/2024/03/IMG_5620-375x375.jpg" alt="Inter-House Athletics at Maru-a-Pula School">
+        <span class="ec-tag">Sport</span>
+        <span class="ec-date">02<br>SEP</span>
+        <div class="event-card-body">
+          <div class="ec-title">Inter-House Athletics</div>
+          <div class="ec-meta">All day · Sports Fields</div>
+        </div>
+      </a>
+      <a href="#" class="event-card">
+        <img src="https://www.maruapula.org/wp-content/uploads/2021/12/Maru-a-pula-2019-11085.jpg" alt="Maitisong Festival at Maru-a-Pula School">
+        <span class="ec-tag">Arts</span>
+        <span class="ec-date">14<br>SEP</span>
+        <div class="event-card-body">
+          <div class="ec-title">Maitisong Festival Begins</div>
+          <div class="ec-meta">All week · Maitisong Theatre</div>
+        </div>
+      </a>
+      <a href="#" class="event-card">
+        <img src="https://www.maruapula.org/wp-content/uploads/2022/02/MaP-Photos-In-Class-10327.jpg" alt="A-Level Parents' Evening at Maru-a-Pula School">
+        <span class="ec-tag">Academics</span>
+        <span class="ec-date">29<br>SEP</span>
+        <div class="event-card-body">
+          <div class="ec-title">A-Level Parents' Evening</div>
+          <div class="ec-meta">5:30 PM · Assembly Hall</div>
+        </div>
+      </a>
+      <a href="#" class="event-card">
+        <img src="https://www.maruapula.org/wp-content/uploads/2022/02/Maru-a-pula-2019-10009.jpg" alt="Community Service Day at Maru-a-Pula School">
+        <span class="ec-tag">Service</span>
+        <span class="ec-date">10<br>OCT</span>
+        <div class="event-card-body">
+          <div class="ec-title">Community Service Day</div>
+          <div class="ec-meta">All day · Old Naledi &amp; beyond</div>
+        </div>
+      </a>
+      <a href="#" class="event-card">
+        <img src="https://www.maruapula.org/wp-content/uploads/2022/02/Maru-a-pula-2019-11694.jpg" alt="Marimba Band Concert at Maru-a-Pula School">
+        <span class="ec-tag">Arts</span>
+        <span class="ec-date">24<br>OCT</span>
+        <div class="event-card-body">
+          <div class="ec-title">MaP Marimba Band Concert</div>
+          <div class="ec-meta">6:00 PM · Maitisong Theatre</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="news section-pad" id="news">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow reveal">Latest from MaP</div>
+        <h2 class="reveal d1">News &amp; announcements</h2>
+      </div>
+      <a href="#" class="nav-link-text reveal d1">View all news →</a>
+    </div>
+    <div class="news-grid" id="community">
+      <a href="#" class="news-card featured" id="newsFeatured">
+        <div class="news-thumb"><img src="https://www.maruapula.org/wp-content/uploads/2024/03/IMG_5620-375x375.jpg" alt="Cambridge Top in the World awards at Maru-a-Pula School"></div>
+        <div class="news-card-body">
+          <div class="news-tag">Academics</div>
+          <h4>Cambridge "Top in the World" awards go to MaP students</h4>
+          <p>Outstanding individual results in this year's IGCSE and A-Level examinations recognised globally, adding to a decades-long run of top academic performance.</p>
+        </div>
+      </a>
+      <div class="news-side">
+        <a href="#" class="news-card side">
+          <div class="news-thumb"><img src="https://www.maruapula.org/wp-content/uploads/2021/12/Maru-a-pula-2019-11085.jpg" alt="Community service at Maru-a-Pula School"></div>
+          <div class="news-card-body">
+            <div class="news-tag">Community</div>
+            <h4>Weekly service takes students to Old Naledi and beyond</h4>
+            <p>A look inside the programme that sends every student off campus, every week, without exception.</p>
+          </div>
+        </a>
+        <a href="#" class="news-card side">
+          <div class="news-thumb"><img src="https://www.maruapula.org/wp-content/uploads/2022/02/MaP-Photos-In-Class-10327.jpg" alt="Maitisong Festival at Maru-a-Pula School"></div>
+          <div class="news-card-body">
+            <div class="news-tag">Arts</div>
+            <h4>The Maitisong Festival returns to campus this term</h4>
+            <p>Botswana's largest arts festival brings thousands of visitors to the MaP campus once again.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-banner">
+  <div class="cta-photo" aria-hidden="true">
+    <img src="https://www.maruapula.org/wp-content/uploads/2022/02/Maru-a-pula-2019-11694.jpg" alt="">
+  </div>
+  <div class="wrap cta-inner">
+    <div class="eyebrow reveal-left">Ready when you are</div>
+    <h2 class="reveal-left d1">Join a school built on academics — and on giving back.</h2>
+    <p class="reveal-left d2">Applications for the next academic year are open now. Start yours today, or book a walk through our 50-acre campus first.</p>
+    <div class="cta-buttons reveal-left d3">
+      <a href="#" class="btn btn-invert">Start Your Application →</a>
+      <a href="#" class="btn btn-ghost" style="border-color:rgba(255,255,255,0.35); color:#fff;">Book a Campus Tour</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <img class="logo-mark" src="https://www.maruapula.org/wp-content/uploads/2021/11/maru-a-pula-logo-white.svg" alt="Maru-a-Pula School logo" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 120 120%27%3E%3Crect width=%27120%27 height=%27120%27 rx=%2720%27 fill=%27none%27 stroke=%27%23fff%27 stroke-width=%273%27/%3E%3Ctext x=%2760%27 y=%2774%27 font-family=%27Georgia,serif%27 font-size=%2740%27 fill=%27%23fff%27 text-anchor=%27middle%27%3EMaP%3C/text%3E%3C/svg%3E';">
+          <span class="logo-text" style="color:#fff;">Maru-a-Pula<sup style="color:var(--sun-1);">SCHOOL · EST. 1972</sup></span>
+        </a>
+        <p>A co-educational, independent day and boarding secondary school in Gaborone, Botswana. World-class education, rooted in Botswana.</p>
+        <div class="socials">
+          <a href="#" aria-label="Facebook"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M14 9h3V5h-3c-2.2 0-4 1.8-4 4v2H8v4h2v6h4v-6h3l1-4h-4V9c0-.6.4-1 1-1z" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.6"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="12" rx="3" stroke="currentColor" stroke-width="1.6"/><path d="M11 10l4 2-4 2v-4z" fill="currentColor"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h5>Explore</h5>
+        <ul>
+          <li><a href="#story">About MaP</a></li>
+          <li><a href="#academics">Academics</a></li>
+          <li><a href="#community">Community Service</a></li>
+          <li><a href="#">Boarding</a></li>
+          <li><a href="#">Admissions</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Community</h5>
+        <ul>
+          <li><a href="#">Maitisong Festival</a></li>
+          <li><a href="#">Alumni Network</a></li>
+          <li><a href="#">Parent Portal</a></li>
+          <li><a href="#">Careers at MaP</a></li>
+          <li><a href="#">Financial Aid</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Contact</h5>
+        <ul>
+          <li>4725 Maruapula Way, Gaborone</li>
+          <li>+267 391 2953</li>
+          <li>comms@maruapula.org</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Maru-a-Pula School. All rights reserved.</span>
+      <span>Privacy Policy · Accessibility · Site Map</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var header = document.querySelector('header');
+    if(!header) return;
+    function onScroll(){
+      if(window.scrollY > 12){
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    }
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  })();
+</script>
+<script>
+  (function(){
+    var distinctions = [
+      {
+        icon:'<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="5" stroke="currentColor" stroke-width="1.8"/><path d="M8.5 13.5L7 21l5-2.5 5 2.5-1.5-7.5" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>',
+        num:'#1', label:'Ranked secondary school in Botswana'
+      },
+      {
+        icon:'<svg viewBox="0 0 24 24" fill="none"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4.5L6 21l1.5-7.5L2 9h7z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>',
+        num:'Top in the World', label:'Cambridge awards for outstanding IGCSE & A-Level results'
+      },
+      {
+        icon:'<svg viewBox="0 0 24 24" fill="none"><path d="M12 3l9 5-9 5-9-5 9-5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5" stroke="currentColor" stroke-width="1.8"/></svg>',
+        num:'94', label:'Alumni currently at the world\'s top 100 universities'
+      },
+      {
+        icon:'<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c2.5 2.5 3.8 5.8 3.8 9s-1.3 6.5-3.8 9c-2.5-2.5-3.8-5.8-3.8-9S9.5 5.5 12 3z" stroke="currentColor" stroke-width="1.8"/></svg>',
+        num:'35+', label:'Nationalities represented across our community'
+      },
+      {
+        icon:'<svg viewBox="0 0 24 24" fill="none"><path d="M9 19V6l10-2v13" stroke="currentColor" stroke-width="1.8"/><circle cx="7" cy="19" r="2" stroke="currentColor" stroke-width="1.8"/><circle cx="17" cy="17" r="2" stroke="currentColor" stroke-width="1.8"/></svg>',
+        num:'Maitisong', label:'Home to Botswana\'s largest annual arts festival'
+      },
+      {
+        icon:'<svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-5-7-11a7 7 0 0114 0c0 6-7 11-7 11z" stroke="currentColor" stroke-width="1.8"/></svg>',
+        num:'Weekly', label:'Community service required of every student and teacher, without exception'
+      },
+      {
+        icon:'<svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.8"/></svg>',
+        num:'1972', label:'Founded as one of Southern Africa\'s first non-racial, multiracial schools'
+      },
+      {
+        icon:'<svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+        num:'OVC Scholarships', label:'Full scholarships fund for orphans and vulnerable children'
+      },
+      {
+        icon:'<svg viewBox="0 0 24 24" fill="none"><path d="M4 19h4v-6H4v6zM10 19h4V9h-4v10zM16 19h4V4h-4v15z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>',
+        num:'Among Africa\'s Best', label:'Consistently among the continent\'s top A-Level results'
+      },
+      {
+        icon:'<svg viewBox="0 0 24 24" fill="none"><path d="M12 14a4 4 0 004-4V6a4 4 0 00-8 0v4a4 4 0 004 4z" stroke="currentColor" stroke-width="1.8"/><path d="M6 11a6 6 0 0012 0M12 17v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
+        num:'Harvard Mentors', label:'Six Harvard undergraduates mentor MaP students every summer'
+      },
+      {
+        icon:'<svg viewBox="0 0 24 24" fill="none"><path d="M4 21V10l8-6 8 6v11" stroke="currentColor" stroke-width="1.8"/><path d="M9 21v-6h6v6" stroke="currentColor" stroke-width="1.8"/></svg>',
+        num:'Princeton Fellows', label:'Two Princeton in Africa Fellows teach at MaP every year'
+      },
+      {
+        icon:'<svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M8 3v4M16 3v4M3 10h18" stroke="currentColor" stroke-width="1.8"/><path d="M8 15l2.5 2.5L16 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+        num:'50%+ A*s & As', label:'Among our IGCSE candidates\' results over recent years'
+      },
+      {
+        icon:'<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.8"/><path d="M4 20c0-4 3.5-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.8"/><path d="M9 8l2 2 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+        num:'Notable Alumni', label:'Our graduates include a former President of Botswana'
+      },
+      {
+        icon:'<svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.4 6.5L21 9l-5 4.6L17.5 21 12 17.3 6.5 21 8 13.6 3 9l6.6-.5L12 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>',
+        num:'50 Years', label:'Celebrated our Golden Jubilee anniversary in 2022'
+      },
+      {
+        icon:'<svg viewBox="0 0 24 24" fill="none"><path d="M12 15a5 5 0 100-10 5 5 0 000 10z" stroke="currentColor" stroke-width="1.8"/><path d="M9 14.5L7.5 21 12 18.5 16.5 21 15 14.5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>',
+        num:'Founder\'s OBE', label:'Founding Head Deane Yates was honoured for pioneering non-racial education'
+      }
+    ];
+
+    var cards = Array.prototype.slice.call(document.querySelectorAll('.stat-card[data-slot]'));
+    var dotsWrap = document.getElementById('statsDots');
+    var prevBtn = document.getElementById('statPrev');
+    var nextBtn = document.getElementById('statNext');
+    if(!cards.length || !dotsWrap) return;
+
+    var perPage = cards.length;
+    var pageCount = Math.ceil(distinctions.length / perPage);
+    var page = 0;
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    for(var p = 0; p < pageCount; p++){
+      var dot = document.createElement('button');
+      dot.setAttribute('aria-label', 'Go to distinctions page ' + (p + 1));
+      if(p === 0) dot.classList.add('active');
+      (function(pageIndex){
+        dot.addEventListener('click', function(){ goTo(pageIndex); });
+      })(p);
+      dotsWrap.appendChild(dot);
+    }
+
+    function renderPage(p){
+      cards.forEach(function(cardEl, slot){
+        var d = distinctions[(p * perPage + slot) % distinctions.length];
+        cardEl.querySelector('.stat-icon').innerHTML = d.icon;
+        cardEl.querySelector('.num').textContent = d.num;
+        cardEl.querySelector('.label').textContent = d.label;
+      });
+      Array.prototype.forEach.call(dotsWrap.children, function(dot, di){
+        dot.classList.toggle('active', di === p);
+      });
+    }
+
+    function goTo(p){
+      page = (p + pageCount) % pageCount;
+      if(reduceMotion){
+        renderPage(page);
+        return;
+      }
+      cards.forEach(function(cardEl){ cardEl.classList.add('flipping'); });
+      setTimeout(function(){
+        renderPage(page);
+        cards.forEach(function(cardEl){ cardEl.classList.remove('flipping'); });
+      }, 400);
+    }
+
+    renderPage(0);
+
+    if(nextBtn) nextBtn.addEventListener('click', function(){ goTo(page + 1); });
+    if(prevBtn) prevBtn.addEventListener('click', function(){ goTo(page - 1); });
+  })();
+</script>
+<script>
+  (function(){
+    var featured = document.getElementById('newsFeatured');
+    if(!featured) return;
+    featured.addEventListener('click', function(e){ e.preventDefault(); });
+    document.querySelectorAll('.news-card.side').forEach(function(card){
+      card.addEventListener('click', function(e){
+        e.preventDefault();
+        var fThumb = featured.querySelector('.news-thumb');
+        var fBody = featured.querySelector('.news-card-body');
+        var cThumb = card.querySelector('.news-thumb');
+        var cBody = card.querySelector('.news-card-body');
+        var fThumbHTML = fThumb.innerHTML, fBodyHTML = fBody.innerHTML;
+        var cThumbHTML = cThumb.innerHTML, cBodyHTML = cBody.innerHTML;
+        featured.style.opacity = '0';
+        card.style.opacity = '0';
+        setTimeout(function(){
+          fThumb.innerHTML = cThumbHTML;
+          fBody.innerHTML = cBodyHTML;
+          cThumb.innerHTML = fThumbHTML;
+          cBody.innerHTML = fBodyHTML;
+          featured.style.opacity = '1';
+          card.style.opacity = '1';
+        }, 180);
+      });
+    });
+  })();
+</script>
+<script>
+  (function(){
+    var els = document.querySelectorAll('.reveal, .reveal-fade, .reveal-left');
+    if(!els.length) return;
+    if(!('IntersectionObserver' in window)){
+      els.forEach(function(el){ el.classList.add('in-view'); });
+      return;
+    }
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('in-view');
+        } else {
+          entry.target.classList.remove('in-view');
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+    els.forEach(function(el){ observer.observe(el); });
+  })();
+</script>
+<script>
+  (function(){
+    function wireDropdown(dropdownId, toggleId, onOpen){
+      var dropdown = document.getElementById(dropdownId);
+      var toggle = document.getElementById(toggleId);
+      if(!dropdown || !toggle) return;
+      function close(){
+        dropdown.classList.remove('open');
+        toggle.setAttribute('aria-expanded','false');
+      }
+      function open(){
+        document.querySelectorAll('.dropdown.open').forEach(function(d){ d.classList.remove('open'); });
+        dropdown.classList.add('open');
+        toggle.setAttribute('aria-expanded','true');
+        if(onOpen) onOpen();
+      }
+      toggle.addEventListener('click', function(e){
+        e.stopPropagation();
+        if(dropdown.classList.contains('open')){ close(); } else { open(); }
+      });
+      document.addEventListener('click', function(e){
+        if(!dropdown.contains(e.target)) close();
+      });
+      document.addEventListener('keydown', function(e){
+        if(e.key === 'Escape') close();
+      });
+    }
+    wireDropdown('applyDropdown', 'applyToggle');
+    wireDropdown('signinDropdownMobile', 'signinToggleMobile');
+    wireDropdown('searchDropdownMobile', 'searchToggleMobile', function(){
+      var input = document.getElementById('searchInputMobile');
+      if(input) setTimeout(function(){ input.focus(); }, 50);
+    });
+  })();
+</script>
+<script>
+  (function(){
+    var toggle = document.getElementById('menuToggle');
+    var menu = document.getElementById('mobileMenu');
+    var closeBtn = document.getElementById('drawerClose');
+    if(!toggle || !menu) return;
+    function closeMenu(){
+      menu.classList.remove('open');
+      toggle.classList.remove('open');
+      toggle.setAttribute('aria-expanded','false');
+      document.body.classList.remove('menu-open');
+    }
+    function openMenu(){
+      menu.classList.add('open');
+      toggle.classList.add('open');
+      toggle.setAttribute('aria-expanded','true');
+      document.body.classList.add('menu-open');
+    }
+    toggle.addEventListener('click', function(){
+      if(menu.classList.contains('open')){ closeMenu(); } else { openMenu(); }
+    });
+    if(closeBtn) closeBtn.addEventListener('click', closeMenu);
+    menu.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', closeMenu);
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape') closeMenu();
+    });
+  })();
+</script>
+<script>
+  (function(){
+    var track = document.getElementById('eventsTrack');
+    var prev = document.getElementById('carPrev');
+    var next = document.getElementById('carNext');
+    if(!track || !prev || !next) return;
+    var step = function(){
+      var card = track.querySelector('.event-card');
+      return card ? card.getBoundingClientRect().width + 20 : 300;
+    };
+    prev.addEventListener('click', function(){ track.scrollBy({left: -step(), behavior:'smooth'}); });
+    next.addEventListener('click', function(){ track.scrollBy({left: step(), behavior:'smooth'}); });
+  })();
+</script>
+</body>
+</html>
