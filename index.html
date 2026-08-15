@@ -57,7 +57,6 @@
     background:rgba(255,255,255,0.78);
     backdrop-filter: blur(18px) saturate(1.4);
     -webkit-backdrop-filter: blur(18px) saturate(1.4);
-    border:1px solid rgba(0,0,0,0.06);
     border-radius:100px;
     box-shadow:0 1px 2px rgba(0,0,0,0.04), 0 12px 32px -12px rgba(0,0,0,0.14);
     transition: box-shadow .3s ease, border-radius .3s ease;
@@ -137,6 +136,7 @@
   }
   .icon-btn:hover{background:#fff; color:var(--black); box-shadow:0 2px 6px rgba(0,0,0,0.1);}
   .icon-btn svg{width:16px; height:16px;}
+  .icon-btn[aria-label="Shop"] svg{width:21px; height:21px;}
   .nav-mid-label{
     font-family:'Fraunces', serif; font-style:italic; font-weight:600;
     font-size:1.4rem; color:var(--black); white-space:nowrap; flex-shrink:0;
@@ -204,16 +204,29 @@
   .menu-toggle.open span:nth-child(3){top:20px; transform:rotate(-45deg);}
 
   .mobile-menu{
-    display:none; position:fixed; inset:0; z-index:200;
-    background:#fff; overflow-y:auto;
+    position:fixed; inset:0; z-index:200;
+    background:rgba(255,255,255,0.88);
+    backdrop-filter: blur(28px) saturate(1.3);
+    -webkit-backdrop-filter: blur(28px) saturate(1.3);
+    overflow-y:auto;
+    opacity:0; visibility:hidden; pointer-events:none;
+    transform:translateY(-14px);
+    transition: opacity .32s ease, transform .32s cubic-bezier(.16,.84,.44,1), visibility 0s linear .32s;
   }
-  .mobile-menu.open{display:block;}
+  .mobile-menu.open{
+    opacity:1; visibility:visible; pointer-events:auto;
+    transform:translateY(0);
+    transition: opacity .32s ease, transform .32s cubic-bezier(.16,.84,.44,1), visibility 0s linear 0s;
+  }
 
   .drawer-close{
-    position:sticky; top:0; z-index:2; background:#fff;
+    position:sticky; top:0; z-index:2;
     display:flex; align-items:center; gap:8px;
     padding:24px 28px 16px; margin:0;
-    border:none; background:#fff; cursor:pointer;
+    border:none; background:rgba(255,255,255,0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    cursor:pointer;
     font-family:'Inter',sans-serif; font-size:0.9rem; font-weight:600; color:var(--ink);
   }
   .drawer-close svg{width:18px; height:18px;}
@@ -606,6 +619,7 @@
     .mobile-utility .icon-pod{padding:3px; gap:0;}
     .mobile-utility .icon-btn{width:34px; height:34px;}
     .mobile-utility .icon-btn svg{width:15px; height:15px;}
+    .mobile-utility .icon-btn[aria-label="Shop"] svg{width:19px; height:19px;}
     .menu-toggle{width:36px; height:36px;}
     .hero{padding-top:0;}
     .hero-inner{padding:36px 20px 0; gap:22px;}
