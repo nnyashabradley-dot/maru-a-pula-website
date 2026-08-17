@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sciences — Maru-a-Pula School</title>
+<title>Contact — Maru-a-Pula School</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
@@ -666,6 +666,21 @@
   /* ===== NAV ACTIVE STATE ===== */
   nav ul a.active, .subnav a.active{color:var(--sun-3);}
   nav ul a.active{background:rgba(0,0,0,0.055);}
+  /* ===== SIMPLE FORM (Contact form) ===== */
+  .simple-form{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  .simple-form .field{display:flex; flex-direction:column; gap:8px;}
+  .simple-form .field.full{grid-column:1 / -1;}
+  .simple-form label{font-size:0.84rem; font-weight:600; color:var(--ink);}
+  .simple-form input, .simple-form textarea, .simple-form select{
+    border:1.5px solid var(--line); border-radius:10px; padding:12px 14px;
+    font-family:'Inter',sans-serif; font-size:0.95rem; color:var(--ink);
+    background:#fff; outline:none; transition:border-color .2s ease;
+  }
+  .simple-form input:focus, .simple-form textarea:focus, .simple-form select:focus{border-color:var(--black);}
+  .simple-form textarea{resize:vertical; min-height:130px;}
+  @media (max-width:640px){ .simple-form{grid-template-columns:1fr;} }
+  .map-embed{border-radius:var(--radius); overflow:hidden; border:1px solid var(--line); box-shadow:0 20px 50px -30px rgba(0,0,0,0.25);}
+  .map-embed iframe{display:block; width:100%; height:380px; border:0;}
 </style>
 </head>
 <body>
@@ -679,11 +694,11 @@
       <nav>
         <ul>
           <li><a href="about.html">About</a></li>
-          <li><a href="academics.html" class="active" aria-current="page">Academics</a></li>
+          <li><a href="academics.html">Academics</a></li>
           <li><a href="community-arts.html">Community &amp; Arts</a></li>
           <li><a href="alumni.html">Alumni</a></li>
           <li><a href="news.html">News</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          <li><a href="contact.html" class="active" aria-current="page">Contact</a></li>
           <li><a href="#">Donate</a></li>
         </ul>
       </nav>
@@ -739,13 +754,13 @@
     <nav class="subnav-group">
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
-      <a href="academics.html" class="active" aria-current="page">Academics</a>
+      <a href="academics.html">Academics</a>
     </nav>
     <nav class="subnav-group">
       <a href="community-arts.html">Community &amp; Arts</a>
       <a href="alumni.html">Alumni</a>
       <a href="news.html">News</a>
-      <a href="contact.html">Contact</a>
+      <a href="contact.html" class="active" aria-current="page">Contact</a>
     </nav>
   </div>
 </div>
@@ -753,7 +768,7 @@
 
 <section class="page-hero">
   <div class="page-hero-photo" aria-hidden="true">
-    <img src="https://www.maruapula.org/wp-content/uploads/2022/02/Maru-a-pula-2019-10009.jpg" alt="">
+    <img src="https://images.pexels.com/photos/8691834/pexels-photo-8691834.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="">
   </div>
   <div class="hero-sun" aria-hidden="true"></div>
   <div class="hero-ring r2" aria-hidden="true"></div>
@@ -767,13 +782,13 @@
   </svg>
 
   <div class="page-hero-inner">
-    <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><a href="academics.html">Academics</a><span>/</span><span>Computer Science</span></div>
-    <div class="eyebrow">Subject spotlight</div>
-    <h1>Computer Science, from <em>first principles</em>.</h1>
-    <p class="lede">Open to every student regardless of prior experience — IGCSE Computer Science builds the fundamentals, with A-Level available for students headed toward computing, engineering, or related degrees.</p>
+    <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><span>Contact</span></div>
+    <div class="eyebrow">We'd love to hear from you</div>
+    <h1>Get in touch with <em>MaP</em>.</h1>
+    <p class="lede">Whether you're a prospective family, a current parent, or an alumnus, there's a direct line to the right office below — or send a general message and we'll route it for you.</p>
     <div class="hero-cta">
-      <a href="#syllabus" class="btn btn-invert">See the Syllabus ↓</a>
-      <a href="#department" class="btn btn-ghost" style="border-color:rgba(255,255,255,0.35); color:#fff;">Meet the Department</a>
+      <a href="#departments" class="btn btn-invert">Department Contacts ↓</a>
+      <a href="#visit" class="btn btn-ghost" style="border-color:rgba(255,255,255,0.35); color:#fff;">Visit Us</a>
     </div>
   </div>
 
@@ -782,145 +797,148 @@
   </div>
 </section>
 
-<section class="story section-pad" id="overview">
-  <div class="wrap story-grid">
-    <div class="photo story-mark">
-      <img src="https://www.maruapula.org/wp-content/uploads/2022/02/Maru-a-pula-2019-11694.jpg" alt="Computer Science class at Maru-a-Pula School">
-    </div>
-    <div>
-      <div class="eyebrow reveal">No prior experience required</div>
-      <h3 class="reveal d1">Built for beginners and specialists alike.</h3>
-      <p class="reveal-fade d2">Computer Science at MaP starts at IGCSE — it isn't assumed students arrive having already coded. The course is built to work equally well for a genuine beginner and a student who's been programming for years.</p>
-      <p class="reveal-fade d3">Students who take to it can continue through to A-Level, building toward computing, software engineering, or related degrees at university.</p>
+<section class="pillars section-pad" id="quick-contact">
+  <div class="wrap">
+    <div class="pillar-grid" style="grid-template-columns:repeat(3,1fr);">
+      <div class="pillar-card">
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 4h16v16H4z" stroke="currentColor" stroke-width="1.6"/><path d="M4 6l8 7 8-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h4>Email</h4>
+        <p>comms@maruapula.org</p>
+      </div>
+      <div class="pillar-card">
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3-8.7A2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .3 2 .7 3a2 2 0 01-.5 2L8 10a16 16 0 006 6l1.3-1.3a2 2 0 012-.5c1 .4 2 .6 3 .7a2 2 0 011.7 2z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+        <h4>Phone</h4>
+        <p>+267 391 2953</p>
+      </div>
+      <div class="pillar-card">
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-5-7-11a7 7 0 0114 0c0 6-7 11-7 11z" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="1.6"/></svg></div>
+        <h4>Address</h4>
+        <p>Plot 4725 Maruapula Way, Gaborone, Botswana</p>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="story section-pad" id="syllabus" style="background:var(--fog);">
+<section class="pillars section-pad" id="departments" style="background:var(--fog);">
   <div class="wrap">
     <div class="section-head">
       <div>
-        <div class="eyebrow reveal">What's covered, and when</div>
-        <h2 class="reveal d1">The syllabus at each stage</h2>
+        <div class="eyebrow reveal">Get to the right office</div>
+        <h2 class="reveal d1">Department contacts</h2>
       </div>
-      <p class="reveal-fade d2">Two stages, from fundamentals to depth.</p>
-    </div>
-    <div class="timeline">
-      <div class="timeline-item reveal-fade" style="transition-delay:.05s;">
-        <div class="timeline-dot"></div>
-        <div class="timeline-year">IGCSE · Form 4</div>
-        <h4>Programming fundamentals begin</h4>
-        <p>An introduction to programming fundamentals, computational thinking, and systems concepts, open to students regardless of prior experience.</p>
-      </div>
-      <div class="timeline-item reveal-fade" style="transition-delay:.12s;">
-        <div class="timeline-dot"></div>
-        <div class="timeline-year">IGCSE · Form 5</div>
-        <h4>Formal Cambridge examination</h4>
-        <p>Students sit the IGCSE Computer Science examination, covering both theory and practical programming.</p>
-      </div>
-      <div class="timeline-item reveal-fade" style="transition-delay:.19s;">
-        <div class="timeline-dot"></div>
-        <div class="timeline-year">A-Level · Lower &amp; Upper Six</div>
-        <h4>A-Level Computer Science</h4>
-        <p>For students continuing, A-Level Computer Science goes deeper into algorithms, systems architecture, and more substantial programming projects.</p>
-      </div>
-    </div>
-    <div class="draft-note reveal-fade d3" style="margin-top:32px;">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
-      Detailed syllabus content, programming languages taught, and Cambridge exam board specifics need to be confirmed with the Computer Science Department before publishing.
-    </div>
-  </div>
-</section>
-
-<section class="pillars section-pad" id="department">
-  <div class="wrap">
-    <div class="section-head">
-      <div>
-        <div class="eyebrow reveal">Who teaches it</div>
-        <h2 class="reveal d1">Meet the Department</h2>
-      </div>
-      <p class="reveal-fade d2">Specialist teachers covering programming fundamentals through to A-Level systems and architecture.</p>
+      <p class="reveal-fade d2">For telephone extensions, dial +267 391 2953 and ask to be transferred to the department you need.</p>
     </div>
     <div class="pillar-grid">
-      <div class="pillar-card">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 21V10l8-6 8 6v11" stroke="currentColor" stroke-width="1.6"/><path d="M9 21v-6h6v6" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Introductory Programming</h4>
-        <p>Staff who build programming fundamentals from a genuine beginner level.</p>
-      </div>
-      <div class="pillar-card">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 21V10l8-6 8 6v11" stroke="currentColor" stroke-width="1.6"/><path d="M9 21v-6h6v6" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>IGCSE Computer Science</h4>
-        <p>Teachers preparing students for the IGCSE theory and practical examinations.</p>
-      </div>
-      <div class="pillar-card">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 21V10l8-6 8 6v11" stroke="currentColor" stroke-width="1.6"/><path d="M9 21v-6h6v6" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>A-Level Computer Science</h4>
-        <p>Specialist staff covering algorithms, systems architecture, and larger programming projects.</p>
-      </div>
-    </div>
-    <div class="draft-note reveal-fade d3" style="margin-top:32px;">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
-      Named staff profiles, photos, and bios need to be supplied by the Computer Science Department before publishing.
-    </div>
-  </div>
-</section>
-
-<section class="story section-pad" id="beyond-classroom" style="background:var(--fog);">
-  <div class="wrap story-grid-rev">
-    <div>
-      <div class="eyebrow reveal">Outside the syllabus</div>
-      <h3 class="reveal d1">Beyond the classroom.</h3>
-      <p class="reveal-fade d2">Students have taken part in regional coding competitions and hackathon-style events, applying classroom concepts to real projects.</p>
-      <p class="reveal-fade d3">For students building a portfolio ahead of university applications, these projects are often the most concrete evidence of what they can actually build.</p>
-    </div>
-    <div class="photo story-mark">
-      <img src="https://www.maruapula.org/wp-content/uploads/2022/02/MaP-Photos-In-Class-10327.jpg" alt="Coding competition at Maru-a-Pula School">
-    </div>
-  </div>
-  <div class="wrap">
-    <div class="draft-note reveal-fade d3" style="margin-top:32px;">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
-      Specific clubs, competitions, and activities need to be confirmed with the Computer Science Department before publishing.
-    </div>
-  </div>
-</section>
-
-<section class="pillars section-pad" id="explore-more">
-  <div class="wrap">
-    <div class="section-head">
-      <div>
-        <div class="eyebrow reveal">Keep exploring</div>
-        <h2 class="reveal d1">See where Computer Science fits in</h2>
-      </div>
-    </div>
-    <div class="pillar-grid">
-      <a href="upper-school.html" class="pillar-card" style="display:block;">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4.5L6 21l1.5-7.5L2 9h7z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></div>
-        <h4>Upper School →</h4>
-        <p>IGCSE and A-Level Computer Science examinations.</p>
-      </a>
-      <a href="subject-mathematics.html" class="pillar-card" style="display:block;">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h9l5 5v10a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.6"/><path d="M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Mathematics →</h4>
-        <p>The subject most Computer Science students carry alongside it.</p>
-      </a>
       <a href="admissions.html" class="pillar-card" style="display:block;">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-5-7-11a7 7 0 0114 0c0 6-7 11-7 11z" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Admission Overview →</h4>
-        <p>How to join, whatever stage your child is at.</p>
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V9l-5-6z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 3v6h5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+        <h4>Admissions</h4>
+        <p>admissions@maruapula.org</p>
       </a>
+      <a href="academics.html" class="pillar-card" style="display:block;">
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h9l5 5v10a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.6"/><path d="M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.6"/></svg></div>
+        <h4>Academics</h4>
+        <p>academics@maruapula.org</p>
+      </a>
+      <a href="community-service.html" class="pillar-card" style="display:block;">
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-5-7-11a7 7 0 0114 0c0 6-7 11-7 11z" stroke="currentColor" stroke-width="1.6"/></svg></div>
+        <h4>Service Programme</h4>
+        <p>service@maruapula.org</p>
+      </a>
+      <a href="maitisong-arts.html" class="pillar-card" style="display:block;">
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 19V6l10-2v13" stroke="currentColor" stroke-width="1.6"/><circle cx="7" cy="19" r="2" stroke="currentColor" stroke-width="1.6"/><circle cx="17" cy="17" r="2" stroke="currentColor" stroke-width="1.6"/></svg></div>
+        <h4>Maitisong Box Office</h4>
+        <p>maitisong@maruapula.org</p>
+      </a>
+      <a href="alumni.html#contact" class="pillar-card" style="display:block;">
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="1.6"/><circle cx="10" cy="7" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M22 21v-2a4 4 0 00-3-3.87" stroke="currentColor" stroke-width="1.6"/><path d="M16 3.13a4 4 0 010 7.75" stroke="currentColor" stroke-width="1.6"/></svg></div>
+        <h4>Alumni Office</h4>
+        <p>alumni@maruapula.org</p>
+      </a>
+      <div class="pillar-card">
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2" stroke="currentColor" stroke-width="1.6"/></svg></div>
+        <h4>Business &amp; Finance Office</h4>
+        <p>finance@maruapula.org</p>
+      </div>
+    </div>
+    <div class="draft-note reveal-fade d3" style="margin-top:32px;">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
+      Department email addresses and extensions are illustrative and need to be confirmed with the school before publishing — only the alumni and general comms addresses have been verified.
+    </div>
+  </div>
+</section>
+
+<section class="story section-pad" id="visit">
+  <div class="wrap story-grid">
+    <div>
+      <div class="eyebrow reveal">Come see it in person</div>
+      <h3 class="reveal d1">Visit the campus</h3>
+      <p class="reveal-fade d2">MaP sits on 50 acres on the edge of Gaborone. Campus tours run for prospective families throughout the year, and the front office can help direct visitors to the right building on arrival.</p>
+      <p class="reveal-fade d3"><strong>Office hours (term time):</strong> Monday–Friday, 7:30 AM – 4:30 PM</p>
+      <a href="#" class="btn btn-ghost reveal-fade d3" style="margin-top:8px;">Book a Campus Tour →</a>
+      <div class="draft-note reveal-fade d3">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
+        Office hours and school-holiday hours should be reconfirmed with the school before publishing.
+      </div>
+    </div>
+    <div class="map-embed">
+      <iframe src="https://maps.google.com/maps?q=Maru-a-Pula%20School%2C%20Gaborone%2C%20Botswana&t=&z=15&ie=UTF8&iwloc=&output=embed" title="Map showing Maru-a-Pula School, Gaborone, Botswana" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
+</section>
+
+<section class="story section-pad" id="message" style="background:var(--fog);">
+  <div class="wrap">
+    <div class="section-head" style="margin-bottom:36px;">
+      <div>
+        <div class="eyebrow reveal">Not sure who to ask</div>
+        <h2 class="reveal d1">Send a general message</h2>
+      </div>
+      <p class="reveal-fade d2">We'll make sure it reaches the right department.</p>
+    </div>
+    <form class="simple-form" onsubmit="return false;">
+      <div class="field">
+        <label for="c-name">Full name</label>
+        <input type="text" id="c-name" placeholder="Your name">
+      </div>
+      <div class="field">
+        <label for="c-email">Email address</label>
+        <input type="email" id="c-email" placeholder="you@example.com">
+      </div>
+      <div class="field full">
+        <label for="c-dept">This message is for</label>
+        <select id="c-dept">
+          <option>General Enquiries</option>
+          <option>Admissions</option>
+          <option>Academics</option>
+          <option>Community &amp; Service</option>
+          <option>Maitisong &amp; the Arts</option>
+          <option>Alumni</option>
+          <option>Business &amp; Finance</option>
+        </select>
+      </div>
+      <div class="field full">
+        <label for="c-message">Message</label>
+        <textarea id="c-message" placeholder="How can we help?"></textarea>
+      </div>
+      <div class="field full">
+        <button type="submit" class="btn btn-primary" style="align-self:flex-start;">Send Message →</button>
+      </div>
+    </form>
+    <div class="draft-note reveal-fade d3" style="margin-top:28px;">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
+      This form is a visual placeholder — it doesn't submit anywhere yet. Wiring it up is Phase 4 (Functionality) work.
     </div>
   </div>
 </section>
 
 <section class="cta-banner">
   <div class="cta-photo" aria-hidden="true">
-    <img src="https://www.maruapula.org/wp-content/uploads/2024/03/IMG_6242-375x375.jpg" alt="">
+    <img src="https://images.pexels.com/photos/7710082/pexels-photo-7710082.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="">
   </div>
   <div class="wrap cta-inner">
-    <div class="eyebrow reveal-left">Build something real</div>
-    <h2 class="reveal-left d1">See the Computer Science Department in person.</h2>
-    <p class="reveal-left d2">Book a campus tour, meet current computer science staff and students, or start your child's application today.</p>
+    <div class="eyebrow reveal-left">Ready to see it for yourself</div>
+    <h2 class="reveal-left d1">Book a tour, or start your child's application.</h2>
+    <p class="reveal-left d2">The front office is the fastest way to arrange a visit — or start the process online today.</p>
     <div class="cta-buttons reveal-left d3">
       <a href="#" class="btn btn-invert">Start Your Application →</a>
       <a href="#" class="btn btn-ghost" style="border-color:rgba(255,255,255,0.35); color:#fff;">Book a Campus Tour</a>

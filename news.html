@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sciences — Maru-a-Pula School</title>
+<title>News &amp; Events — Maru-a-Pula School</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
@@ -666,6 +666,45 @@
   /* ===== NAV ACTIVE STATE ===== */
   nav ul a.active, .subnav a.active{color:var(--sun-3);}
   nav ul a.active{background:rgba(0,0,0,0.055);}
+  /* ===== EVENTS CALENDAR ===== */
+  .news-card.mini{display:flex; flex-direction:column;}
+  .news-card.mini .news-thumb{height:150px;}
+  .news-card.mini .news-card-body{padding:16px 18px 20px;}
+  .news-card.mini h4{font-size:0.95rem;}
+  .news-card.mini p{font-size:0.84rem;}
+  .cal-card{background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:32px; box-shadow:0 20px 50px -30px rgba(0,0,0,0.2);}
+  .cal-nav{display:flex; align-items:center; justify-content:space-between; margin-bottom:24px; gap:16px; flex-wrap:wrap;}
+  .cal-nav-btn{width:38px; height:38px; border-radius:50%; border:1.5px solid var(--line); background:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:border-color .2s ease, background .2s ease;}
+  .cal-nav-btn:hover{border-color:var(--black); background:var(--fog);}
+  .cal-nav-btn svg{width:16px; height:16px;}
+  .cal-month-label{font-family:'Fraunces',serif; font-size:1.5rem; font-weight:600; min-width:200px; text-align:center;}
+  .cal-grid{display:grid; grid-template-columns:repeat(7,1fr); gap:6px;}
+  .cal-weekday{text-align:center; font-size:0.72rem; font-weight:700; color:var(--mid); text-transform:uppercase; letter-spacing:0.06em; padding-bottom:10px;}
+  .cal-day{min-height:92px; border:1px solid var(--line); border-radius:10px; padding:8px 6px; background:#fff;}
+  .cal-day.empty{background:transparent; border-color:transparent;}
+  .cal-day.today{border-color:var(--ink); border-width:2px;}
+  .cal-daynum{font-size:0.82rem; font-weight:600; color:var(--ink); display:inline-block;}
+  .cal-day.today .cal-daynum{background:var(--ink); color:#fff; width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.76rem;}
+  .cal-event{margin-top:5px; font-size:0.66rem; padding:2px 6px; border-radius:6px; color:#fff; line-height:1.35; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-weight:600;}
+  .cal-legend{display:flex; flex-wrap:wrap; gap:16px; margin:26px 0 4px;}
+  .cal-legend-item{display:flex; align-items:center; gap:7px; font-size:0.82rem; color:var(--mid);}
+  .cal-legend-dot{width:10px; height:10px; border-radius:50%; flex-shrink:0;}
+  .upcoming-list{margin-top:8px; display:flex; flex-direction:column;}
+  .upcoming-item{display:flex; align-items:center; gap:20px; padding:16px 0; border-bottom:1px solid var(--line);}
+  .upcoming-item:last-child{border-bottom:none;}
+  .upcoming-date{width:58px; flex-shrink:0; text-align:center;}
+  .upcoming-date .day{font-family:'Fraunces',serif; font-size:1.5rem; font-weight:600; line-height:1; display:block;}
+  .upcoming-date .mon{font-size:0.68rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--mid);}
+  .upcoming-dot{width:9px; height:9px; border-radius:50%; flex-shrink:0;}
+  .upcoming-title{font-weight:600; font-size:0.96rem; color:var(--ink);}
+  .upcoming-cat{font-size:0.8rem; color:var(--mid); margin-top:2px;}
+  @media (max-width:640px){
+    .cal-card{padding:20px 14px;}
+    .cal-day{min-height:58px; padding:5px 4px;}
+    .cal-event{display:none;}
+    .cal-day.has-event{box-shadow:inset 0 -3px 0 var(--sun-3);}
+    .cal-month-label{font-size:1.2rem; min-width:0;}
+  }
 </style>
 </head>
 <body>
@@ -679,10 +718,10 @@
       <nav>
         <ul>
           <li><a href="about.html">About</a></li>
-          <li><a href="academics.html" class="active" aria-current="page">Academics</a></li>
+          <li><a href="academics.html">Academics</a></li>
           <li><a href="community-arts.html">Community &amp; Arts</a></li>
           <li><a href="alumni.html">Alumni</a></li>
-          <li><a href="news.html">News</a></li>
+          <li><a href="news.html" class="active" aria-current="page">News</a></li>
           <li><a href="contact.html">Contact</a></li>
           <li><a href="#">Donate</a></li>
         </ul>
@@ -739,12 +778,12 @@
     <nav class="subnav-group">
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
-      <a href="academics.html" class="active" aria-current="page">Academics</a>
+      <a href="academics.html">Academics</a>
     </nav>
     <nav class="subnav-group">
       <a href="community-arts.html">Community &amp; Arts</a>
       <a href="alumni.html">Alumni</a>
-      <a href="news.html">News</a>
+      <a href="news.html" class="active" aria-current="page">News</a>
       <a href="contact.html">Contact</a>
     </nav>
   </div>
@@ -753,7 +792,7 @@
 
 <section class="page-hero">
   <div class="page-hero-photo" aria-hidden="true">
-    <img src="https://www.maruapula.org/wp-content/uploads/2022/02/Maru-a-pula-2019-10009.jpg" alt="">
+    <img src="https://images.pexels.com/photos/11333728/pexels-photo-11333728.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="">
   </div>
   <div class="hero-sun" aria-hidden="true"></div>
   <div class="hero-ring r2" aria-hidden="true"></div>
@@ -767,13 +806,13 @@
   </svg>
 
   <div class="page-hero-inner">
-    <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><a href="academics.html">Academics</a><span>/</span><span>Computer Science</span></div>
-    <div class="eyebrow">Subject spotlight</div>
-    <h1>Computer Science, from <em>first principles</em>.</h1>
-    <p class="lede">Open to every student regardless of prior experience — IGCSE Computer Science builds the fundamentals, with A-Level available for students headed toward computing, engineering, or related degrees.</p>
+    <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><span>News</span></div>
+    <div class="eyebrow">What's happening on campus</div>
+    <h1>The MaP calendar, <em>term by term</em>.</h1>
+    <p class="lede">School news, alumni updates, and every fixture on the calendar — from the first day of Term 1 to the last performance of the year at Maitisong.</p>
     <div class="hero-cta">
-      <a href="#syllabus" class="btn btn-invert">See the Syllabus ↓</a>
-      <a href="#department" class="btn btn-ghost" style="border-color:rgba(255,255,255,0.35); color:#fff;">Meet the Department</a>
+      <a href="#calendar" class="btn btn-invert">See This Month's Events ↓</a>
+      <a href="#recent-news" class="btn btn-ghost" style="border-color:rgba(255,255,255,0.35); color:#fff;">Read Recent News</a>
     </div>
   </div>
 
@@ -782,105 +821,118 @@
   </div>
 </section>
 
-<section class="story section-pad" id="overview">
-  <div class="wrap story-grid">
-    <div class="photo story-mark">
-      <img src="https://www.maruapula.org/wp-content/uploads/2022/02/Maru-a-pula-2019-11694.jpg" alt="Computer Science class at Maru-a-Pula School">
-    </div>
-    <div>
-      <div class="eyebrow reveal">No prior experience required</div>
-      <h3 class="reveal d1">Built for beginners and specialists alike.</h3>
-      <p class="reveal-fade d2">Computer Science at MaP starts at IGCSE — it isn't assumed students arrive having already coded. The course is built to work equally well for a genuine beginner and a student who's been programming for years.</p>
-      <p class="reveal-fade d3">Students who take to it can continue through to A-Level, building toward computing, software engineering, or related degrees at university.</p>
-    </div>
-  </div>
-</section>
-
-<section class="story section-pad" id="syllabus" style="background:var(--fog);">
+<section class="news section-pad" id="recent-news">
   <div class="wrap">
     <div class="section-head">
       <div>
-        <div class="eyebrow reveal">What's covered, and when</div>
-        <h2 class="reveal d1">The syllabus at each stage</h2>
+        <div class="eyebrow reveal">Latest from MaP</div>
+        <h2 class="reveal d1">News &amp; announcements</h2>
       </div>
-      <p class="reveal-fade d2">Two stages, from fundamentals to depth.</p>
+      <a href="#calendar" class="nav-link-text reveal d1">See the full calendar →</a>
     </div>
-    <div class="timeline">
-      <div class="timeline-item reveal-fade" style="transition-delay:.05s;">
-        <div class="timeline-dot"></div>
-        <div class="timeline-year">IGCSE · Form 4</div>
-        <h4>Programming fundamentals begin</h4>
-        <p>An introduction to programming fundamentals, computational thinking, and systems concepts, open to students regardless of prior experience.</p>
-      </div>
-      <div class="timeline-item reveal-fade" style="transition-delay:.12s;">
-        <div class="timeline-dot"></div>
-        <div class="timeline-year">IGCSE · Form 5</div>
-        <h4>Formal Cambridge examination</h4>
-        <p>Students sit the IGCSE Computer Science examination, covering both theory and practical programming.</p>
-      </div>
-      <div class="timeline-item reveal-fade" style="transition-delay:.19s;">
-        <div class="timeline-dot"></div>
-        <div class="timeline-year">A-Level · Lower &amp; Upper Six</div>
-        <h4>A-Level Computer Science</h4>
-        <p>For students continuing, A-Level Computer Science goes deeper into algorithms, systems architecture, and more substantial programming projects.</p>
+    <div class="news-grid">
+      <a href="maitisong-arts.html" class="news-card featured">
+        <div class="news-thumb"><img src="https://www.maruapula.org/wp-content/uploads/2022/02/MaP-Photos-In-Class-10327.jpg" alt="Maitisong Festival at Maru-a-Pula School"></div>
+        <div class="news-card-body">
+          <div class="news-tag">Arts</div>
+          <h4>The Maitisong Festival returns to campus this April</h4>
+          <p>Botswana's largest annual arts festival brings two weeks of music, drama, and visual art to campus, with thousands of visitors expected once again.</p>
+        </div>
+      </a>
+      <div class="news-side">
+        <a href="alumni.html#stories" class="news-card side">
+          <div class="news-thumb"><img src="https://www.maruapula.org/wp-content/uploads/2022/02/Maru-a-pula-2019-11694.jpg" alt="Alumni reunion at Maru-a-Pula School"></div>
+          <div class="news-card-body">
+            <div class="news-tag">Alumni</div>
+            <h4>Class of 2009 marks its reunion weekend</h4>
+            <p>Former classmates returned to campus for dinner, dancing, and speeches from the staff who taught them.</p>
+          </div>
+        </a>
+        <a href="alumni.html#ovc-mentorship" class="news-card side">
+          <div class="news-thumb"><img src="https://www.maruapula.org/wp-content/uploads/2021/12/Maru-a-pula-2019-11085.jpg" alt="OVC Mentorship Programme at Maru-a-Pula School"></div>
+          <div class="news-card-body">
+            <div class="news-tag">Community</div>
+            <h4>OVC Mentorship Programme opens for new sign-ups</h4>
+            <p>Alumni are invited to serve as mentors for this year's incoming OVC Scholars.</p>
+          </div>
+        </a>
       </div>
     </div>
+
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:24px;">
+      <a href="alumni.html#stories" class="news-card mini">
+        <div class="news-thumb"><img src="https://images.pexels.com/photos/7710082/pexels-photo-7710082.jpeg?auto=compress&cs=tinysrgb&w=800" alt=""></div>
+        <div class="news-card-body">
+          <div class="news-tag">Alumni</div>
+          <h4>Naseem Lahri &rsquo;93 named Managing Director of Lucara Botswana</h4>
+          <p>The first Motswana woman to lead a diamond mining company, profiled recently in The New Yorker.</p>
+        </div>
+      </a>
+      <a href="academics.html" class="news-card mini">
+        <div class="news-thumb"><img src="https://images.pexels.com/photos/8618016/pexels-photo-8618016.jpeg?auto=compress&cs=tinysrgb&w=800" alt=""></div>
+        <div class="news-card-body">
+          <div class="news-tag">Academics</div>
+          <h4>New subject pages launched for Lower &amp; Upper School</h4>
+          <p>A closer look at what's taught in every department, from Sciences to Life Skills.</p>
+        </div>
+      </a>
+      <a href="maitisong-arts.html#marimba" class="news-card mini">
+        <div class="news-thumb"><img src="https://www.maruapula.org/wp-content/uploads/2024/03/IMG_6242-375x375.jpg" alt="MaP Marimba Band at Maru-a-Pula School"></div>
+        <div class="news-card-body">
+          <div class="news-tag">Arts</div>
+          <h4>MaP Marimba Band confirms new international tour dates</h4>
+          <p>The world-renowned ensemble adds new stops on its next trip abroad.</p>
+        </div>
+      </a>
+    </div>
+
     <div class="draft-note reveal-fade d3" style="margin-top:32px;">
       <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
-      Detailed syllabus content, programming languages taught, and Cambridge exam board specifics need to be confirmed with the Computer Science Department before publishing.
+      This feed should be replaced with genuinely current MaP news, and refreshed regularly, before publishing.
     </div>
   </div>
 </section>
 
-<section class="pillars section-pad" id="department">
+<section class="pillars section-pad" id="calendar" style="background:var(--fog);">
   <div class="wrap">
     <div class="section-head">
       <div>
-        <div class="eyebrow reveal">Who teaches it</div>
-        <h2 class="reveal d1">Meet the Department</h2>
+        <div class="eyebrow reveal">Term by term</div>
+        <h2 class="reveal d1">This month at MaP</h2>
       </div>
-      <p class="reveal-fade d2">Specialist teachers covering programming fundamentals through to A-Level systems and architecture.</p>
+      <p class="reveal-fade d2">Browse the 2026 academic year, month by month.</p>
     </div>
-    <div class="pillar-grid">
-      <div class="pillar-card">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 21V10l8-6 8 6v11" stroke="currentColor" stroke-width="1.6"/><path d="M9 21v-6h6v6" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Introductory Programming</h4>
-        <p>Staff who build programming fundamentals from a genuine beginner level.</p>
-      </div>
-      <div class="pillar-card">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 21V10l8-6 8 6v11" stroke="currentColor" stroke-width="1.6"/><path d="M9 21v-6h6v6" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>IGCSE Computer Science</h4>
-        <p>Teachers preparing students for the IGCSE theory and practical examinations.</p>
-      </div>
-      <div class="pillar-card">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 21V10l8-6 8 6v11" stroke="currentColor" stroke-width="1.6"/><path d="M9 21v-6h6v6" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>A-Level Computer Science</h4>
-        <p>Specialist staff covering algorithms, systems architecture, and larger programming projects.</p>
-      </div>
-    </div>
-    <div class="draft-note reveal-fade d3" style="margin-top:32px;">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
-      Named staff profiles, photos, and bios need to be supplied by the Computer Science Department before publishing.
-    </div>
-  </div>
-</section>
 
-<section class="story section-pad" id="beyond-classroom" style="background:var(--fog);">
-  <div class="wrap story-grid-rev">
-    <div>
-      <div class="eyebrow reveal">Outside the syllabus</div>
-      <h3 class="reveal d1">Beyond the classroom.</h3>
-      <p class="reveal-fade d2">Students have taken part in regional coding competitions and hackathon-style events, applying classroom concepts to real projects.</p>
-      <p class="reveal-fade d3">For students building a portfolio ahead of university applications, these projects are often the most concrete evidence of what they can actually build.</p>
+    <div class="cal-card reveal-fade d2">
+      <div class="cal-nav">
+        <button class="cal-nav-btn" id="calPrev" aria-label="Previous month" type="button">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="cal-month-label" id="calMonthLabel"></div>
+        <button class="cal-nav-btn" id="calNext" aria-label="Next month" type="button">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+      <div class="cal-grid" id="calWeekdays"></div>
+      <div class="cal-grid" id="calDays" style="margin-top:6px;"></div>
+      <div class="cal-legend">
+        <div class="cal-legend-item"><span class="cal-legend-dot" style="background:#33415c;"></span>Academic</div>
+        <div class="cal-legend-item"><span class="cal-legend-dot" style="background:#C2540B;"></span>Arts &amp; Maitisong</div>
+        <div class="cal-legend-item"><span class="cal-legend-dot" style="background:#2F7D5B;"></span>Sport</div>
+        <div class="cal-legend-item"><span class="cal-legend-dot" style="background:#8B5E34;"></span>Community &amp; Service</div>
+        <div class="cal-legend-item"><span class="cal-legend-dot" style="background:#2B5D8B;"></span>Admissions</div>
+        <div class="cal-legend-item"><span class="cal-legend-dot" style="background:#6B4FA0;"></span>Alumni</div>
+      </div>
     </div>
-    <div class="photo story-mark">
-      <img src="https://www.maruapula.org/wp-content/uploads/2022/02/MaP-Photos-In-Class-10327.jpg" alt="Coding competition at Maru-a-Pula School">
+
+    <div style="margin-top:40px;">
+      <h3 class="reveal d1" style="font-size:1.3rem; margin-bottom:6px;">Upcoming events</h3>
+      <div class="cal-card upcoming-list" id="upcomingList"></div>
     </div>
-  </div>
-  <div class="wrap">
-    <div class="draft-note reveal-fade d3" style="margin-top:32px;">
+
+    <div class="draft-note reveal-fade d3" style="margin-top:28px;">
       <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
-      Specific clubs, competitions, and activities need to be confirmed with the Computer Science Department before publishing.
+      This calendar shows illustrative events for the 2026 academic year. Exact dates should be confirmed with the school's Events Office before publishing — term dates especially tend to shift slightly year to year.
     </div>
   </div>
 </section>
@@ -889,25 +941,30 @@
   <div class="wrap">
     <div class="section-head">
       <div>
-        <div class="eyebrow reveal">Keep exploring</div>
-        <h2 class="reveal d1">See where Computer Science fits in</h2>
+        <div class="eyebrow reveal">Looking for something specific</div>
+        <h2 class="reveal d1">Browse by category</h2>
       </div>
     </div>
     <div class="pillar-grid">
-      <a href="upper-school.html" class="pillar-card" style="display:block;">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4.5L6 21l1.5-7.5L2 9h7z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></div>
-        <h4>Upper School →</h4>
-        <p>IGCSE and A-Level Computer Science examinations.</p>
+      <a href="maitisong-arts.html" class="pillar-card" style="display:block;">
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 19V6l10-2v13" stroke="currentColor" stroke-width="1.6"/><circle cx="7" cy="19" r="2" stroke="currentColor" stroke-width="1.6"/><circle cx="17" cy="17" r="2" stroke="currentColor" stroke-width="1.6"/></svg></div>
+        <h4>Maitisong &amp; the Arts →</h4>
+        <p>Festival dates, concerts, and performances at Maitisong Theatre.</p>
       </a>
-      <a href="subject-mathematics.html" class="pillar-card" style="display:block;">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h9l5 5v10a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.6"/><path d="M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Mathematics →</h4>
-        <p>The subject most Computer Science students carry alongside it.</p>
+      <a href="community-service.html" class="pillar-card" style="display:block;">
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-5-7-11a7 7 0 0114 0c0 6-7 11-7 11z" stroke="currentColor" stroke-width="1.6"/></svg></div>
+        <h4>Community &amp; Service →</h4>
+        <p>Weekly service placements and community partner news.</p>
+      </a>
+      <a href="alumni.html" class="pillar-card" style="display:block;">
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="1.6"/><circle cx="10" cy="7" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M22 21v-2a4 4 0 00-3-3.87" stroke="currentColor" stroke-width="1.6"/><path d="M16 3.13a4 4 0 010 7.75" stroke="currentColor" stroke-width="1.6"/></svg></div>
+        <h4>Alumni →</h4>
+        <p>Reunions, alumni stories, and what former students are up to now.</p>
       </a>
       <a href="admissions.html" class="pillar-card" style="display:block;">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-5-7-11a7 7 0 0114 0c0 6-7 11-7 11z" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Admission Overview →</h4>
-        <p>How to join, whatever stage your child is at.</p>
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V9l-5-6z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 3v6h5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+        <h4>Admissions →</h4>
+        <p>Open Days, application deadlines, and how to apply.</p>
       </a>
     </div>
   </div>
@@ -915,18 +972,141 @@
 
 <section class="cta-banner">
   <div class="cta-photo" aria-hidden="true">
-    <img src="https://www.maruapula.org/wp-content/uploads/2024/03/IMG_6242-375x375.jpg" alt="">
+    <img src="https://images.pexels.com/photos/760720/pexels-photo-760720.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="">
   </div>
   <div class="wrap cta-inner">
-    <div class="eyebrow reveal-left">Build something real</div>
-    <h2 class="reveal-left d1">See the Computer Science Department in person.</h2>
-    <p class="reveal-left d2">Book a campus tour, meet current computer science staff and students, or start your child's application today.</p>
-    <div class="cta-buttons reveal-left d3">
-      <a href="#" class="btn btn-invert">Start Your Application →</a>
-      <a href="#" class="btn btn-ghost" style="border-color:rgba(255,255,255,0.35); color:#fff;">Book a Campus Tour</a>
-    </div>
+    <div class="eyebrow reveal-left">Never miss what's next</div>
+    <h2 class="reveal-left d1">Get the calendar sent straight to your inbox.</h2>
+    <p class="reveal-left d2">Subscribe for a monthly digest of MaP news and upcoming events.</p>
+    <form class="cta-buttons reveal-left d3" onsubmit="return false;" style="gap:10px;">
+      <input type="email" placeholder="you@example.com" style="border-radius:999px; border:1.5px solid rgba(255,255,255,0.4); background:rgba(255,255,255,0.08); color:#fff; padding:14px 20px; min-width:260px; font-family:'Inter',sans-serif;">
+      <button type="submit" class="btn btn-invert">Subscribe →</button>
+    </form>
   </div>
 </section>
+
+<script>
+  (function(){
+    var events = [
+      {date:'2026-01-19', title:'Staff Meetings Begin', category:'academic'},
+      {date:'2026-01-20', title:'Professional Development Day', category:'academic'},
+      {date:'2026-01-21', title:'Form 1 &amp; Form 6 Orientation', category:'academic'},
+      {date:'2026-01-22', title:'Classes Begin — Term 1', category:'academic'},
+      {date:'2026-02-13', title:'MaP Open Day', category:'admissions'},
+      {date:'2026-03-13', title:'Term 1 Inter-House Sports Day', category:'sport'},
+      {date:'2026-04-06', title:'Maitisong Festival Begins', category:'arts'},
+      {date:'2026-04-17', title:'Maitisong Festival Closing Weekend', category:'arts'},
+      {date:'2026-05-04', title:'Cambridge May/June Exam Series Begins', category:'academic'},
+      {date:'2026-06-05', title:'Term 2 Ends', category:'academic'},
+      {date:'2026-07-20', title:'Term 3 Begins', category:'academic'},
+      {date:'2026-08-15', title:'OVC Mentorship Programme Sign-Ups Open', category:'community'},
+      {date:'2026-09-11', title:'Class Reunion Weekend', category:'alumni'},
+      {date:'2026-10-05', title:'Cambridge Oct/Nov Exam Series Begins', category:'academic'},
+      {date:'2026-11-07', title:'The President\'s Concert at Maitisong', category:'arts'},
+      {date:'2026-11-20', title:'Speech Day &amp; Prize-Giving', category:'academic'},
+      {date:'2026-12-04', title:'Term 3 Ends — End of Academic Year', category:'academic'}
+    ];
+    var colors = {
+      academic:'#33415c', arts:'#C2540B', sport:'#2F7D5B',
+      community:'#8B5E34', admissions:'#2B5D8B', alumni:'#6B4FA0'
+    };
+    var catLabels = {
+      academic:'Academic', arts:'Arts &amp; Maitisong', sport:'Sport',
+      community:'Community &amp; Service', admissions:'Admissions', alumni:'Alumni'
+    };
+    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var weekdays = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+
+    var today = new Date(2026, 7, 17); // site "today" reference: 17 Aug 2026
+    var viewYear = today.getFullYear();
+    var viewMonth = today.getMonth();
+
+    var monthLabel = document.getElementById('calMonthLabel');
+    var weekdaysEl = document.getElementById('calWeekdays');
+    var daysEl = document.getElementById('calDays');
+    var upcomingEl = document.getElementById('upcomingList');
+    if(!monthLabel || !daysEl) return;
+
+    weekdays.forEach(function(w){
+      var d = document.createElement('div');
+      d.className = 'cal-weekday';
+      d.textContent = w;
+      weekdaysEl.appendChild(d);
+    });
+
+    function eventsOn(y, m, day){
+      var key = y + '-' + String(m+1).padStart(2,'0') + '-' + String(day).padStart(2,'0');
+      return events.filter(function(e){ return e.date === key; });
+    }
+
+    function renderMonth(y, m){
+      monthLabel.textContent = months[m] + ' ' + y;
+      daysEl.innerHTML = '';
+      var firstDay = new Date(y, m, 1).getDay(); // 0=Sun
+      var offset = (firstDay + 6) % 7; // convert to Mon-first
+      var daysInMonth = new Date(y, m+1, 0).getDate();
+
+      for(var i=0; i<offset; i++){
+        var empty = document.createElement('div');
+        empty.className = 'cal-day empty';
+        daysEl.appendChild(empty);
+      }
+      for(var day=1; day<=daysInMonth; day++){
+        var cell = document.createElement('div');
+        var dayEvents = eventsOn(y, m, day);
+        cell.className = 'cal-day' + (dayEvents.length ? ' has-event' : '') +
+          (y === today.getFullYear() && m === today.getMonth() && day === today.getDate() ? ' today' : '');
+        var num = document.createElement('span');
+        num.className = 'cal-daynum';
+        num.textContent = day;
+        cell.appendChild(num);
+        dayEvents.forEach(function(ev){
+          var tag = document.createElement('div');
+          tag.className = 'cal-event';
+          tag.style.background = colors[ev.category] || '#333';
+          tag.innerHTML = ev.title;
+          tag.title = ev.title;
+          cell.appendChild(tag);
+        });
+        daysEl.appendChild(cell);
+      }
+    }
+
+    function renderUpcoming(){
+      var sorted = events.slice().sort(function(a,b){ return a.date.localeCompare(b.date); });
+      var todayKey = today.getFullYear() + '-' + String(today.getMonth()+1).padStart(2,'0') + '-' + String(today.getDate()).padStart(2,'0');
+      var upcoming = sorted.filter(function(e){ return e.date >= todayKey; }).slice(0, 6);
+      if(!upcoming.length){ upcoming = sorted.slice(0, 6); }
+      upcomingEl.innerHTML = '';
+      upcoming.forEach(function(ev){
+        var parts = ev.date.split('-');
+        var mIdx = parseInt(parts[1], 10) - 1;
+        var item = document.createElement('div');
+        item.className = 'upcoming-item';
+        item.innerHTML =
+          '<div class="upcoming-date"><span class="day">' + parts[2] + '</span><span class="mon">' + months[mIdx].slice(0,3) + '</span></div>' +
+          '<span class="upcoming-dot" style="background:' + (colors[ev.category] || '#333') + ';"></span>' +
+          '<div><div class="upcoming-title">' + ev.title + '</div><div class="upcoming-cat">' + catLabels[ev.category] + '</div></div>';
+        upcomingEl.appendChild(item);
+      });
+    }
+
+    document.getElementById('calPrev').addEventListener('click', function(){
+      viewMonth -= 1;
+      if(viewMonth < 0){ viewMonth = 11; viewYear -= 1; }
+      renderMonth(viewYear, viewMonth);
+    });
+    document.getElementById('calNext').addEventListener('click', function(){
+      viewMonth += 1;
+      if(viewMonth > 11){ viewMonth = 0; viewYear += 1; }
+      renderMonth(viewYear, viewMonth);
+    });
+
+    renderMonth(viewYear, viewMonth);
+    renderUpcoming();
+  })();
+</script>
+
 
 <footer>
   <div class="wrap">
