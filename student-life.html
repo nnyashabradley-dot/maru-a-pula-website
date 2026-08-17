@@ -666,6 +666,21 @@
   /* ===== NAV ACTIVE STATE ===== */
   nav ul a.active, .subnav a.active{color:var(--sun-3);}
   nav ul a.active{background:rgba(0,0,0,0.055);}
+  /* ===== PHOTO CARD (sub-grids for Sport / Facilities / Boarding) ===== */
+  .pcard-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  .pcard{
+    background:#fff; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .pcard:hover{transform:translateY(-4px); box-shadow:0 20px 40px -24px rgba(0,0,0,0.3);}
+  .pcard-photo{height:150px; overflow:hidden;}
+  .pcard-photo img{width:100%; height:100%; object-fit:cover; transition:transform .5s ease;}
+  .pcard:hover .pcard-photo img{transform:scale(1.06);}
+  .pcard-body{padding:16px 18px 20px;}
+  .pcard-body h4{font-family:'Fraunces',serif; font-size:1.02rem; font-weight:600; color:var(--black); margin-bottom:6px;}
+  .pcard-body p{font-size:0.86rem; color:var(--mid); line-height:1.5;}
+  @media (max-width:900px){ .pcard-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:560px){ .pcard-grid{grid-template-columns:1fr;} }
 </style>
 </head>
 <body>
@@ -860,6 +875,35 @@
       </div>
     </div>
   </div>
+  <div class="wrap" style="margin-top:56px;">
+    <div class="pcard-grid" style="grid-template-columns:repeat(3,1fr);">
+      <div class="pcard">
+        <div class="pcard-photo"><img src="https://images.pexels.com/photos/5158945/pexels-photo-5158945.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Boarders relaxing together in a common room"></div>
+        <div class="pcard-body">
+          <h4>Common Room</h4>
+          <p>Where boarders unwind together outside of study hours — the social heart of each house.</p>
+        </div>
+      </div>
+      <a href="#facilities" class="pcard" style="display:block;">
+        <div class="pcard-photo"><img src="https://images.pexels.com/photos/8617514/pexels-photo-8617514.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Students eating together in the dining hall"></div>
+        <div class="pcard-body">
+          <h4>Meal Times →</h4>
+          <p>Shared meals in the dining hall, a fixed point in every boarder's day.</p>
+        </div>
+      </a>
+      <a href="#facilities" class="pcard" style="display:block;">
+        <div class="pcard-photo"><img src="https://images.pexels.com/photos/9572540/pexels-photo-9572540.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Students studying together"></div>
+        <div class="pcard-body">
+          <h4>Prep &amp; Study Time →</h4>
+          <p>Supervised study hours in the evening, before lights out.</p>
+        </div>
+      </a>
+    </div>
+    <div class="draft-note reveal-fade d3" style="margin-top:28px;">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
+      These are illustrative stock photos, not MaP's own boarding house photography — real photos of the actual houses should replace these before publishing.
+    </div>
+  </div>
 </section>
 
 <section class="story section-pad" id="routine" style="background:var(--fog);">
@@ -893,6 +937,56 @@
       </div>
     </div>
   </div>
+  <div class="wrap" style="margin-top:56px;">
+    <div class="pcard-grid">
+      <div class="pcard">
+        <div class="pcard-photo"><img src="https://images.pexels.com/photos/10727439/pexels-photo-10727439.jpeg?auto=compress&cs=tinysrgb&w=700" alt="An empty green football pitch marked out for a match"></div>
+        <div class="pcard-body">
+          <h4>Football</h4>
+          <p>Pitches marked out for regular fixtures, with room for a full-size match.</p>
+        </div>
+      </div>
+      <div class="pcard">
+        <div class="pcard-photo"><img src="https://images.pexels.com/photos/3645005/pexels-photo-3645005.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Rugby players in action on the field"></div>
+        <div class="pcard-body">
+          <h4>Rugby</h4>
+          <p>A regular fixture on the sporting calendar, played on the same grounds as football.</p>
+        </div>
+      </div>
+      <div class="pcard">
+        <div class="pcard-photo"><img src="https://images.pexels.com/photos/13509977/pexels-photo-13509977.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Students playing cricket on a grassy field"></div>
+        <div class="pcard-body">
+          <h4>Cricket</h4>
+          <p>Bat and ball on the same wide fields that host football and rugby in other seasons.</p>
+        </div>
+      </div>
+      <div class="pcard">
+        <div class="pcard-photo"><img src="https://images.pexels.com/photos/10643677/pexels-photo-10643677.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Students playing basketball in school uniform"></div>
+        <div class="pcard-body">
+          <h4>Basketball</h4>
+          <p>Outdoor courts in regular use at break times and after school, not just for fixtures.</p>
+        </div>
+      </div>
+      <div class="pcard">
+        <div class="pcard-photo"><img src="https://images.pexels.com/photos/31013869/pexels-photo-31013869.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Students playing netball on an outdoor court"></div>
+        <div class="pcard-body">
+          <h4>Netball</h4>
+          <p>One of the most consistently competitive teams in local school fixtures.</p>
+        </div>
+      </div>
+      <div class="pcard">
+        <div class="pcard-photo"><img src="https://images.pexels.com/photos/1263349/pexels-photo-1263349.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Students racing in a swimming pool"></div>
+        <div class="pcard-body">
+          <h4>Swimming</h4>
+          <p>The 25-metre pool hosts training, lessons, and inter-school swim meets.</p>
+        </div>
+      </div>
+    </div>
+    <div class="draft-note reveal-fade d3" style="margin-top:28px;">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
+      These are illustrative stock photos, not MaP's own team photography — real match-day photos of MaP's own teams should replace these before publishing.
+    </div>
+  </div>
 </section>
 
 <section class="story section-pad" id="facilities">
@@ -908,36 +1002,48 @@
     </div>
   </div>
   <div class="wrap" style="margin-top:56px;">
-    <div class="pillar-grid">
-      <div class="pillar-card">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 3h6v3l1.5 3v10a2 2 0 01-2 2h-5a2 2 0 01-2-2V9L9 6V3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
-        <h4>Science Laboratories</h4>
-        <p>Dedicated lab space for biology, chemistry, and physics, used from Form 1 right through to A-Level.</p>
+    <div class="pcard-grid">
+      <div class="pcard">
+        <div class="pcard-photo"><img src="https://images.pexels.com/photos/8471835/pexels-photo-8471835.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Students doing a science experiment in the laboratory"></div>
+        <div class="pcard-body">
+          <h4>Science Laboratories</h4>
+          <p>Dedicated lab space for biology, chemistry, and physics, used from Form 1 right through to A-Level.</p>
+        </div>
       </div>
-      <div class="pillar-card">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h9l5 5v10a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.6"/><path d="M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Library</h4>
-        <p>A quiet space for research and study, used by day scholars and boarders alike outside class hours.</p>
+      <div class="pcard">
+        <div class="pcard-photo"><img src="https://images.pexels.com/photos/9572540/pexels-photo-9572540.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Students studying together in the library"></div>
+        <div class="pcard-body">
+          <h4>Library</h4>
+          <p>A quiet space for research and study, used by day scholars and boarders alike outside class hours.</p>
+        </div>
       </div>
-      <a href="#sport" class="pillar-card" style="display:block;">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-5-7-11a7 7 0 0114 0c0 6-7 11-7 11z" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Sports Complex →</h4>
-        <p>Pitches, courts, and a 25-metre pool across the grounds.</p>
+      <a href="#sport" class="pcard" style="display:block;">
+        <div class="pcard-photo"><img src="https://images.pexels.com/photos/10727439/pexels-photo-10727439.jpeg?auto=compress&cs=tinysrgb&w=700" alt="A football pitch on campus"></div>
+        <div class="pcard-body">
+          <h4>Sports Complex →</h4>
+          <p>Pitches, courts, and a 25-metre pool across the grounds.</p>
+        </div>
       </a>
-      <a href="#boarding" class="pillar-card" style="display:block;">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-6 9 6v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" stroke="currentColor" stroke-width="1.6"/><path d="M9 21V12h6v9" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Boarding Houses →</h4>
-        <p>Home for around 100 students during term time.</p>
+      <a href="#boarding" class="pcard" style="display:block;">
+        <div class="pcard-photo"><img src="https://images.pexels.com/photos/5158945/pexels-photo-5158945.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Boarders relaxing together in a common room"></div>
+        <div class="pcard-body">
+          <h4>Boarding Houses →</h4>
+          <p>Home for around 100 students during term time.</p>
+        </div>
       </a>
-      <a href="maitisong-arts.html" class="pillar-card" style="display:block;">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 19V6l10-2v13" stroke="currentColor" stroke-width="1.6"/><circle cx="7" cy="19" r="2" stroke="currentColor" stroke-width="1.6"/><circle cx="17" cy="17" r="2" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Maitisong Theatre →</h4>
-        <p>A 450-seat venue for music, drama, and assemblies.</p>
+      <a href="maitisong-arts.html" class="pcard" style="display:block;">
+        <div class="pcard-photo"><img src="https://www.maruapula.org/wp-content/uploads/2021/12/Maru-a-pula-2019-11085.jpg" alt="Maitisong Theatre at Maru-a-Pula School"></div>
+        <div class="pcard-body">
+          <h4>Maitisong Theatre →</h4>
+          <p>A 450-seat venue for music, drama, and assemblies.</p>
+        </div>
       </a>
-      <div class="pillar-card">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 21V10l8-6 8 6v11" stroke="currentColor" stroke-width="1.6"/><path d="M9 21v-6h6v6" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Dining Hall</h4>
-        <p>Shared meals for boarders, and a lunchtime hub for day scholars too.</p>
+      <div class="pcard">
+        <div class="pcard-photo"><img src="https://images.pexels.com/photos/8617514/pexels-photo-8617514.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Students eating lunch together in the dining hall"></div>
+        <div class="pcard-body">
+          <h4>Dining Hall</h4>
+          <p>Shared meals for boarders, and a lunchtime hub for day scholars too.</p>
+        </div>
       </div>
     </div>
     <div class="draft-note reveal-fade d3" style="margin-top:32px;">
