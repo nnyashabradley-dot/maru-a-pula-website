@@ -687,6 +687,18 @@
   .gate-card h2{font-family:'Fraunces',serif; font-size:1.6rem; font-weight:600; margin-bottom:12px; position:relative;}
   .gate-card p{color:rgba(255,255,255,0.68); font-size:0.96rem; line-height:1.55; margin-bottom:28px; position:relative;}
   .gate-buttons{display:flex; flex-direction:column; gap:10px; position:relative;}
+  .gate-divider{
+    display:flex; align-items:center; gap:12px; margin:20px 0 4px; position:relative;
+    font-family:'JetBrains Mono',monospace; font-size:0.68rem; text-transform:uppercase;
+    letter-spacing:0.08em; color:rgba(255,255,255,0.35);
+  }
+  .gate-divider::before, .gate-divider::after{content:''; flex:1; height:1px; background:rgba(255,255,255,0.14);}
+  .gate-guest-btn{
+    width:100%; padding:13px 20px; border-radius:100px; border:1.5px dashed rgba(255,255,255,0.28);
+    background:transparent; color:rgba(255,255,255,0.8); font-family:'Inter',sans-serif; font-weight:600; font-size:0.88rem;
+    cursor:pointer; transition:all .2s ease; display:flex; align-items:center; justify-content:center; gap:8px; position:relative;
+  }
+  .gate-guest-btn:hover{border-style:solid; border-color:var(--sun-2); color:var(--sun-1);}
   .gate-btn{
     width:100%; padding:14px 20px; border-radius:100px; border:1.5px solid rgba(255,255,255,0.22);
     background:rgba(255,255,255,0.05); color:#fff; font-family:'Inter',sans-serif; font-weight:600; font-size:0.92rem;
@@ -700,6 +712,31 @@
   }
   #libraryContent{display:none;}
   #libraryContent.unlocked{display:block;}
+  #libraryGuestPreview{display:none;}
+  #libraryGuestPreview.unlocked{display:block;}
+
+  /* ===== GUEST PREVIEW ===== */
+  .guest-hero{position:relative; overflow:hidden; background:var(--black); color:#fff; padding:100px 0 80px;}
+  .guest-hero-photo{position:absolute; inset:0; z-index:0;}
+  .guest-hero-photo img{width:100%; height:100%; object-fit:cover; opacity:0.4;}
+  .guest-hero-photo::after{content:''; position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.82) 75%, #000 100%);}
+  .guest-hero-inner{position:relative; z-index:2; max-width:760px; margin:0 auto; padding:0 32px; text-align:center;}
+  .guest-badge{
+    display:inline-flex; align-items:center; gap:8px; padding:8px 16px; border-radius:100px;
+    background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); font-size:0.78rem; font-weight:600;
+    margin-bottom:24px;
+  }
+  .guest-badge-dot{width:8px; height:8px; border-radius:50%; flex-shrink:0;}
+  .guest-badge.open .guest-badge-dot{background:#4ADE80; box-shadow:0 0 0 3px rgba(74,222,128,0.25);}
+  .guest-badge.closed .guest-badge-dot{background:#F87171; box-shadow:0 0 0 3px rgba(248,113,113,0.25);}
+  .guest-hero h1{font-size:clamp(2.2rem,4.4vw,3.2rem); font-weight:600; line-height:1.1;}
+  .guest-hero h1 em{font-style:italic; font-weight:500; color:var(--sun-1);}
+  .guest-hero p.lede{margin:22px auto 0; font-size:1.08rem; color:rgba(255,255,255,0.78); max-width:560px;}
+  .guest-stats-row{display:flex; justify-content:center; gap:48px; margin-top:40px; flex-wrap:wrap;}
+  .guest-stat{text-align:center;}
+  .guest-stat .num{font-family:'JetBrains Mono',monospace; font-weight:700; font-size:2rem; color:var(--sun-1);}
+  .guest-stat .label{font-size:0.82rem; color:rgba(255,255,255,0.6); margin-top:4px;}
+  @media (max-width:640px){ .guest-hero{padding:70px 0 56px;} .guest-stats-row{gap:28px;} }
 
   /* ===== BOOK CATALOGUE ===== */
   .catalogue-controls{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:28px; align-items:center;}
@@ -894,10 +931,80 @@
         Sign in as Staff
       </button>
     </div>
+    <div class="gate-divider">or</div>
+    <button class="gate-guest-btn" id="gateGuestBtn" type="button">
+      <svg viewBox="0 0 24 24" fill="none" width="15" height="15"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 8v4l3 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      Just looking? Continue as Guest
+    </button>
     <div class="gate-note">
       This is a visual sign-in gate, not real authentication — anyone with the link can currently click through it. Genuine access control needs to be wired up to the Sign In portal system (Phase 4 work) before this page holds anything sensitive.
     </div>
   </div>
+</div>
+
+<div id="libraryGuestPreview">
+  <section class="guest-hero">
+    <div class="guest-hero-photo" aria-hidden="true">
+      <img src="https://images.pexels.com/photos/33388717/pexels-photo-33388717.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="">
+    </div>
+    <div class="guest-hero-inner">
+      <div class="guest-badge" id="guestHoursBadge"><span class="guest-badge-dot"></span><span id="guestHoursText">Checking hours…</span></div>
+      <h1>A good place to <em>study</em>, or just to <em>read</em>.</h1>
+      <p class="lede">Whether you need a quiet corner to get through a stack of homework, or a comfortable one to disappear into a novel for an hour, that's what the MaP library is for.</p>
+      <div class="guest-stats-row">
+        <div class="guest-stat"><div class="num">15,000+</div><div class="label">Books &amp; titles</div></div>
+        <div class="guest-stat"><div class="num">40+</div><div class="label">Reading &amp; study seats</div></div>
+        <div class="guest-stat"><div class="num">12</div><div class="label">Genres &amp; sections</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="gallery section-pad">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow reveal">Take a look inside</div>
+          <h2 class="reveal d1">The library, in pictures</h2>
+        </div>
+      </div>
+      <div class="gallery-grid">
+        <a href="#" class="big" onclick="return false;">
+          <img src="https://images.pexels.com/photos/9572540/pexels-photo-9572540.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Students studying together in the library">
+          <span class="gallery-cap">Group study tables</span>
+        </a>
+        <a href="#" onclick="return false;">
+          <img src="https://images.pexels.com/photos/33388717/pexels-photo-33388717.jpeg?auto=compress&cs=tinysrgb&w=700" alt="A cozy library reading nook with modern chairs">
+          <span class="gallery-cap">Quiet reading nooks</span>
+        </a>
+        <a href="#" onclick="return false;">
+          <img src="https://images.pexels.com/photos/16689053/pexels-photo-16689053.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Rows of bookshelves in a library">
+          <span class="gallery-cap">Shelves to get lost in</span>
+        </a>
+        <a href="#" onclick="return false;">
+          <img src="https://images.pexels.com/photos/28839153/pexels-photo-28839153.jpeg?auto=compress&cs=tinysrgb&w=700" alt="A warmly lit bookshelf with a variety of titles">
+          <span class="gallery-cap">Something for every reader</span>
+        </a>
+      </div>
+      <div class="draft-note reveal-fade d3" style="margin-top:24px;">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
+        These are illustrative stock photos, not MaP's own library — real photos of the actual space should replace these, and the stats and opening hours above need confirming with the library team, before publishing.
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-banner">
+    <div class="cta-photo" aria-hidden="true">
+      <img src="https://images.pexels.com/photos/28839153/pexels-photo-28839153.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="">
+    </div>
+    <div class="wrap cta-inner">
+      <div class="eyebrow reveal-left">For MaP parents, students &amp; staff</div>
+      <h2 class="reveal-left d1">Search the full catalogue, and see this month's top readers.</h2>
+      <p class="reveal-left d2">Sign in above to search every title in the collection and check the reading leaderboard.</p>
+      <div class="cta-buttons reveal-left d3">
+        <button class="btn btn-invert" id="guestBackToSignIn" type="button">Back to Sign In →</button>
+      </div>
+    </div>
+  </section>
 </div>
 
 <div id="libraryContent">
@@ -1207,13 +1314,48 @@
     /* ---------- Gate ---------- */
     var overlay = document.getElementById('gateOverlay');
     var content = document.getElementById('libraryContent');
+    var guestPreview = document.getElementById('libraryGuestPreview');
+    var guestBtn = document.getElementById('gateGuestBtn');
+    var backToSignIn = document.getElementById('guestBackToSignIn');
+
     if(overlay && content){
       overlay.querySelectorAll('.gate-btn').forEach(function(btn){
         btn.addEventListener('click', function(){
           overlay.style.display = 'none';
+          if(guestPreview) guestPreview.classList.remove('unlocked');
           content.classList.add('unlocked');
         });
       });
+    }
+    if(guestBtn && guestPreview){
+      guestBtn.addEventListener('click', function(){
+        overlay.style.display = 'none';
+        guestPreview.classList.add('unlocked');
+      });
+    }
+    if(backToSignIn && overlay){
+      backToSignIn.addEventListener('click', function(){
+        if(guestPreview) guestPreview.classList.remove('unlocked');
+        overlay.style.display = 'flex';
+      });
+    }
+
+    /* ---------- Open now / closed badge ---------- */
+    var hoursBadge = document.getElementById('guestHoursBadge');
+    var hoursText = document.getElementById('guestHoursText');
+    if(hoursBadge && hoursText){
+      var now = new Date();
+      var day = now.getDay(); // 0=Sun..6=Sat
+      var hour = now.getHours();
+      var isWeekday = day >= 1 && day <= 5;
+      var isOpen = isWeekday && hour >= 7 && hour < 17;
+      if(isOpen){
+        hoursBadge.classList.add('open');
+        hoursText.textContent = 'Open now — closes 5:00 PM';
+      } else {
+        hoursBadge.classList.add('closed');
+        hoursText.textContent = isWeekday ? 'Closed — opens 7:00 AM' : 'Closed for the weekend';
+      }
     }
 
     /* ---------- Book catalogue ---------- */
