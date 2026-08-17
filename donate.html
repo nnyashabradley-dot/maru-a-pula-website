@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sciences — Maru-a-Pula School</title>
+<title>Donate — Maru-a-Pula School</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
@@ -666,6 +666,112 @@
   /* ===== NAV ACTIVE STATE ===== */
   nav ul a.active, .subnav a.active{color:var(--sun-3);}
   nav ul a.active{background:rgba(0,0,0,0.055);}
+  /* ===== SIMPLE FORM (Contact form) ===== */
+  .simple-form{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  .simple-form .field{display:flex; flex-direction:column; gap:8px;}
+  .simple-form .field.full{grid-column:1 / -1;}
+  .simple-form label{font-size:0.84rem; font-weight:600; color:var(--ink);}
+  .simple-form input, .simple-form textarea, .simple-form select{
+    border:1.5px solid var(--line); border-radius:10px; padding:12px 14px;
+    font-family:'Inter',sans-serif; font-size:0.95rem; color:var(--ink);
+    background:#fff; outline:none; transition:border-color .2s ease;
+  }
+  .simple-form input:focus, .simple-form textarea:focus, .simple-form select:focus{border-color:var(--black);}
+  .simple-form textarea{resize:vertical; min-height:130px;}
+  @media (max-width:640px){ .simple-form{grid-template-columns:1fr;} }
+  .map-embed{border-radius:var(--radius); overflow:hidden; border:1px solid var(--line); box-shadow:0 20px 50px -30px rgba(0,0,0,0.25);}
+  .map-embed iframe{display:block; width:100%; height:380px; border:0;}
+
+  /* ===== GIVE PANEL (donation builder) ===== */
+  .give-panel{
+    display:grid; grid-template-columns:1.15fr 0.85fr; gap:0;
+    background:#fff; border-radius:var(--radius); border:1px solid var(--line);
+    overflow:hidden; box-shadow:0 30px 60px -36px rgba(0,0,0,0.28);
+  }
+  .give-form{padding:44px 44px 40px;}
+  .amount-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:24px;
+  }
+  .amount-btn{
+    border:1.5px solid var(--line); background:#fff; border-radius:10px;
+    padding:16px 10px; font-family:'JetBrains Mono', monospace; font-weight:600; font-size:0.98rem;
+    color:var(--ink); cursor:pointer; transition: all .18s ease;
+  }
+  .amount-btn:hover{border-color:var(--sun-3);}
+  .amount-btn.active{border-color:var(--sun-3); background:rgba(194,84,11,0.07); color:var(--sun-3);}
+  .amount-custom-field{
+    display:flex; align-items:center; gap:2px; margin-top:12px;
+    border:1.5px solid var(--line); border-radius:10px; padding:0 14px;
+    transition: border-color .2s ease;
+  }
+  .amount-custom-field:focus-within{border-color:var(--black);}
+  .amount-custom-field span{font-family:'JetBrains Mono', monospace; font-weight:600; color:var(--mid);}
+  .amount-custom-field input{
+    border:none; outline:none; padding:13px 8px; font-family:'JetBrains Mono', monospace;
+    font-size:0.98rem; width:100%; color:var(--ink); background:transparent;
+  }
+  .give-form .field{display:flex; flex-direction:column; gap:8px;}
+  .give-form label{font-size:0.84rem; font-weight:600; color:var(--ink);}
+  .give-form select{
+    border:1.5px solid var(--line); border-radius:10px; padding:12px 14px;
+    font-family:'Inter',sans-serif; font-size:0.95rem; color:var(--ink);
+    background:#fff; outline:none; transition:border-color .2s ease;
+  }
+  .give-form select:focus{border-color:var(--black);}
+  .impact-preview{
+    background:var(--black); color:#fff; padding:44px 38px;
+    display:flex; flex-direction:column; justify-content:center; position:relative; overflow:hidden;
+  }
+  .impact-preview::before{
+    content:''; position:absolute; top:-90px; right:-90px; width:220px; height:220px; border-radius:50%;
+    background: radial-gradient(circle at 38% 35%, var(--sun-1) 0%, var(--sun-2) 42%, var(--sun-3) 72%, rgba(194,84,11,0) 100%);
+    opacity:0.5; filter:blur(2px);
+  }
+  .impact-eyebrow{
+    font-family:'JetBrains Mono', monospace; font-size:0.72rem; text-transform:uppercase;
+    letter-spacing:0.1em; color:var(--sun-1); margin-bottom:14px; position:relative;
+  }
+  .impact-amount{
+    font-family:'Fraunces', serif; font-weight:600; font-size:2.1rem; line-height:1.1; position:relative;
+  }
+  .impact-amount span{font-family:'Inter',sans-serif; font-weight:500; font-size:1rem; color:rgba(255,255,255,0.6);}
+  .impact-text{
+    margin-top:18px; color:rgba(255,255,255,0.82); font-size:1rem; line-height:1.55; position:relative; min-height:66px;
+  }
+  .impact-note{
+    margin-top:22px; font-family:'JetBrains Mono', monospace; font-size:0.7rem;
+    color:rgba(255,255,255,0.42); line-height:1.5; position:relative;
+  }
+  @media (max-width:900px){
+    .give-panel{grid-template-columns:1fr;}
+    .give-form{padding:34px 26px;}
+    .impact-preview{padding:34px 26px;}
+  }
+  @media (max-width:560px){
+    .amount-grid{grid-template-columns:repeat(2,1fr);}
+  }
+
+  /* ===== WAYS-TO-GIVE (icon list) ===== */
+  .ways-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:26px;}
+  @media (max-width:900px){ .ways-grid{grid-template-columns:1fr;} }
+
+  /* ===== FAQ ===== */
+  .faq-list{max-width:800px;}
+  .faq-item{border-bottom:1px solid var(--line);}
+  .faq-item summary{
+    list-style:none; cursor:pointer; padding:24px 4px;
+    display:flex; align-items:center; justify-content:space-between; gap:20px;
+    font-family:'Fraunces', serif; font-weight:600; font-size:1.08rem; color:var(--black);
+  }
+  .faq-item summary::-webkit-details-marker{display:none;}
+  .faq-item .faq-icon{
+    width:26px; height:26px; border-radius:50%; border:1.5px solid var(--line);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0; transition: all .2s ease;
+  }
+  .faq-item .faq-icon svg{width:12px; height:12px; transition: transform .25s ease;}
+  .faq-item[open] .faq-icon{background:var(--black); border-color:var(--black);}
+  .faq-item[open] .faq-icon svg{transform:rotate(45deg); stroke:#fff;}
+  .faq-item p{color:var(--mid); font-size:0.96rem; padding:0 4px 24px; max-width:640px; line-height:1.6;}
 </style>
 </head>
 <body>
@@ -679,12 +785,12 @@
       <nav>
         <ul>
           <li><a href="about.html">About</a></li>
-          <li><a href="academics.html" class="active" aria-current="page">Academics</a></li>
+          <li><a href="academics.html">Academics</a></li>
           <li><a href="community-arts.html">Community &amp; Arts</a></li>
           <li><a href="alumni.html">Alumni</a></li>
           <li><a href="news.html">News</a></li>
           <li><a href="contact.html">Contact</a></li>
-          <li><a href="donate.html">Donate</a></li>
+          <li><a href="donate.html" class="active" aria-current="page">Donate</a></li>
         </ul>
       </nav>
       <form class="nav-search-bar" onsubmit="return false;">
@@ -739,14 +845,14 @@
     <nav class="subnav-group">
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
-      <a href="academics.html" class="active" aria-current="page">Academics</a>
+      <a href="academics.html">Academics</a>
     </nav>
     <nav class="subnav-group">
       <a href="community-arts.html">Community &amp; Arts</a>
       <a href="alumni.html">Alumni</a>
       <a href="news.html">News</a>
       <a href="contact.html">Contact</a>
-      <a href="donate.html">Donate</a>
+      <a href="donate.html" class="active" aria-current="page">Donate</a>
     </nav>
   </div>
 </div>
@@ -754,7 +860,7 @@
 
 <section class="page-hero">
   <div class="page-hero-photo" aria-hidden="true">
-    <img src="https://www.maruapula.org/wp-content/uploads/2021/12/Maru-a-pula-2019-11085.jpg" alt="">
+    <img src="https://www.maruapula.org/wp-content/uploads/2022/02/MaP-Photos-In-Class-10327.jpg" alt="">
   </div>
   <div class="hero-sun" aria-hidden="true"></div>
   <div class="hero-ring r2" aria-hidden="true"></div>
@@ -768,13 +874,13 @@
   </svg>
 
   <div class="page-hero-inner">
-    <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><a href="academics.html">Academics</a><span>/</span><span>Life Skills &amp; Service</span></div>
-    <div class="eyebrow">Subject spotlight</div>
-    <h1>Life Skills, built around <em>service</em>.</h1>
-    <p class="lede">Not an elective, and not confined to Lower School — but this is where MaP's habit of weekly community service, and the character it's meant to build, first takes root.</p>
+    <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><span>Donate</span></div>
+    <div class="eyebrow">Fifty years of opening doors</div>
+    <h1>Give to <em>Maru-a-Pula</em>.</h1>
+    <p class="lede">Every scholarship, every Maitisong production, every service trip to Old Naledi runs on the generosity of people who believe in what MaP builds. Your gift — of any size — keeps that promise going for the next fifty years.</p>
     <div class="hero-cta">
-      <a href="#syllabus" class="btn btn-invert">See the Syllabus ↓</a>
-      <a href="#department" class="btn btn-ghost" style="border-color:rgba(255,255,255,0.35); color:#fff;">Meet the Team</a>
+      <a href="#give" class="btn btn-invert">Make a Gift ↓</a>
+      <a href="#where" class="btn btn-ghost" style="border-color:rgba(255,255,255,0.35); color:#fff;">See Where It Goes</a>
     </div>
   </div>
 
@@ -783,143 +889,234 @@
   </div>
 </section>
 
-<section class="story section-pad" id="overview">
-  <div class="wrap story-grid">
-    <div class="photo story-mark">
-      <img src="https://www.maruapula.org/wp-content/uploads/2022/02/Maru-a-pula-2019-10009.jpg" alt="Community service at Maru-a-Pula School">
+<section class="quick-actions">
+  <div class="qa-grid" style="grid-template-columns:repeat(4,1fr);">
+    <div class="qa-item" style="cursor:default;">
+      <span class="mono" style="font-size:1.5rem; font-weight:700; color:var(--sun-3);">50</span>
+      <span>Years since founding in 1972</span>
     </div>
-    <div>
-      <div class="eyebrow reveal">A habit, not a subject</div>
-      <h3 class="reveal d1">Where MaP's founding conviction shows up weekly.</h3>
-      <p class="reveal-fade d2">Life Skills &amp; Service isn't a conventional subject with an exam at the end of it. It's the structure around MaP's weekly community service commitment — required of every student, without exception, from their very first term.</p>
-      <p class="reveal-fade d3">Alongside the service itself, this is where Lower School students get explicit guidance on study habits, discipline, and the character the school expects them to carry into IGCSE and beyond.</p>
+    <div class="qa-item" style="cursor:default;">
+      <span class="mono" style="font-size:1.5rem; font-weight:700; color:var(--sun-3);">34</span>
+      <span>OVC Scholars currently on full scholarship</span>
+    </div>
+    <div class="qa-item" style="cursor:default;">
+      <span class="mono" style="font-size:1.5rem; font-weight:700; color:var(--sun-3);">5</span>
+      <span>Funds you can direct your gift to</span>
+    </div>
+    <div class="qa-item" style="cursor:default;">
+      <span class="mono" style="font-size:1.5rem; font-weight:700; color:var(--sun-3);">100%</span>
+      <span>Of undesignated gifts go to student programmes</span>
     </div>
   </div>
-</section>
-
-<section class="story section-pad" id="syllabus" style="background:var(--fog);">
   <div class="wrap">
-    <div class="section-head">
-      <div>
-        <div class="eyebrow reveal">What's covered, and when</div>
-        <h2 class="reveal d1">The syllabus at each stage</h2>
-      </div>
-      <p class="reveal-fade d2">Not examined, but continuous through every stage.</p>
-    </div>
-    <div class="timeline">
-      <div class="timeline-item reveal-fade" style="transition-delay:.05s;">
-        <div class="timeline-dot"></div>
-        <div class="timeline-year">Form 1</div>
-        <h4>Service begins immediately</h4>
-        <p>Every student starts weekly community service in their very first term, working alongside village primary schools, Old Naledi, and other community partners.</p>
-      </div>
-      <div class="timeline-item reveal-fade" style="transition-delay:.12s;">
-        <div class="timeline-dot"></div>
-        <div class="timeline-year">Form 2–3</div>
-        <h4>Structured study &amp; character guidance</h4>
-        <p>Alongside continued service, students get explicit guidance on study habits and discipline, building toward the independence IGCSE requires.</p>
-      </div>
-      <div class="timeline-item reveal-fade" style="transition-delay:.19s;">
-        <div class="timeline-dot"></div>
-        <div class="timeline-year">Upper School</div>
-        <h4>Service continues, self-directed</h4>
-        <p>The weekly service commitment continues through Upper School, though by this stage students take on more responsibility for organising and leading their own service placements.</p>
-      </div>
-    </div>
-    <div class="draft-note reveal-fade d3" style="margin-top:32px;">
+    <div class="draft-note reveal-fade d3" style="margin-top:14px;">
       <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
-      Specific service placements and the Life Skills programme structure need to be confirmed with the Pastoral team before publishing.
+      The OVC Scholar count and gift-allocation percentage above are illustrative and need to be confirmed with the Business &amp; Finance Office before publishing.
     </div>
   </div>
 </section>
 
-<section class="pillars section-pad" id="department">
+<section class="section-pad" id="give" style="padding-top:70px;">
   <div class="wrap">
     <div class="section-head">
       <div>
-        <div class="eyebrow reveal">Who runs it</div>
-        <h2 class="reveal d1">Meet the Team</h2>
+        <div class="eyebrow reveal">Make a gift</div>
+        <h2 class="reveal d1">Choose an amount, see the impact.</h2>
       </div>
-      <p class="reveal-fade d2">Not a conventional academic department — pastoral staff and service coordinators.</p>
+      <p class="reveal-fade d2">Every gift below feeds directly into MaP's Cambridge programme, its arts, and its scholarships.</p>
+    </div>
+
+    <div class="give-panel reveal-fade d3">
+      <div class="give-form">
+        <div class="amount-grid" id="amountGrid">
+          <button type="button" class="amount-btn" data-amount="250">P250</button>
+          <button type="button" class="amount-btn active" data-amount="500">P500</button>
+          <button type="button" class="amount-btn" data-amount="1000">P1,000</button>
+          <button type="button" class="amount-btn" data-amount="2500">P2,500</button>
+          <button type="button" class="amount-btn" data-amount="5000">P5,000</button>
+          <button type="button" class="amount-btn" data-amount="custom">Other</button>
+        </div>
+        <div class="amount-custom-field" id="customField" style="display:none;">
+          <span>P</span>
+          <input type="number" id="customAmount" placeholder="Enter an amount" min="1" inputmode="numeric">
+        </div>
+
+        <div class="field" style="margin-top:24px;">
+          <label for="designation">Direct my gift to</label>
+          <select id="designation">
+            <option value="most">Where Needed Most</option>
+            <option value="ovc">OVC Scholarships</option>
+            <option value="arts">Maitisong &amp; the Arts</option>
+            <option value="service">Community &amp; Service</option>
+            <option value="campus">Campus &amp; Facilities</option>
+          </select>
+        </div>
+
+        <button type="button" class="btn btn-primary" id="giveSubmit" style="width:100%; justify-content:center; margin-top:26px;">Continue to Secure Checkout →</button>
+        <div class="draft-note" style="margin-top:16px;">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
+          This form is a visual placeholder — no payment is processed yet. Real checkout is Phase 4 (Functionality) work.
+        </div>
+      </div>
+
+      <div class="impact-preview">
+        <div class="impact-eyebrow">Your impact</div>
+        <div class="impact-amount" id="impactAmount">P500</div>
+        <p class="impact-text" id="impactText">Roughly, this goes toward next year's financial-aid budget, alongside every other undesignated gift.</p>
+        <div class="impact-note">Estimates are illustrative and need to be confirmed with the Business &amp; Finance Office before this page goes live.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pillars section-pad" id="where" style="background:var(--fog);">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow reveal">Where your gift goes</div>
+        <h2 class="reveal d1">Five funds, one purpose.</h2>
+      </div>
+      <p class="reveal-fade d2">You choose the fund when you give. Here's what each one supports at MaP.</p>
     </div>
     <div class="pillar-grid">
       <div class="pillar-card">
         <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-5-7-11a7 7 0 0114 0c0 6-7 11-7 11z" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Pastoral Staff</h4>
-        <p>Form tutors and pastoral staff who track each student's wellbeing and progress closely.</p>
+        <h4>Where Needed Most</h4>
+        <p>Undesignated gifts the school can direct wherever the term's greatest need is — often financial aid or urgent facility repairs.</p>
       </div>
       <div class="pillar-card">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-5-7-11a7 7 0 0114 0c0 6-7 11-7 11z" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Community Service Coordinators</h4>
-        <p>Staff who organise and oversee student placements across MaP's community partners.</p>
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h4>OVC Scholarships</h4>
+        <p>Full scholarships — tuition, boarding, and materials — for orphans and vulnerable children admitted to MaP on merit.</p>
       </div>
       <div class="pillar-card">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-5-7-11a7 7 0 0114 0c0 6-7 11-7 11z" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Form Tutors</h4>
-        <p>The first point of contact for study habits, discipline, and day-to-day guidance.</p>
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 19V6l10-2v13" stroke="currentColor" stroke-width="1.6"/><circle cx="7" cy="19" r="2" stroke="currentColor" stroke-width="1.6"/><circle cx="17" cy="17" r="2" stroke="currentColor" stroke-width="1.6"/></svg></div>
+        <h4>Maitisong &amp; the Arts</h4>
+        <p>Instruments for the marimba band, festival production costs, and materials for Music, Drama, and Visual Art classes.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="1.6"/><circle cx="10" cy="7" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M22 21v-2a4 4 0 00-3-3.87" stroke="currentColor" stroke-width="1.6"/><path d="M16 3.13a4 4 0 010 7.75" stroke="currentColor" stroke-width="1.6"/></svg></div>
+        <h4>Community &amp; Service</h4>
+        <p>Supplies and transport for the weekly service programme in Old Naledi and partnership work with SOS Children's Village.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 21V10l8-6 8 6v11" stroke="currentColor" stroke-width="1.6"/><path d="M9 21v-6h6v6" stroke="currentColor" stroke-width="1.6"/></svg></div>
+        <h4>Campus &amp; Facilities</h4>
+        <p>Upkeep and improvements to classrooms, boarding houses, labs, and the grounds across MaP's 50-acre campus.</p>
       </div>
     </div>
     <div class="draft-note reveal-fade d3" style="margin-top:32px;">
       <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
-      Named staff profiles, photos, and bios need to be supplied by the Pastoral Department before publishing.
+      Fund names and descriptions are illustrative — the actual list of designated funds needs sign-off from the Business &amp; Finance Office.
     </div>
   </div>
 </section>
 
-<section class="story section-pad" id="beyond-classroom" style="background:var(--fog);">
-  <div class="wrap story-grid-rev">
-    <div>
-      <div class="eyebrow reveal">Outside the syllabus</div>
-      <h3 class="reveal d1">Beyond the classroom.</h3>
-      <p class="reveal-fade d2">Service placements have included village primary schools, the SOS Children's Village, and community organisations across Old Naledi and Gaborone.</p>
-      <p class="reveal-fade d3">For many students, this weekly commitment — not any single exam — is what they remember most clearly from their time at MaP.</p>
-    </div>
+<section class="story section-pad">
+  <div class="wrap story-grid">
     <div class="photo story-mark">
-      <img src="https://www.maruapula.org/wp-content/uploads/2022/02/Maru-a-pula-2019-11694.jpg" alt="Students on a community service placement from Maru-a-Pula School">
+      <img src="https://www.maruapula.org/wp-content/uploads/2022/02/Maru-a-pula-2019-11694.jpg" alt="Students on the MaP campus">
     </div>
-  </div>
-  <div class="wrap">
-    <div class="draft-note reveal-fade d3" style="margin-top:32px;">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
-      Specific clubs, competitions, and activities need to be confirmed with the Pastoral Department before publishing.
+    <div>
+      <div class="eyebrow reveal">Fifty years of impact</div>
+      <h3 class="reveal d1">A scholarship changes more than one life.</h3>
+      <p class="reveal-fade d2">OVC Scholars graduate from MaP and go on to university, work, and — often — back into their own communities as mentors, teachers, and employers. The Golden Jubilee year is a chance to make sure that pipeline stays open for the next fifty years, not just the last fifty.</p>
+      <div class="pull reveal-fade d3">Every scholar we send through MaP is a door we've opened for someone who might not otherwise have had one.</div>
+      <p class="reveal-fade d3" style="font-size:0.9rem; color:var(--mid);">— placeholder testimonial, to be replaced with a real, permissioned quote from a scholar, parent, or staff member before publishing.</p>
     </div>
   </div>
 </section>
 
-<section class="pillars section-pad" id="explore-more">
+<section class="pillars section-pad" id="other-ways" style="background:var(--fog);">
   <div class="wrap">
     <div class="section-head">
       <div>
-        <div class="eyebrow reveal">Keep exploring</div>
-        <h2 class="reveal d1">See where Life Skills &amp; Service fits in</h2>
+        <div class="eyebrow reveal">Beyond the form above</div>
+        <h2 class="reveal d1">Other ways to give</h2>
+      </div>
+      <p class="reveal-fade d2">Not every gift starts with a credit card. Here are the other routes people use to support MaP.</p>
+    </div>
+    <div class="ways-grid">
+      <div class="pillar-card">
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2" stroke="currentColor" stroke-width="1.6"/></svg></div>
+        <h4>Bank Transfer / EFT</h4>
+        <p>Give directly by transfer from a Botswana or international bank account. Contact the Business &amp; Finance Office for account details and a reference to use.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h9l5 5v10a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.6"/><path d="M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.6"/></svg></div>
+        <h4>Corporate &amp; Matching Gifts</h4>
+        <p>Many employers match staff donations, sometimes doubling their impact. Check with your HR or payroll-giving programme, then let us know so we can acknowledge both gifts.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V9l-5-6z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 3v6h5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
+        <h4>Legacy &amp; Planned Giving</h4>
+        <p>Include MaP in your will, or set up a gift that pays out over time. The Business &amp; Finance Office can talk through the options and what each one supports.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-5-7-11a7 7 0 0114 0c0 6-7 11-7 11z" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="1.6"/></svg></div>
+        <h4>Tribute &amp; Memorial Gifts</h4>
+        <p>Mark a birthday, graduation, or the memory of someone who loved MaP with a gift made in their name. We can send a card to let them — or their family — know.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="1.6"/><circle cx="10" cy="7" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M22 21v-2a4 4 0 00-3-3.87" stroke="currentColor" stroke-width="1.6"/><path d="M16 3.13a4 4 0 010 7.75" stroke="currentColor" stroke-width="1.6"/></svg></div>
+        <h4>Time, Skills &amp; Mentorship</h4>
+        <p>Giving doesn't have to be financial. Alumni can mentor an OVC Scholar or speak to current students through the Alumni Office.</p>
+        <a href="alumni.html#ovc-mentorship" class="btn btn-ghost" style="margin-top:14px;">Alumni Mentorship →</a>
+      </div>
+      <div class="pillar-card">
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 4h16v16H4z" stroke="currentColor" stroke-width="1.6"/><path d="M4 6l8 7 8-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h4>Speak to Someone First</h4>
+        <p>Questions about a major gift, an international transfer, or which fund fits best? The Business &amp; Finance Office is the right first call.</p>
+        <a href="contact.html" class="btn btn-ghost" style="margin-top:14px;">Contact the Office →</a>
       </div>
     </div>
-    <div class="pillar-grid" style="grid-template-columns:repeat(2,1fr);">
-      <a href="lower-school.html" class="pillar-card" style="display:block;">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h9l5 5v10a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.6"/><path d="M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Lower School →</h4>
-        <p>Where this commitment starts: Form 1–3.</p>
-      </a>
-      <a href="admissions.html" class="pillar-card" style="display:block;">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-5-7-11a7 7 0 0114 0c0 6-7 11-7 11z" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Admission Overview →</h4>
-        <p>What we look for, including a genuine service mindset.</p>
-      </a>
+    <div class="draft-note reveal-fade d3" style="margin-top:32px;">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
+      Bank details, tax-deductibility status, and named contacts above are all placeholders and need to be confirmed with the school before publishing.
+    </div>
+  </div>
+</section>
+
+<section class="section-pad" id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow reveal">Common questions</div>
+        <h2 class="reveal d1">Giving, answered.</h2>
+      </div>
+    </div>
+    <div class="faq-list reveal-fade d2">
+      <details class="faq-item">
+        <summary>Is my donation tax-deductible?<span class="faq-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span></summary>
+        <p>It depends on your country of residence and how the gift is made. The Business &amp; Finance Office can confirm what applies to you before you give.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Can I choose exactly where my gift goes?<span class="faq-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span></summary>
+        <p>Yes. Use the "Direct my gift to" menu in the form above to choose one of the five funds, or leave it as "Where Needed Most" and the school will allocate it.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Do you accept in-kind donations, like books or equipment?<span class="faq-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span></summary>
+        <p>Often, yes — particularly for the library, science labs, and Maitisong. Reach out to the Business &amp; Finance Office first to check current needs before sending anything.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Is the payment form on this page actually live?<span class="faq-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span></summary>
+        <p>Not yet. You can build a gift above and see the amount and fund you'd be directing it to, but "Continue to Secure Checkout" doesn't charge anything — wiring this up to a real payment processor is planned Phase 4 work. If you'd like to give right now, use the Bank Transfer/EFT option below or contact the Business &amp; Finance Office directly.</p>
+      </details>
     </div>
   </div>
 </section>
 
 <section class="cta-banner">
   <div class="cta-photo" aria-hidden="true">
-    <img src="https://www.maruapula.org/wp-content/uploads/2022/02/MaP-Photos-In-Class-10327.jpg" alt="">
+    <img src="https://www.maruapula.org/wp-content/uploads/2022/02/Maru-a-pula-2019-11694.jpg" alt="">
   </div>
   <div class="wrap cta-inner">
-    <div class="eyebrow reveal-left">Character, built weekly</div>
-    <h2 class="reveal-left d1">See what weekly service looks like.</h2>
-    <p class="reveal-left d2">Book a campus tour, meet current pastoral staff and students, or start your child's application today.</p>
+    <div class="eyebrow reveal-left">Golden Jubilee, 1972–2026</div>
+    <h2 class="reveal-left d1">Help write the next fifty years.</h2>
+    <p class="reveal-left d2">Every gift, from a one-time P250 to a planned legacy gift, keeps MaP's classrooms, stages, and scholarships open for students who need them most.</p>
     <div class="cta-buttons reveal-left d3">
-      <a href="#" class="btn btn-invert">Start Your Application →</a>
-      <a href="#" class="btn btn-ghost" style="border-color:rgba(255,255,255,0.35); color:#fff;">Book a Campus Tour</a>
+      <a href="#give" class="btn btn-invert">Make a Gift ↑</a>
+      <a href="shop.html" class="btn btn-ghost" style="border-color:rgba(255,255,255,0.35); color:#fff;">Shop the 50th Anniversary Collection</a>
     </div>
   </div>
 </section>
@@ -1064,6 +1261,78 @@
     document.addEventListener('keydown', function(e){
       if(e.key === 'Escape') closeSubnav();
     });
+  })();
+</script>
+<script>
+  (function(){
+    var amountGrid = document.getElementById('amountGrid');
+    var customField = document.getElementById('customField');
+    var customAmount = document.getElementById('customAmount');
+    var designation = document.getElementById('designation');
+    var giveSubmit = document.getElementById('giveSubmit');
+    var impactAmount = document.getElementById('impactAmount');
+    var impactText = document.getElementById('impactText');
+    if(!amountGrid || !designation) return;
+
+    var fundText = {
+      most: "Roughly, this goes toward next year's financial-aid budget, alongside every other undesignated gift.",
+      ovc: "This contributes to the tuition, boarding, and materials that make up a full OVC Scholarship.",
+      arts: "This helps fund instruments for the marimba band, festival production costs, and materials for Music, Drama, and Visual Art.",
+      service: "This supports supplies and transport for the weekly service programme in Old Naledi and partner organisations like SOS Children's Village.",
+      campus: "This goes toward the upkeep and improvement of classrooms, boarding houses, labs, and the grounds across campus."
+    };
+
+    var state = { amount: 500 };
+
+    function currentAmount(){
+      var activeBtn = amountGrid.querySelector('.amount-btn.active');
+      if(activeBtn && activeBtn.getAttribute('data-amount') === 'custom'){
+        var v = parseInt(customAmount.value, 10);
+        return (v > 0) ? v : 0;
+      }
+      return state.amount;
+    }
+
+    function formatAmount(n){
+      return 'P' + n.toLocaleString('en-US');
+    }
+
+    function updateImpact(){
+      var amt = currentAmount();
+      if(impactAmount){
+        impactAmount.textContent = amt ? formatAmount(amt) : 'P—';
+      }
+      if(impactText) impactText.textContent = fundText[designation.value] || fundText.most;
+    }
+
+    amountGrid.querySelectorAll('.amount-btn').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        amountGrid.querySelectorAll('.amount-btn').forEach(function(b){ b.classList.remove('active'); });
+        btn.classList.add('active');
+        var val = btn.getAttribute('data-amount');
+        if(val === 'custom'){
+          customField.style.display = 'flex';
+          customAmount.focus();
+        } else {
+          customField.style.display = 'none';
+          state.amount = parseInt(val, 10);
+        }
+        updateImpact();
+      });
+    });
+
+    if(customAmount){
+      customAmount.addEventListener('input', updateImpact);
+    }
+    designation.addEventListener('change', updateImpact);
+
+    if(giveSubmit){
+      giveSubmit.addEventListener('click', function(){
+        alert("This is a demo gift form — it isn't connected to real payment processing yet.");
+      });
+    }
+
+    updateImpact();
   })();
 </script>
 </body>
