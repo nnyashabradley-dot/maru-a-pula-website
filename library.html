@@ -738,6 +738,27 @@
   .guest-stat .label{font-size:0.82rem; color:rgba(255,255,255,0.6); margin-top:4px;}
   @media (max-width:640px){ .guest-hero{padding:70px 0 56px;} .guest-stats-row{gap:28px;} }
 
+  /* ===== FEATURED READ (guest preview) ===== */
+  .featured-read{
+    display:grid; grid-template-columns:200px 1fr; gap:36px; align-items:center;
+    background:#fff; border:1px solid var(--line); border-radius:var(--radius);
+    padding:32px; box-shadow:0 24px 50px -32px rgba(0,0,0,0.25);
+  }
+  .featured-read-cover{
+    aspect-ratio:2/3; border-radius:10px; overflow:hidden; position:relative;
+    background:linear-gradient(150deg,var(--sun-1),var(--sun-2) 55%,var(--sun-3));
+    display:flex; align-items:center; justify-content:center; box-shadow:0 16px 30px -14px rgba(194,84,11,0.45);
+  }
+  .featured-read-cover svg{width:40%; height:40%; color:rgba(0,0,0,0.35);}
+  .featured-read-badge{
+    display:inline-flex; align-items:center; gap:8px; font-family:'JetBrains Mono',monospace;
+    font-size:0.72rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--sun-3); margin-bottom:14px; font-weight:700;
+  }
+  .featured-read h3{font-family:'Fraunces',serif; font-size:1.5rem; font-weight:600; color:var(--black); margin-bottom:4px;}
+  .featured-read .fr-author{font-size:0.92rem; color:var(--mid); margin-bottom:14px;}
+  .featured-read p.fr-blurb{color:#3d3d3d; font-size:0.96rem; line-height:1.6; margin-bottom:18px;}
+  @media (max-width:640px){ .featured-read{grid-template-columns:1fr; text-align:center;} .featured-read-cover{width:140px; margin:0 auto;} }
+
   /* ===== BOOK CATALOGUE ===== */
   .catalogue-controls{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:28px; align-items:center;}
   .catalogue-search{
@@ -761,6 +782,7 @@
   .catalogue-table tr:last-child td{border-bottom:none;}
   .catalogue-table tr:hover td{background:var(--fog);}
   .catalogue-table .book-title{font-weight:600; color:var(--black);}
+  .book-match{background:rgba(242,167,59,0.35); color:inherit; border-radius:3px; padding:0 1px;}
   .catalogue-table .book-genre{
     display:inline-block; font-size:0.72rem; font-weight:600; padding:3px 10px; border-radius:100px;
     background:rgba(194,84,11,0.09); color:var(--sun-3);
@@ -955,6 +977,32 @@
         <div class="guest-stat"><div class="num">15,000+</div><div class="label">Books &amp; titles</div></div>
         <div class="guest-stat"><div class="num">40+</div><div class="label">Reading &amp; study seats</div></div>
         <div class="guest-stat"><div class="num">12</div><div class="label">Genres &amp; sections</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-pad" style="padding-bottom:0;">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow reveal">A staff pick</div>
+          <h2 class="reveal d1">This week's featured read</h2>
+        </div>
+      </div>
+      <div class="featured-read reveal-fade d2">
+        <div class="featured-read-cover">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 19.5A2.5 2.5 0 016.5 17H20" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <div class="featured-read-badge">
+            <svg viewBox="0 0 24 24" fill="none" width="14" height="14"><path d="M12 2l2.4 6.6H21l-5.4 4 2 6.8-5.6-4.2-5.6 4.2 2-6.8-5.4-4h6.6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            Librarian's pick
+          </div>
+          <h3>The Alchemist</h3>
+          <div class="fr-author">Paulo Coelho</div>
+          <p class="fr-blurb">A short, easy read for anyone who wants to get back into reading for pleasure rather than for a set text — the kind of book you can start on a Friday afternoon and finish by Sunday.</p>
+          <a href="#" class="btn btn-ghost" onclick="return false;">Available now — Shelf B18</a>
+        </div>
       </div>
     </div>
   </section>
@@ -1398,6 +1446,16 @@
         genreFilter.appendChild(opt);
       });
 
+      function escapeHtml(s){
+        return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      }
+      function highlight(text, q){
+        var safe = escapeHtml(text);
+        if(!q) return safe;
+        var idx = safe.toLowerCase().indexOf(q.toLowerCase());
+        if(idx === -1) return safe;
+        return safe.slice(0, idx) + '<mark class="book-match">' + safe.slice(idx, idx + q.length) + '</mark>' + safe.slice(idx + q.length);
+      }
       function renderBooks(){
         var q = (searchInput.value || '').trim().toLowerCase();
         var g = genreFilter.value;
@@ -1412,8 +1470,8 @@
           var statusClass = b.status === 'available' ? 'status-available' : 'status-checked-out';
           var statusLabel = b.status === 'available' ? 'Available' : 'Checked Out';
           tr.innerHTML =
-            '<td class="book-title">' + b.title + '</td>' +
-            '<td>' + b.author + '</td>' +
+            '<td class="book-title">' + highlight(b.title, q) + '</td>' +
+            '<td>' + highlight(b.author, q) + '</td>' +
             '<td><span class="book-genre">' + b.genre + '</span></td>' +
             '<td><span class="status-pill ' + statusClass + '"><span class="status-dot"></span>' + statusLabel + '</span></td>' +
             '<td>' + b.shelf + '</td>';
