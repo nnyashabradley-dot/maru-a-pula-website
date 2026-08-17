@@ -783,6 +783,20 @@
   .catalogue-table tr:hover td{background:var(--fog);}
   .catalogue-table .book-title{font-weight:600; color:var(--black);}
   .book-match{background:rgba(242,167,59,0.35); color:inherit; border-radius:3px; padding:0 1px;}
+  .book-title-cell{display:flex; align-items:center; gap:14px;}
+  .book-cover-mini{
+    width:34px; height:46px; border-radius:5px; flex-shrink:0; position:relative;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 6px 12px -5px rgba(0,0,0,0.4);
+  }
+  .book-cover-mini svg{width:16px; height:16px; color:rgba(255,255,255,0.85);}
+  .book-title-text{display:flex; flex-direction:column; gap:4px;}
+  .returned-ribbon{
+    display:inline-flex; align-items:center; gap:4px; align-self:flex-start;
+    font-size:0.66rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em;
+    color:var(--sun-3); background:rgba(242,167,59,0.14); padding:2px 8px; border-radius:100px;
+  }
+  .returned-ribbon svg{width:9px; height:9px;}
   .catalogue-table .book-genre{
     display:inline-block; font-size:0.72rem; font-weight:600; padding:3px 10px; border-radius:100px;
     background:rgba(194,84,11,0.09); color:var(--sun-3);
@@ -795,14 +809,31 @@
   .status-checked-out{color:#C2540B;}
   .catalogue-empty{padding:60px 20px; text-align:center; color:var(--mid);}
 
+  /* ---- skeleton loading rows ---- */
+  .skeleton-row td{padding:14px 18px; border-bottom:1px solid var(--line);}
+  .skeleton-bar{
+    height:14px; border-radius:6px; background:linear-gradient(90deg, var(--fog) 25%, #ececec 37%, var(--fog) 63%);
+    background-size:400% 100%; animation:skeletonShimmer 1.3s ease infinite;
+  }
+  @keyframes skeletonShimmer{ 0%{background-position:100% 50%;} 100%{background-position:0 50%;} }
+
   /* ===== LEADERBOARD ===== */
   .leaderboard-tabs{display:inline-flex; background:var(--fog); border-radius:100px; padding:4px; gap:2px; margin-bottom:28px;}
+  .leaderboard-head-row{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:14px; margin-bottom:28px;}
   .leaderboard-tab{
     padding:10px 22px; border-radius:100px; border:none; background:transparent;
     font-family:'Inter',sans-serif; font-weight:600; font-size:0.86rem; color:var(--mid);
     cursor:pointer; transition:all .2s ease;
   }
   .leaderboard-tab.active{background:#fff; color:var(--ink); box-shadow:0 4px 14px -6px rgba(0,0,0,0.2);}
+  .print-btn{
+    display:inline-flex; align-items:center; gap:8px; padding:10px 18px; border-radius:100px;
+    border:1.5px solid var(--line); background:#fff; font-family:'Inter',sans-serif; font-weight:600;
+    font-size:0.84rem; color:var(--ink); cursor:pointer; transition:all .2s ease;
+  }
+  .print-btn:hover{border-color:var(--ink); background:var(--fog);}
+  .print-btn svg{width:15px; height:15px;}
+  .print-only{display:none;}
   .leaderboard-list{display:flex; flex-direction:column; gap:10px;}
   .lb-row{
     display:flex; align-items:center; gap:16px; padding:14px 20px; border-radius:14px;
@@ -846,6 +877,18 @@
   .admin-reset{background:none; border:none; color:rgba(255,255,255,0.5); font-size:0.8rem; text-decoration:underline; cursor:pointer; margin-top:16px;}
   .admin-reset:hover{color:#fff;}
   @media (max-width:760px){ .admin-form{grid-template-columns:1fr 1fr;} }
+
+  /* ===== PRINT STYLESHEET (leaderboard only) ===== */
+  @media print{
+    body *{visibility:hidden;}
+    #printArea, #printArea *{visibility:visible;}
+    #printArea{position:absolute; top:0; left:0; width:100%; padding:20px;}
+    .print-only{display:block !important;}
+    .print-only h1{font-family:'Fraunces',serif; font-size:1.6rem; margin-bottom:2px;}
+    .print-only .print-meta{font-family:'JetBrains Mono',monospace; font-size:0.8rem; color:#555; margin-bottom:22px;}
+    #printArea .lb-row{break-inside:avoid; box-shadow:none !important; border:1px solid #ccc !important;}
+    #printArea .lb-bar-wrap{display:none !important;}
+  }
 </style>
 </head>
 <body>
@@ -1105,6 +1148,10 @@
       <select class="catalogue-filter" id="genreFilter">
         <option value="">All genres</option>
       </select>
+      <select class="catalogue-filter" id="sortBy">
+        <option value="title">Sort: Title (A–Z)</option>
+        <option value="shelf">Sort: Shelf Location</option>
+      </select>
     </div>
     <div class="catalogue-count" id="catalogueCount"></div>
     <div class="catalogue-table-wrap">
@@ -1133,11 +1180,23 @@
       <p class="reveal-fade d2">Ranked by number of books read, most first.</p>
     </div>
 
-    <div class="leaderboard-tabs">
-      <button class="leaderboard-tab active" id="tabMonth" type="button">This Month</button>
-      <button class="leaderboard-tab" id="tabYear" type="button">This Year</button>
+    <div class="leaderboard-head-row">
+      <div class="leaderboard-tabs">
+        <button class="leaderboard-tab active" id="tabMonth" type="button">This Month</button>
+        <button class="leaderboard-tab" id="tabYear" type="button">This Year</button>
+      </div>
+      <button class="print-btn" id="printLeaderboard" type="button">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M6 9V3h12v6M6 18H4a1 1 0 01-1-1v-5a1 1 0 011-1h16a1 1 0 011 1v5a1 1 0 01-1 1h-2" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><rect x="6" y="14" width="12" height="7" stroke="currentColor" stroke-width="1.6"/></svg>
+        Print for Noticeboard
+      </button>
     </div>
-    <div class="leaderboard-list" id="leaderboardList"></div>
+    <div id="printArea">
+      <div class="print-only">
+        <h1>MaP Library — Top Readers</h1>
+        <div class="print-meta" id="printMeta"></div>
+      </div>
+      <div class="leaderboard-list" id="leaderboardList"></div>
+    </div>
 
     <div class="draft-note reveal-fade d3" style="margin-top:24px;">
       <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
@@ -1416,24 +1475,35 @@
       {title:"Long Walk to Freedom", author:"Nelson Mandela", genre:"Biography", status:"checked-out", shelf:"D08"},
       {title:"The Story of an African Farm", author:"Olive Schreiner", genre:"African Literature", status:"available", shelf:"A16"},
       {title:"1984", author:"George Orwell", genre:"Fiction", status:"available", shelf:"B10"},
-      {title:"Purple Hibiscus", author:"Chimamanda Ngozi Adichie", genre:"African Literature", status:"available", shelf:"A18"},
+      {title:"Purple Hibiscus", author:"Chimamanda Ngozi Adichie", genre:"African Literature", status:"available", shelf:"A18", returnedRecently:true},
       {title:"Cry, the Beloved Country", author:"Alan Paton", genre:"African Literature", status:"checked-out", shelf:"A19"},
       {title:"The Kite Runner", author:"Khaled Hosseini", genre:"Fiction", status:"available", shelf:"B15"},
       {title:"Pride and Prejudice", author:"Jane Austen", genre:"Set Text", status:"available", shelf:"B02"},
-      {title:"A Brief History of Time", author:"Stephen Hawking", genre:"Science", status:"available", shelf:"E03"},
+      {title:"A Brief History of Time", author:"Stephen Hawking", genre:"Science", status:"available", shelf:"E03", returnedRecently:true},
       {title:"Sapiens", author:"Yuval Noah Harari", genre:"Non-Fiction", status:"available", shelf:"F01"},
       {title:"A History of Botswana", author:"Neil Parsons", genre:"History", status:"available", shelf:"G01"},
       {title:"The Diary of a Young Girl", author:"Anne Frank", genre:"Biography", status:"available", shelf:"D10"},
       {title:"Half of a Yellow Sun", author:"Chimamanda Ngozi Adichie", genre:"African Literature", status:"checked-out", shelf:"A20"},
-      {title:"Animal Farm", author:"George Orwell", genre:"Set Text", status:"available", shelf:"B11"},
+      {title:"Animal Farm", author:"George Orwell", genre:"Set Text", status:"available", shelf:"B11", returnedRecently:true},
       {title:"The Alchemist", author:"Paulo Coelho", genre:"Fiction", status:"available", shelf:"B18"},
       {title:"Guns, Germs, and Steel", author:"Jared Diamond", genre:"Non-Fiction", status:"available", shelf:"F05"},
       {title:"Twelfth Night", author:"William Shakespeare", genre:"Set Text", status:"available", shelf:"C03"},
       {title:"The Fault in Our Stars", author:"John Green", genre:"Fiction", status:"checked-out", shelf:"B22"}
     ];
 
+    var genreColors = {
+      "African Literature": "#C2540B",
+      "Set Text": "#33415c",
+      "Fiction": "#6B4FA0",
+      "Biography": "#2B5D8B",
+      "Science": "#2F7D5B",
+      "Non-Fiction": "#8B5E34",
+      "History": "#F2A73B"
+    };
+
     var searchInput = document.getElementById('bookSearch');
     var genreFilter = document.getElementById('genreFilter');
+    var sortBy = document.getElementById('sortBy');
     var catalogueBody = document.getElementById('catalogueBody');
     var catalogueCount = document.getElementById('catalogueCount');
     var catalogueEmpty = document.getElementById('catalogueEmpty');
@@ -1456,21 +1526,50 @@
         if(idx === -1) return safe;
         return safe.slice(0, idx) + '<mark class="book-match">' + safe.slice(idx, idx + q.length) + '</mark>' + safe.slice(idx + q.length);
       }
-      function renderBooks(){
+
+      function showSkeleton(count){
+        catalogueBody.innerHTML = '';
+        catalogueEmpty.style.display = 'none';
+        for(var i = 0; i < count; i++){
+          var tr = document.createElement('tr');
+          tr.className = 'skeleton-row';
+          tr.innerHTML =
+            '<td><div class="skeleton-bar" style="width:70%;"></div></td>' +
+            '<td><div class="skeleton-bar" style="width:50%;"></div></td>' +
+            '<td><div class="skeleton-bar" style="width:60%;"></div></td>' +
+            '<td><div class="skeleton-bar" style="width:55%;"></div></td>' +
+            '<td><div class="skeleton-bar" style="width:30%;"></div></td>';
+          catalogueBody.appendChild(tr);
+        }
+      }
+
+      function paintBooks(){
         var q = (searchInput.value || '').trim().toLowerCase();
         var g = genreFilter.value;
+        var sort = sortBy.value;
         var filtered = books.filter(function(b){
           var matchesQ = !q || b.title.toLowerCase().indexOf(q) > -1 || b.author.toLowerCase().indexOf(q) > -1;
           var matchesG = !g || b.genre === g;
           return matchesQ && matchesG;
+        });
+        filtered.sort(function(a, b){
+          if(sort === 'shelf') return a.shelf.localeCompare(b.shelf);
+          return a.title.localeCompare(b.title);
         });
         catalogueBody.innerHTML = '';
         filtered.forEach(function(b){
           var tr = document.createElement('tr');
           var statusClass = b.status === 'available' ? 'status-available' : 'status-checked-out';
           var statusLabel = b.status === 'available' ? 'Available' : 'Checked Out';
+          var coverColor = genreColors[b.genre] || '#6B6B6B';
+          var ribbon = b.returnedRecently
+            ? '<span class="returned-ribbon"><svg viewBox="0 0 24 24" fill="none"><path d="M3 12a9 9 0 109-9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M3 4v5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Just Returned</span>'
+            : '';
           tr.innerHTML =
-            '<td class="book-title">' + highlight(b.title, q) + '</td>' +
+            '<td><div class="book-title-cell">' +
+              '<div class="book-cover-mini" style="background:' + coverColor + ';"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19.5A2.5 2.5 0 016.5 17H20" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>' +
+              '<div class="book-title-text"><span class="book-title">' + highlight(b.title, q) + '</span>' + ribbon + '</div>' +
+            '</div></td>' +
             '<td>' + highlight(b.author, q) + '</td>' +
             '<td><span class="book-genre">' + b.genre + '</span></td>' +
             '<td><span class="status-pill ' + statusClass + '"><span class="status-dot"></span>' + statusLabel + '</span></td>' +
@@ -1480,9 +1579,18 @@
         catalogueCount.textContent = 'Showing ' + filtered.length + ' of ' + books.length + ' books';
         catalogueEmpty.style.display = filtered.length ? 'none' : 'block';
       }
+
+      var renderTimer = null;
+      function renderBooks(){
+        showSkeleton(5);
+        clearTimeout(renderTimer);
+        renderTimer = setTimeout(paintBooks, 220);
+      }
+
       searchInput.addEventListener('input', renderBooks);
       genreFilter.addEventListener('change', renderBooks);
-      renderBooks();
+      sortBy.addEventListener('change', renderBooks);
+      paintBooks();
     }
 
     /* ---------- Leaderboard ---------- */
@@ -1516,6 +1624,8 @@
     var leaderboardList = document.getElementById('leaderboardList');
     var tabMonth = document.getElementById('tabMonth');
     var tabYear = document.getElementById('tabYear');
+    var printBtn = document.getElementById('printLeaderboard');
+    var printMeta = document.getElementById('printMeta');
 
     function initials(name){
       var parts = name.trim().split(/\s+/);
@@ -1542,6 +1652,12 @@
           '<div class="lb-count">' + entry.count + ' books</div>';
         leaderboardList.appendChild(row);
       });
+      if(printMeta){
+        var periodLabel = activeTab === 'month' ? 'This Month' : 'This Year';
+        var today = new Date();
+        var dateStr = today.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+        printMeta.textContent = periodLabel + ' — Printed ' + dateStr;
+      }
     }
 
     if(tabMonth && tabYear){
@@ -1558,6 +1674,11 @@
         renderLeaderboard();
       });
       renderLeaderboard();
+    }
+    if(printBtn){
+      printBtn.addEventListener('click', function(){
+        window.print();
+      });
     }
 
     /* ---------- Librarian admin panel ---------- */
