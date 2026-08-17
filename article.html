@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>News &amp; Events — Maru-a-Pula School</title>
+<title>News Article — Maru-a-Pula School</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
@@ -666,71 +666,36 @@
   /* ===== NAV ACTIVE STATE ===== */
   nav ul a.active, .subnav a.active{color:var(--sun-3);}
   nav ul a.active{background:rgba(0,0,0,0.055);}
-  /* ===== EVENTS CALENDAR ===== */
-  .news-card.mini{display:flex; flex-direction:column;}
-  .news-card.mini .news-thumb{height:150px;}
-  .news-card.mini .news-card-body{padding:16px 18px 20px;}
-  .news-card.mini h4{font-size:0.95rem;}
-  .news-card.mini p{font-size:0.84rem;}
-
-  /* ===== NEWS LOOP (continuous marquee) ===== */
-  .news-loop-wrap{overflow:hidden; margin-top:24px; -webkit-mask-image:linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); mask-image:linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);}
-  .news-loop-track{display:flex; gap:24px; width:max-content; animation:newsLoop 26s linear infinite;}
-  .news-loop-track:hover{animation-play-state:paused;}
-  .news-loop-track .news-card.mini{flex:0 0 320px;}
-  @keyframes newsLoop{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
-  @media (prefers-reduced-motion: reduce){ .news-loop-track{animation:none; flex-wrap:wrap; width:auto;} }
-  @media (max-width:640px){ .news-loop-track .news-card.mini{flex-basis:260px;} }
-  .cal-card{background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:32px; box-shadow:0 24px 60px -32px rgba(0,0,0,0.22);}
-  .cal-nav{display:flex; align-items:center; justify-content:space-between; margin-bottom:24px; gap:16px; flex-wrap:wrap;}
-  .cal-nav-btn{width:40px; height:40px; border-radius:50%; border:1.5px solid var(--line); background:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:border-color .2s ease, background .2s ease, transform .2s ease; color:var(--ink);}
-  .cal-nav-btn:hover{border-color:var(--sun-3); background:var(--sun-3); color:#fff; transform:scale(1.06);}
-  .cal-nav-btn svg{width:16px; height:16px;}
-  .cal-month-label{font-family:'Fraunces',serif; font-size:1.6rem; font-weight:600; min-width:210px; text-align:center; transition:opacity .18s ease, transform .18s ease;}
-  .cal-month-label.swap{opacity:0; transform:translateY(4px);}
-  .cal-grid{display:grid; grid-template-columns:repeat(7, minmax(0,1fr)); gap:7px; transition:opacity .18s ease;}
-  .cal-grid.swap{opacity:0;}
-  .cal-weekday{text-align:center; font-size:0.7rem; font-weight:700; color:var(--mid); text-transform:uppercase; letter-spacing:0.07em; padding-bottom:10px;}
-  .cal-day{
-    min-height:104px; border:1px solid var(--line); border-radius:12px; padding:8px 6px;
-    background:#fff; min-width:0; overflow:hidden;
-    transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+  /* ===== ARTICLE ===== */
+  .article-hero{background:var(--fog); padding:150px 0 60px;}
+  .article-hero .breadcrumb{color:var(--mid);}
+  .article-hero .breadcrumb a{color:var(--mid);}
+  .article-hero .breadcrumb a:hover{color:var(--ink);}
+  .article-hero .breadcrumb span:last-child{color:var(--ink);}
+  .article-tag{
+    display:inline-block; font-size:0.76rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em;
+    color:var(--sun-3); background:rgba(194,84,11,0.1); padding:5px 14px; border-radius:100px; margin:22px 0 18px;
   }
-  .cal-day.empty{background:transparent; border-color:transparent;}
-  .cal-day.has-event{border-color:transparent;}
-  .cal-day:not(.empty):hover{transform:translateY(-3px) scale(1.03); box-shadow:0 16px 30px -16px rgba(0,0,0,0.28); z-index:2; position:relative; border-color:var(--sun-2); cursor:default;}
-  .cal-day.today{border-color:var(--sun-2); border-width:2px; box-shadow:0 0 0 4px rgba(242,167,59,0.16);}
-  .cal-daynum{font-size:0.82rem; font-weight:700; color:var(--ink); display:inline-block;}
-  .cal-day.today .cal-daynum{background:var(--sun-2); color:#fff; width:23px; height:23px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.76rem;}
-  .cal-event{
-    margin-top:5px; font-size:0.64rem; padding:3px 6px; border-radius:6px; color:#fff;
-    line-height:1.3; font-weight:700;
-    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;
-    line-clamp:2; overflow:hidden;
+  .article-hero h1{max-width:820px; font-size:2.6rem; line-height:1.12;}
+  .article-meta{display:flex; align-items:center; gap:10px; margin-top:20px; color:var(--mid); font-size:0.9rem; font-family:'JetBrains Mono',monospace;}
+  .article-meta .dot{width:3px; height:3px; border-radius:50%; background:var(--mid);}
+  .article-hero-photo{margin-top:40px; border-radius:var(--radius); overflow:hidden; box-shadow:0 30px 60px -30px rgba(0,0,0,0.3);}
+  .article-hero-photo img{width:100%; height:420px; object-fit:cover; display:block;}
+  .article-body{max-width:720px; margin:0 auto; padding:64px 0;}
+  .article-body p{font-size:1.08rem; line-height:1.8; color:#2b2b2b; margin-bottom:24px;}
+  .article-body p:first-of-type{font-size:1.2rem; color:var(--black); font-weight:500;}
+  .article-share{display:flex; align-items:center; gap:14px; padding-top:28px; margin-top:12px; border-top:1px solid var(--line);}
+  .article-share span{font-size:0.82rem; color:var(--mid); font-weight:600;}
+  .article-back{
+    display:inline-flex; align-items:center; gap:8px; font-size:0.9rem; font-weight:600; color:var(--ink);
+    margin-bottom:28px;
   }
-  .cal-more{margin-top:4px; font-size:0.6rem; font-weight:700; color:var(--mid); padding:0 6px;}
-  .cal-legend{display:flex; flex-wrap:wrap; gap:10px; margin:26px 0 4px;}
-  .cal-legend-item{display:flex; align-items:center; gap:6px; font-size:0.78rem; font-weight:600; padding:6px 12px 6px 10px; border-radius:999px;}
-  .cal-legend-dot{width:8px; height:8px; border-radius:50%; flex-shrink:0;}
-  .upcoming-list{margin-top:8px; display:flex; flex-direction:column;}
-  .upcoming-item{display:flex; align-items:center; gap:20px; padding:16px 4px; border-bottom:1px solid var(--line); border-radius:10px; transition:background .15s ease;}
-  .upcoming-item:hover{background:var(--fog);}
-  .upcoming-item:last-child{border-bottom:none;}
-  .upcoming-date{width:58px; flex-shrink:0; text-align:center;}
-  .upcoming-date .day{font-family:'Fraunces',serif; font-size:1.5rem; font-weight:600; line-height:1; display:block;}
-  .upcoming-date .mon{font-size:0.68rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--mid);}
-  .upcoming-dot{width:9px; height:9px; border-radius:50%; flex-shrink:0;}
-  .upcoming-title{font-weight:600; font-size:0.96rem; color:var(--ink);}
-  .upcoming-cat{font-size:0.8rem; color:var(--mid); margin-top:2px;}
-  @media (max-width:640px){
-    .cal-card{padding:18px 10px;}
-    .cal-grid{gap:4px;}
-    .cal-day{min-height:66px; padding:5px 4px; border-radius:9px;}
-    .cal-daynum{font-size:0.72rem;}
-    .cal-event{font-size:0.52rem; padding:2px 4px; margin-top:3px; border-radius:5px; -webkit-line-clamp:2;}
-    .cal-month-label{font-size:1.25rem; min-width:0;}
-    .cal-legend-item{font-size:0.7rem; padding:5px 10px 5px 8px;}
-  }
+  .article-back svg{width:16px; height:16px;}
+  .related-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  @media (max-width:900px){ .related-grid{grid-template-columns:1fr;} .article-hero h1{font-size:2rem;} .article-hero-photo img{height:260px;} }
+  .article-notfound{max-width:600px; margin:0 auto; text-align:center; padding:100px 24px;}
+  .article-notfound h1{font-size:2rem; margin-bottom:14px;}
+  .article-notfound p{color:var(--mid); margin-bottom:28px;}
 </style>
 </head>
 <body>
@@ -817,375 +782,67 @@
 </div>
 
 
-<section class="page-hero">
-  <div class="page-hero-photo" aria-hidden="true">
-    <img src="https://images.pexels.com/photos/11333728/pexels-photo-11333728.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="">
-  </div>
-  <div class="hero-sun" aria-hidden="true"></div>
-  <div class="hero-ring r2" aria-hidden="true"></div>
-  <div class="hero-ring r3" aria-hidden="true"></div>
-  <svg class="cloud-drift c1" width="220" height="70" viewBox="0 0 220 70" aria-hidden="true" style="top:90px;">
-    <ellipse cx="60" cy="40" rx="60" ry="24" fill="#fff" opacity="0.9"/>
-    <ellipse cx="120" cy="30" rx="50" ry="28" fill="#fff" opacity="0.9"/>
-  </svg>
-  <svg class="cloud-drift c2" width="160" height="50" viewBox="0 0 160 50" aria-hidden="true">
-    <ellipse cx="60" cy="30" rx="55" ry="18" fill="#fff"/>
-  </svg>
-
-  <div class="page-hero-inner">
-    <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><span>News</span></div>
-    <div class="eyebrow">What's happening on campus</div>
-    <h1>The MaP calendar, <em>term by term</em>.</h1>
-    <p class="lede">School news, alumni updates, and every fixture on the calendar — from the first day of Term 1 to the last performance of the year at Maitisong.</p>
-    <div class="hero-cta">
-      <a href="#calendar" class="btn btn-invert">See This Month's Events ↓</a>
-      <a href="#recent-news" class="btn btn-ghost" style="border-color:rgba(255,255,255,0.35); color:#fff;">Read Recent News</a>
-    </div>
-  </div>
-
-  <div class="horizon" aria-hidden="true">
-    <svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path d="M0 90V40C240 10 480 0 720 12C960 24 1200 60 1440 40V90H0Z" fill="#FFFFFF"/></svg>
-  </div>
-</section>
-
-<section class="news section-pad" id="recent-news">
+<section class="article-hero">
   <div class="wrap">
-    <div class="section-head">
-      <div>
-        <div class="eyebrow reveal">Latest from MaP</div>
-        <h2 class="reveal d1">News &amp; announcements</h2>
-      </div>
-      <a href="#calendar" class="nav-link-text reveal d1">See the full calendar →</a>
+    <a href="news.html" class="article-back">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back to News
+    </a>
+    <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><a href="news.html">News</a><span>/</span><span id="breadcrumbTitle">Article</span></div>
+    <div class="article-tag" id="articleTag">News</div>
+    <h1 id="articleTitle">Loading article…</h1>
+    <div class="article-meta">
+      <span id="articleDate"></span>
+      <span class="dot" aria-hidden="true"></span>
+      <span id="articleReadTime"></span>
     </div>
-    <div class="news-grid">
-      <a href="article.html?id=maitisong-festival" class="news-card featured">
-        <div class="news-thumb"><img src="https://www.maruapula.org/wp-content/uploads/2022/02/MaP-Photos-In-Class-10327.jpg" alt="Maitisong Festival at Maru-a-Pula School"></div>
-        <div class="news-card-body">
-          <div class="news-tag">Arts</div>
-          <h4>The Maitisong Festival returns to campus this April</h4>
-          <p>Botswana's largest annual arts festival brings two weeks of music, drama, and visual art to campus, with thousands of visitors expected once again.</p>
-        </div>
-      </a>
-      <div class="news-side">
-        <a href="article.html?id=reunion-2009" class="news-card side">
-          <div class="news-thumb"><img src="https://www.maruapula.org/wp-content/uploads/2022/02/Maru-a-pula-2019-11694.jpg" alt="Alumni reunion at Maru-a-Pula School"></div>
-          <div class="news-card-body">
-            <div class="news-tag">Alumni</div>
-            <h4>Class of 2009 marks its reunion weekend</h4>
-            <p>Former classmates returned to campus for dinner, dancing, and speeches from the staff who taught them.</p>
-          </div>
-        </a>
-        <a href="article.html?id=ovc-mentorship-signups" class="news-card side">
-          <div class="news-thumb"><img src="https://www.maruapula.org/wp-content/uploads/2021/12/Maru-a-pula-2019-11085.jpg" alt="OVC Mentorship Programme at Maru-a-Pula School"></div>
-          <div class="news-card-body">
-            <div class="news-tag">Community</div>
-            <h4>OVC Mentorship Programme opens for new sign-ups</h4>
-            <p>Alumni are invited to serve as mentors for this year's incoming OVC Scholars.</p>
-          </div>
-        </a>
-      </div>
-    </div>
-
-    <div class="news-loop-wrap">
-      <div class="news-loop-track" id="newsLoopTrack">
-        <a href="article.html?id=naseem-lahri-md" class="news-card mini">
-          <div class="news-thumb"><img src="https://images.pexels.com/photos/7710082/pexels-photo-7710082.jpeg?auto=compress&cs=tinysrgb&w=800" alt=""></div>
-          <div class="news-card-body">
-            <div class="news-tag">Alumni</div>
-            <h4>Naseem Lahri &rsquo;93 named Managing Director of Lucara Botswana</h4>
-            <p>The first Motswana woman to lead a diamond mining company, profiled recently in The New Yorker.</p>
-          </div>
-        </a>
-        <a href="article.html?id=new-subject-pages" class="news-card mini">
-          <div class="news-thumb"><img src="https://images.pexels.com/photos/8618016/pexels-photo-8618016.jpeg?auto=compress&cs=tinysrgb&w=800" alt=""></div>
-          <div class="news-card-body">
-            <div class="news-tag">Academics</div>
-            <h4>New subject pages launched for Lower &amp; Upper School</h4>
-            <p>A closer look at what's taught in every department, from Sciences to Life Skills.</p>
-          </div>
-        </a>
-        <a href="article.html?id=marimba-tour-dates" class="news-card mini">
-          <div class="news-thumb"><img src="https://www.maruapula.org/wp-content/uploads/2024/03/IMG_6242-375x375.jpg" alt="MaP Marimba Band at Maru-a-Pula School"></div>
-          <div class="news-card-body">
-            <div class="news-tag">Arts</div>
-            <h4>MaP Marimba Band confirms new international tour dates</h4>
-            <p>The world-renowned ensemble adds new stops on its next trip abroad.</p>
-          </div>
-        </a>
-        <a href="article.html?id=naseem-lahri-md" class="news-card mini" aria-hidden="true" tabindex="-1">
-          <div class="news-thumb"><img src="https://images.pexels.com/photos/7710082/pexels-photo-7710082.jpeg?auto=compress&cs=tinysrgb&w=800" alt=""></div>
-          <div class="news-card-body">
-            <div class="news-tag">Alumni</div>
-            <h4>Naseem Lahri &rsquo;93 named Managing Director of Lucara Botswana</h4>
-            <p>The first Motswana woman to lead a diamond mining company, profiled recently in The New Yorker.</p>
-          </div>
-        </a>
-        <a href="article.html?id=new-subject-pages" class="news-card mini" aria-hidden="true" tabindex="-1">
-          <div class="news-thumb"><img src="https://images.pexels.com/photos/8618016/pexels-photo-8618016.jpeg?auto=compress&cs=tinysrgb&w=800" alt=""></div>
-          <div class="news-card-body">
-            <div class="news-tag">Academics</div>
-            <h4>New subject pages launched for Lower &amp; Upper School</h4>
-            <p>A closer look at what's taught in every department, from Sciences to Life Skills.</p>
-          </div>
-        </a>
-        <a href="article.html?id=marimba-tour-dates" class="news-card mini" aria-hidden="true" tabindex="-1">
-          <div class="news-thumb"><img src="https://www.maruapula.org/wp-content/uploads/2024/03/IMG_6242-375x375.jpg" alt="MaP Marimba Band at Maru-a-Pula School"></div>
-          <div class="news-card-body">
-            <div class="news-tag">Arts</div>
-            <h4>MaP Marimba Band confirms new international tour dates</h4>
-            <p>The world-renowned ensemble adds new stops on its next trip abroad.</p>
-          </div>
-        </a>
-      </div>
-    </div>
-
-    <div class="draft-note reveal-fade d3" style="margin-top:32px;">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
-      This feed should be replaced with genuinely current MaP news, and refreshed regularly, before publishing.
+  </div>
+  <div class="wrap">
+    <div class="article-hero-photo">
+      <img id="articleImage" src="" alt="">
     </div>
   </div>
 </section>
 
-<section class="pillars section-pad" id="calendar" style="background:var(--fog);">
-  <div class="wrap">
-    <div class="section-head">
-      <div>
-        <div class="eyebrow reveal">Term by term</div>
-        <h2 class="reveal d1">This month at MaP</h2>
-      </div>
-      <p class="reveal-fade d2">Browse the 2026 academic year, month by month.</p>
-    </div>
-
-    <div class="cal-card reveal-fade d2">
-      <div class="cal-nav">
-        <button class="cal-nav-btn" id="calPrev" aria-label="Previous month" type="button">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <div class="cal-month-label" id="calMonthLabel"></div>
-        <button class="cal-nav-btn" id="calNext" aria-label="Next month" type="button">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-      </div>
-      <div class="cal-grid" id="calWeekdays"></div>
-      <div class="cal-grid" id="calDays" style="margin-top:6px;"></div>
-      <div class="cal-legend">
-        <div class="cal-legend-item" style="background:rgba(51,65,92,0.1); color:#33415c;"><span class="cal-legend-dot" style="background:#33415c;"></span>Academic</div>
-        <div class="cal-legend-item" style="background:rgba(194,84,11,0.1); color:#C2540B;"><span class="cal-legend-dot" style="background:#C2540B;"></span>Arts &amp; Maitisong</div>
-        <div class="cal-legend-item" style="background:rgba(47,125,91,0.1); color:#2F7D5B;"><span class="cal-legend-dot" style="background:#2F7D5B;"></span>Sport</div>
-        <div class="cal-legend-item" style="background:rgba(139,94,52,0.1); color:#8B5E34;"><span class="cal-legend-dot" style="background:#8B5E34;"></span>Community &amp; Service</div>
-        <div class="cal-legend-item" style="background:rgba(43,93,139,0.1); color:#2B5D8B;"><span class="cal-legend-dot" style="background:#2B5D8B;"></span>Admissions</div>
-        <div class="cal-legend-item" style="background:rgba(107,79,160,0.1); color:#6B4FA0;"><span class="cal-legend-dot" style="background:#6B4FA0;"></span>Alumni</div>
-      </div>
-    </div>
-
-    <div style="margin-top:40px;">
-      <h3 class="reveal d1" style="font-size:1.3rem; margin-bottom:6px;">Upcoming events</h3>
-      <div class="cal-card upcoming-list" id="upcomingList"></div>
-    </div>
-
-    <div class="draft-note reveal-fade d3" style="margin-top:28px;">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
-      This calendar shows illustrative events for the 2026 academic year. Exact dates should be confirmed with the school's Events Office before publishing — term dates especially tend to shift slightly year to year.
-    </div>
+<div class="wrap">
+  <div class="article-body" id="articleBody">
+    <!-- paragraphs injected here -->
   </div>
-</section>
+</div>
 
-<section class="pillars section-pad" id="explore-more">
+<div id="articleNotFound" style="display:none;">
+  <div class="article-notfound">
+    <h1>Article not found</h1>
+    <p>This story doesn't exist, or the link may be out of date.</p>
+    <a href="news.html" class="btn btn-invert">Back to News</a>
+  </div>
+</div>
+
+<section class="pillars section-pad" id="related-articles" style="background:var(--fog);">
   <div class="wrap">
     <div class="section-head">
       <div>
-        <div class="eyebrow reveal">Looking for something specific</div>
-        <h2 class="reveal d1">Browse by category</h2>
+        <div class="eyebrow reveal">Keep reading</div>
+        <h2 class="reveal d1">More from MaP</h2>
       </div>
     </div>
-    <div class="pillar-grid">
-      <a href="maitisong-arts.html" class="pillar-card" style="display:block;">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 19V6l10-2v13" stroke="currentColor" stroke-width="1.6"/><circle cx="7" cy="19" r="2" stroke="currentColor" stroke-width="1.6"/><circle cx="17" cy="17" r="2" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Maitisong &amp; the Arts →</h4>
-        <p>Festival dates, concerts, and performances at Maitisong Theatre.</p>
-      </a>
-      <a href="community-service.html" class="pillar-card" style="display:block;">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-5-7-11a7 7 0 0114 0c0 6-7 11-7 11z" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Community &amp; Service →</h4>
-        <p>Weekly service placements and community partner news.</p>
-      </a>
-      <a href="alumni.html" class="pillar-card" style="display:block;">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="1.6"/><circle cx="10" cy="7" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M22 21v-2a4 4 0 00-3-3.87" stroke="currentColor" stroke-width="1.6"/><path d="M16 3.13a4 4 0 010 7.75" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Alumni →</h4>
-        <p>Reunions, alumni stories, and what former students are up to now.</p>
-      </a>
-      <a href="admissions.html" class="pillar-card" style="display:block;">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V9l-5-6z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 3v6h5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
-        <h4>Admissions →</h4>
-        <p>Open Days, application deadlines, and how to apply.</p>
-      </a>
-    </div>
+    <div class="related-grid" id="relatedGrid"></div>
   </div>
 </section>
 
 <section class="cta-banner">
   <div class="cta-photo" aria-hidden="true">
-    <img src="https://images.pexels.com/photos/760720/pexels-photo-760720.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="">
+    <img src="https://www.maruapula.org/wp-content/uploads/2022/02/Maru-a-pula-2019-11694.jpg" alt="">
   </div>
   <div class="wrap cta-inner">
     <div class="eyebrow reveal-left">Never miss what's next</div>
-    <h2 class="reveal-left d1">Get the calendar sent straight to your inbox.</h2>
-    <p class="reveal-left d2">Subscribe for a monthly digest of MaP news and upcoming events.</p>
-    <form class="cta-buttons reveal-left d3" onsubmit="return false;" style="gap:10px;">
-      <input type="email" placeholder="you@example.com" style="border-radius:999px; border:1.5px solid rgba(255,255,255,0.4); background:rgba(255,255,255,0.08); color:#fff; padding:14px 20px; min-width:260px; font-family:'Inter',sans-serif;">
-      <button type="submit" class="btn btn-invert">Subscribe →</button>
-    </form>
+    <h2 class="reveal-left d1">See every story, and the full calendar.</h2>
+    <p class="reveal-left d2">All of MaP's news, and every event coming up this term, in one place.</p>
+    <div class="cta-buttons reveal-left d3">
+      <a href="news.html" class="btn btn-invert">Back to News →</a>
+    </div>
   </div>
 </section>
-
-<script>
-  (function(){
-    var events = [
-      {date:'2026-01-19', title:'Staff Meetings Begin', category:'academic'},
-      {date:'2026-01-20', title:'Professional Development Day', category:'academic'},
-      {date:'2026-01-21', title:'Form 1 &amp; Form 6 Orientation', category:'academic'},
-      {date:'2026-01-22', title:'Classes Begin — Term 1', category:'academic'},
-      {date:'2026-02-13', title:'MaP Open Day', category:'admissions'},
-      {date:'2026-03-13', title:'Term 1 Inter-House Sports Day', category:'sport'},
-      {date:'2026-04-06', title:'Maitisong Festival Begins', category:'arts'},
-      {date:'2026-04-17', title:'Maitisong Festival Closing Weekend', category:'arts'},
-      {date:'2026-05-04', title:'Cambridge May/June Exam Series Begins', category:'academic'},
-      {date:'2026-06-05', title:'Term 2 Ends', category:'academic'},
-      {date:'2026-07-20', title:'Term 3 Begins', category:'academic'},
-      {date:'2026-08-15', title:'OVC Mentorship Programme Sign-Ups Open', category:'community'},
-      {date:'2026-09-11', title:'Class Reunion Weekend', category:'alumni'},
-      {date:'2026-10-05', title:'Cambridge Oct/Nov Exam Series Begins', category:'academic'},
-      {date:'2026-11-07', title:'The President\'s Concert at Maitisong', category:'arts'},
-      {date:'2026-11-20', title:'Speech Day &amp; Prize-Giving', category:'academic'},
-      {date:'2026-12-04', title:'Term 3 Ends — End of Academic Year', category:'academic'}
-    ];
-    var colors = {
-      academic:'#33415c', arts:'#C2540B', sport:'#2F7D5B',
-      community:'#8B5E34', admissions:'#2B5D8B', alumni:'#6B4FA0'
-    };
-    var catLabels = {
-      academic:'Academic', arts:'Arts &amp; Maitisong', sport:'Sport',
-      community:'Community &amp; Service', admissions:'Admissions', alumni:'Alumni'
-    };
-    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-    var weekdays = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-
-    var today = new Date(2026, 7, 17); // site "today" reference: 17 Aug 2026
-    var viewYear = today.getFullYear();
-    var viewMonth = today.getMonth();
-
-    var monthLabel = document.getElementById('calMonthLabel');
-    var weekdaysEl = document.getElementById('calWeekdays');
-    var daysEl = document.getElementById('calDays');
-    var upcomingEl = document.getElementById('upcomingList');
-    if(!monthLabel || !daysEl) return;
-
-    weekdays.forEach(function(w){
-      var d = document.createElement('div');
-      d.className = 'cal-weekday';
-      d.textContent = w;
-      weekdaysEl.appendChild(d);
-    });
-
-    function eventsOn(y, m, day){
-      var key = y + '-' + String(m+1).padStart(2,'0') + '-' + String(day).padStart(2,'0');
-      return events.filter(function(e){ return e.date === key; });
-    }
-
-    function renderMonth(y, m){
-      var grid = daysEl;
-      grid.classList.add('swap');
-      monthLabel.classList.add('swap');
-      setTimeout(function(){
-        monthLabel.textContent = months[m] + ' ' + y;
-        grid.innerHTML = '';
-        var firstDay = new Date(y, m, 1).getDay(); // 0=Sun
-        var offset = (firstDay + 6) % 7; // convert to Mon-first
-        var daysInMonth = new Date(y, m+1, 0).getDate();
-
-        for(var i=0; i<offset; i++){
-          var empty = document.createElement('div');
-          empty.className = 'cal-day empty';
-          grid.appendChild(empty);
-        }
-        for(var day=1; day<=daysInMonth; day++){
-          var cell = document.createElement('div');
-          var dayEvents = eventsOn(y, m, day);
-          var isToday = (y === today.getFullYear() && m === today.getMonth() && day === today.getDate());
-          cell.className = 'cal-day' + (dayEvents.length ? ' has-event' : '') + (isToday ? ' today' : '');
-          if(dayEvents.length){
-            var tint = colors[dayEvents[0].category] || '#333333';
-            cell.style.background = hexToRgba(tint, 0.08);
-          }
-          var num = document.createElement('span');
-          num.className = 'cal-daynum';
-          num.textContent = day;
-          cell.appendChild(num);
-          var shown = dayEvents.slice(0, 2);
-          shown.forEach(function(ev){
-            var tag = document.createElement('div');
-            tag.className = 'cal-event';
-            tag.style.background = colors[ev.category] || '#333';
-            tag.innerHTML = ev.title;
-            tag.title = ev.title;
-            cell.appendChild(tag);
-          });
-          if(dayEvents.length > 2){
-            var more = document.createElement('div');
-            more.className = 'cal-more';
-            more.textContent = '+' + (dayEvents.length - 2) + ' more';
-            cell.appendChild(more);
-          }
-          grid.appendChild(cell);
-        }
-        grid.classList.remove('swap');
-        monthLabel.classList.remove('swap');
-      }, 120);
-    }
-
-    function hexToRgba(hex, alpha){
-      hex = hex.replace('#','');
-      var r = parseInt(hex.substring(0,2),16);
-      var g = parseInt(hex.substring(2,4),16);
-      var b = parseInt(hex.substring(4,6),16);
-      return 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
-    }
-
-    function renderUpcoming(){
-      var sorted = events.slice().sort(function(a,b){ return a.date.localeCompare(b.date); });
-      var todayKey = today.getFullYear() + '-' + String(today.getMonth()+1).padStart(2,'0') + '-' + String(today.getDate()).padStart(2,'0');
-      var upcoming = sorted.filter(function(e){ return e.date >= todayKey; }).slice(0, 6);
-      if(!upcoming.length){ upcoming = sorted.slice(0, 6); }
-      upcomingEl.innerHTML = '';
-      upcoming.forEach(function(ev){
-        var parts = ev.date.split('-');
-        var mIdx = parseInt(parts[1], 10) - 1;
-        var item = document.createElement('div');
-        item.className = 'upcoming-item';
-        item.innerHTML =
-          '<div class="upcoming-date"><span class="day">' + parts[2] + '</span><span class="mon">' + months[mIdx].slice(0,3) + '</span></div>' +
-          '<span class="upcoming-dot" style="background:' + (colors[ev.category] || '#333') + ';"></span>' +
-          '<div><div class="upcoming-title">' + ev.title + '</div><div class="upcoming-cat">' + catLabels[ev.category] + '</div></div>';
-        upcomingEl.appendChild(item);
-      });
-    }
-
-    document.getElementById('calPrev').addEventListener('click', function(){
-      viewMonth -= 1;
-      if(viewMonth < 0){ viewMonth = 11; viewYear -= 1; }
-      renderMonth(viewYear, viewMonth);
-    });
-    document.getElementById('calNext').addEventListener('click', function(){
-      viewMonth += 1;
-      if(viewMonth > 11){ viewMonth = 0; viewYear += 1; }
-      renderMonth(viewYear, viewMonth);
-    });
-
-    renderMonth(viewYear, viewMonth);
-    renderUpcoming();
-  })();
-</script>
-
 
 <footer>
   <div class="wrap">
@@ -1327,6 +984,151 @@
     document.addEventListener('keydown', function(e){
       if(e.key === 'Escape') closeSubnav();
     });
+  })();
+</script>
+<script>
+  (function(){
+    var articles = {
+      "maitisong-festival": {
+        tag: "Arts",
+        title: "The Maitisong Festival returns to campus this April",
+        date: "15 August 2026",
+        readTime: "2 min read",
+        image: "https://www.maruapula.org/wp-content/uploads/2022/02/MaP-Photos-In-Class-10327.jpg",
+        imageAlt: "Maitisong Festival at Maru-a-Pula School",
+        body: [
+          "Every April, MaP's campus becomes the centre of Botswana's arts calendar as the Maitisong Festival returns for another two-week run — drama, music, and visual art performed by students, professional touring acts, and everyone in between, all sharing the same stage at Maitisong Theatre.",
+          "The festival isn't just a school event. It's grown into the country's largest annual celebration of the arts, drawing thousands of visitors onto campus who might otherwise never set foot at MaP — a tradition that's been part of the school's identity for decades.",
+          "Current students are directly involved in producing this year's programme, from stage management to performing themselves, working alongside the Music, Drama, and Visual Art departments in the run-up to opening night.",
+          "Full festival dates, ticketing, and this year's programme will be announced closer to April. In the meantime, there's more on the theatre itself and what else it hosts throughout the year."
+        ],
+        cta: { text: "Read more about Maitisong & the Arts →", href: "maitisong-arts.html" }
+      },
+      "reunion-2009": {
+        tag: "Alumni",
+        title: "Class of 2009 marks its reunion weekend",
+        date: "12 August 2026",
+        readTime: "1 min read",
+        image: "https://www.maruapula.org/wp-content/uploads/2022/02/Maru-a-pula-2019-11694.jpg",
+        imageAlt: "Alumni reunion at Maru-a-Pula School",
+        body: [
+          "Sixteen years on from graduation, members of MaP's Class of 2009 returned to campus for a weekend reunion — walking familiar corridors, catching up with old housemates, and finding out how different, and how unchanged, the school looks since they left.",
+          "The weekend included a formal dinner, speeches from staff who taught the class back in Form 1, and plenty of unstructured time for classmates to reconnect on their own terms. For many, it was the first time back on campus since graduation.",
+          "Reunions like this one are part of a wider effort by the alumni office to keep year groups connected long after they've scattered across the world, organised through class agents who help coordinate get-togethers for their own graduating year.",
+          "If your class is coming up on a milestone anniversary, the alumni office can help put a reunion weekend together."
+        ],
+        cta: { text: "Learn more about Alumni →", href: "alumni.html" }
+      },
+      "ovc-mentorship-signups": {
+        tag: "Community",
+        title: "OVC Mentorship Programme opens for new sign-ups",
+        date: "10 August 2026",
+        readTime: "1 min read",
+        image: "https://www.maruapula.org/wp-content/uploads/2021/12/Maru-a-pula-2019-11085.jpg",
+        imageAlt: "OVC Mentorship Programme at Maru-a-Pula School",
+        body: [
+          "Starting at a new school is hard for any student, but it can be especially difficult for those who feel vulnerable because of their personal or family circumstances. MaP's OVC Mentorship Programme exists to make that transition easier, pairing incoming OVC Scholars — students on full scholarships as orphans or vulnerable children — with alumni mentors who've been through MaP themselves.",
+          "Sign-ups for this year's incoming cohort are now open to alumni interested in mentoring. The commitment is informal but consistent: regular check-ins, a friendly face on campus, and help setting and working toward personal goals over the course of the year.",
+          "It's one of several ways MaP's service ethos continues past graduation — alumni giving back the same kind of support that helped shape their own time at the school."
+        ],
+        cta: { text: "Sign up or learn more →", href: "alumni.html#ovc-mentorship" }
+      },
+      "naseem-lahri-md": {
+        tag: "Alumni",
+        title: "Naseem Lahri \u201993 named Managing Director of Lucara Botswana",
+        date: "8 August 2026",
+        readTime: "1 min read",
+        image: "https://images.pexels.com/photos/7710082/pexels-photo-7710082.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        imageAlt: "",
+        body: [
+          "Naseem Lahri, MaP Class of '93, has been named Managing Director of Lucara Botswana, becoming the first Motswana woman to lead a diamond mining company in the country's history.",
+          "Her appointment was recently profiled in The New Yorker, which covered her path from MaP through a career that's taken her to the top of one of Botswana's most significant industries.",
+          "Lahri is one of a growing number of MaP alumni making their mark well beyond Gaborone, a reminder current students are often given that the habits built in Form 1 classrooms and on weekly service placements tend to travel a lot further than campus."
+        ],
+        cta: { text: "Read more Alumni Stories →", href: "alumni.html#stories" }
+      },
+      "new-subject-pages": {
+        tag: "Academics",
+        title: "New subject pages launched for Lower & Upper School",
+        date: "5 August 2026",
+        readTime: "1 min read",
+        image: "https://images.pexels.com/photos/8618016/pexels-photo-8618016.jpeg?auto=compress&cs=tinysrgb&w=1200",
+        imageAlt: "",
+        body: [
+          "MaP's Academics section just got a lot more detailed. Seven new subject pages are now live, covering exactly what's taught in each department, Sciences, Mathematics, Humanities, Languages, Arts, Life Skills, and Computer Science, from Form 1 all the way through to A-Level.",
+          "Each page breaks down what a student actually studies at each stage, rather than just listing subject names, giving prospective and current families a much clearer picture of the Cambridge curriculum in practice.",
+          "The pages sit alongside the existing Lower School and Upper School overviews, rounding out a much fuller picture of what an MaP education looks like from Form 1 to Upper Six."
+        ],
+        cta: { text: "Explore Academics →", href: "academics.html" }
+      },
+      "marimba-tour-dates": {
+        tag: "Arts",
+        title: "MaP Marimba Band confirms new international tour dates",
+        date: "3 August 2026",
+        readTime: "1 min read",
+        image: "https://www.maruapula.org/wp-content/uploads/2024/03/IMG_6242-375x375.jpg",
+        imageAlt: "MaP Marimba Band at Maru-a-Pula School",
+        body: [
+          "MaP's marimba band, already well known outside Botswana's borders, has confirmed new stops on its next international tour, adding to a touring history that already spans the USA, Canada, Portugal, and Brazil.",
+          "The band is one of Maitisong's clearest showcases of what MaP's arts programme can produce: a school ensemble performing at a level most secondary schools never get close to, built on the same music curriculum every MaP student has access to.",
+          "Exact tour dates and destinations will be confirmed closer to departure. Students interested in joining the marimba band, or in MaP's wider music programme, can find out more about Maitisong and the Arts."
+        ],
+        cta: { text: "Read more about Maitisong & the Arts →", href: "maitisong-arts.html" }
+      }
+    };
+
+    function escapeHtml(s){
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    var params = new URLSearchParams(window.location.search);
+    var id = params.get('id');
+    var article = id ? articles[id] : null;
+
+    var heroSection = document.querySelector('.article-hero');
+    var bodyWrap = document.getElementById('articleBody').parentElement;
+    var relatedSection = document.getElementById('related-articles');
+    var notFound = document.getElementById('articleNotFound');
+
+    if(article){
+      document.title = article.title + ' — Maru-a-Pula School';
+      document.getElementById('breadcrumbTitle').textContent = article.title;
+      document.getElementById('articleTag').textContent = article.tag;
+      document.getElementById('articleTitle').textContent = article.title;
+      document.getElementById('articleDate').textContent = article.date;
+      document.getElementById('articleReadTime').textContent = article.readTime;
+      var img = document.getElementById('articleImage');
+      img.src = article.image;
+      img.alt = article.imageAlt || '';
+
+      var bodyEl = document.getElementById('articleBody');
+      var html = '';
+      article.body.forEach(function(p){ html += '<p>' + escapeHtml(p) + '</p>'; });
+      html += '<div class="article-share"><span>Filed under ' + escapeHtml(article.tag) + '</span></div>';
+      if(article.cta){
+        html += '<a href="' + article.cta.href + '" class="btn btn-ghost" style="margin-top:8px;">' + escapeHtml(article.cta.text) + '</a>';
+      }
+      bodyEl.innerHTML = html;
+
+      var relatedGrid = document.getElementById('relatedGrid');
+      var others = Object.keys(articles).filter(function(k){ return k !== id; }).slice(0, 3);
+      others.forEach(function(k){
+        var a = articles[k];
+        var card = document.createElement('a');
+        card.href = 'article.html?id=' + k;
+        card.className = 'news-card mini';
+        card.innerHTML =
+          '<div class="news-thumb"><img src="' + a.image + '" alt="' + escapeHtml(a.imageAlt || '') + '"></div>' +
+          '<div class="news-card-body"><div class="news-tag">' + escapeHtml(a.tag) + '</div><h4>' + escapeHtml(a.title) + '</h4></div>';
+        relatedGrid.appendChild(card);
+      });
+    } else {
+      if(heroSection) heroSection.style.display = 'none';
+      if(bodyWrap) bodyWrap.style.display = 'none';
+      if(relatedSection) relatedSection.style.display = 'none';
+      if(notFound) notFound.style.display = 'block';
+      document.title = 'Article Not Found — Maru-a-Pula School';
+    }
   })();
 </script>
 </body>
