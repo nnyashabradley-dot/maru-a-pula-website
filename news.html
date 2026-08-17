@@ -689,7 +689,7 @@
   }
   .cal-day.empty{background:transparent; border-color:transparent;}
   .cal-day.has-event{border-color:transparent;}
-  .cal-day.has-event:hover{transform:translateY(-2px); box-shadow:0 14px 26px -16px rgba(0,0,0,0.3); z-index:2; position:relative;}
+  .cal-day:not(.empty):hover{transform:translateY(-3px) scale(1.03); box-shadow:0 16px 30px -16px rgba(0,0,0,0.28); z-index:2; position:relative; border-color:var(--sun-2); cursor:default;}
   .cal-day.today{border-color:var(--sun-2); border-width:2px; box-shadow:0 0 0 4px rgba(242,167,59,0.16);}
   .cal-daynum{font-size:0.82rem; font-weight:700; color:var(--ink); display:inline-block;}
   .cal-day.today .cal-daynum{background:var(--sun-2); color:#fff; width:23px; height:23px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.76rem;}
@@ -762,13 +762,13 @@
               </form>
             </div>
           </div>
-          <a href="#" class="icon-btn" aria-label="Shop">
+          <a href="shop.html" class="icon-btn" aria-label="Shop">
             <svg viewBox="0 0 24 24" fill="none"><path d="M6 8h12l-1 12H7L6 8z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 8V6a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.8"/></svg>
           </a>
         </div>
       </div>
       <div class="nav-cta-group">
-        <a href="#" class="icon-btn" aria-label="Shop">
+        <a href="shop.html" class="icon-btn" aria-label="Shop">
           <svg viewBox="0 0 24 24" fill="none"><path d="M6 8h12l-1 12H7L6 8z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 8V6a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.8"/></svg>
         </a>
         <div class="dropdown" id="applyDropdown">

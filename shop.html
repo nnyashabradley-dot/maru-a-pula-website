@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Alumni — Maru-a-Pula School</title>
+<title>Shop — Maru-a-Pula School</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
@@ -126,6 +126,7 @@
     width:36px; height:36px; border-radius:50%; border:none;
     background:transparent; display:flex; align-items:center; justify-content:center;
     cursor:pointer; color:var(--ink); flex-shrink:0; transition: all .2s ease;
+    position:relative;
   }
   .icon-btn:hover{background:#fff; color:var(--black); box-shadow:0 2px 6px rgba(0,0,0,0.1);}
   .icon-btn svg{width:16px; height:16px;}
@@ -666,19 +667,77 @@
   /* ===== NAV ACTIVE STATE ===== */
   nav ul a.active, .subnav a.active{color:var(--sun-3);}
   nav ul a.active{background:rgba(0,0,0,0.055);}
-  /* ===== SIMPLE FORM (Update Form section) ===== */
-  .simple-form{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
-  .simple-form .field{display:flex; flex-direction:column; gap:8px;}
-  .simple-form .field.full{grid-column:1 / -1;}
-  .simple-form label{font-size:0.84rem; font-weight:600; color:var(--ink);}
-  .simple-form input, .simple-form textarea, .simple-form select{
-    border:1.5px solid var(--line); border-radius:10px; padding:12px 14px;
-    font-family:'Inter',sans-serif; font-size:0.95rem; color:var(--ink);
-    background:#fff; outline:none; transition:border-color .2s ease;
+  /* ===== SHOP: CART BADGE ===== */
+  .cart-badge{
+    position:absolute; top:-2px; right:-2px; min-width:17px; height:17px; padding:0 4px;
+    border-radius:999px; background:var(--sun-3); color:#fff; font-family:'Inter',sans-serif;
+    font-size:0.62rem; font-weight:700; display:flex; align-items:center; justify-content:center;
+    line-height:1; box-shadow:0 0 0 2px #fff;
   }
-  .simple-form input:focus, .simple-form textarea:focus, .simple-form select:focus{border-color:var(--black);}
-  .simple-form textarea{resize:vertical; min-height:110px;}
-  @media (max-width:640px){ .simple-form{grid-template-columns:1fr;} }
+  /* ===== SHOP: PRODUCT GRID ===== */
+  .product-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:26px;}
+  .product-card{
+    background:#fff; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .product-card:hover{transform:translateY(-4px); box-shadow:0 22px 40px -24px rgba(0,0,0,0.3);}
+  .product-photo{height:180px; overflow:hidden;}
+  .product-photo img{width:100%; height:100%; object-fit:cover;}
+  .product-tile{height:180px; display:flex; align-items:center; justify-content:center;}
+  .product-tile svg{width:56px; height:56px;}
+  .product-body{padding:18px 20px 22px;}
+  .product-body h4{font-size:1rem; font-weight:600; margin-bottom:4px; color:var(--black);}
+  .product-price{font-family:'JetBrains Mono',monospace; font-size:0.92rem; color:var(--mid); margin-bottom:14px;}
+  .add-to-cart-btn{
+    width:100%; border:1.5px solid var(--ink); background:transparent; color:var(--ink);
+    border-radius:999px; padding:10px 16px; font-family:'Inter',sans-serif; font-size:0.86rem; font-weight:600;
+    cursor:pointer; transition:background .18s ease, color .18s ease;
+  }
+  .add-to-cart-btn:hover{background:var(--ink); color:#fff;}
+  .add-to-cart-btn.added{background:#2F7D5B; border-color:#2F7D5B; color:#fff;}
+  @media (max-width:920px){ .product-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:520px){ .product-grid{grid-template-columns:1fr;} }
+
+  /* ===== SHOP: CART DRAWER ===== */
+  .cart-overlay{
+    position:fixed; inset:0; background:rgba(11,11,12,0.45); z-index:200;
+    opacity:0; pointer-events:none; transition:opacity .25s ease;
+  }
+  .cart-overlay.open{opacity:1; pointer-events:auto;}
+  .cart-drawer{
+    position:fixed; top:0; right:0; height:100%; width:420px; max-width:92vw;
+    background:#fff; z-index:201; box-shadow:-20px 0 50px -20px rgba(0,0,0,0.35);
+    display:flex; flex-direction:column; transform:translateX(100%);
+    transition:transform .3s cubic-bezier(.22,1,.36,1);
+  }
+  .cart-drawer.open{transform:translateX(0);}
+  .cart-drawer-header{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:24px 24px 18px; border-bottom:1px solid var(--line);
+  }
+  .cart-drawer-header h3{font-family:'Fraunces',serif; font-size:1.3rem;}
+  .cart-drawer-close{width:34px; height:34px; border-radius:50%; border:1.5px solid var(--line); background:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:border-color .2s ease, background .2s ease;}
+  .cart-drawer-close:hover{border-color:var(--ink); background:var(--fog);}
+  .cart-items{flex:1; overflow-y:auto; padding:8px 24px;}
+  .cart-empty{padding:60px 10px; text-align:center; color:var(--mid);}
+  .cart-empty svg{width:44px; height:44px; margin:0 auto 16px; opacity:0.35;}
+  .cart-line{display:flex; gap:14px; padding:18px 0; border-bottom:1px solid var(--line);}
+  .cart-line-thumb{width:64px; height:64px; border-radius:10px; overflow:hidden; flex-shrink:0; background:var(--fog); display:flex; align-items:center; justify-content:center;}
+  .cart-line-thumb img{width:100%; height:100%; object-fit:cover;}
+  .cart-line-thumb svg{width:28px; height:28px;}
+  .cart-line-body{flex:1; min-width:0;}
+  .cart-line-body h5{font-size:0.92rem; font-weight:600; margin-bottom:2px;}
+  .cart-line-price{font-family:'JetBrains Mono',monospace; font-size:0.82rem; color:var(--mid); margin-bottom:8px;}
+  .cart-qty{display:flex; align-items:center; gap:10px;}
+  .cart-qty button{width:24px; height:24px; border-radius:50%; border:1.5px solid var(--line); background:#fff; cursor:pointer; font-size:0.9rem; line-height:1; display:flex; align-items:center; justify-content:center;}
+  .cart-qty button:hover{border-color:var(--ink);}
+  .cart-qty span{font-size:0.86rem; font-weight:600; min-width:16px; text-align:center;}
+  .cart-remove{background:none; border:none; color:var(--mid); font-size:0.76rem; text-decoration:underline; cursor:pointer; margin-top:8px; padding:0;}
+  .cart-remove:hover{color:var(--sun-3);}
+  .cart-drawer-footer{padding:20px 24px 26px; border-top:1px solid var(--line);}
+  .cart-subtotal{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:16px;}
+  .cart-subtotal span:first-child{font-size:0.9rem; color:var(--mid);}
+  .cart-subtotal span:last-child{font-family:'Fraunces',serif; font-size:1.4rem; font-weight:600;}
 </style>
 </head>
 <body>
@@ -694,7 +753,7 @@
           <li><a href="about.html">About</a></li>
           <li><a href="academics.html">Academics</a></li>
           <li><a href="community-arts.html">Community &amp; Arts</a></li>
-          <li><a href="alumni.html" class="active" aria-current="page">Alumni</a></li>
+          <li><a href="alumni.html">Alumni</a></li>
           <li><a href="news.html">News</a></li>
           <li><a href="contact.html">Contact</a></li>
           <li><a href="#">Donate</a></li>
@@ -719,14 +778,16 @@
               </form>
             </div>
           </div>
-          <a href="shop.html" class="icon-btn" aria-label="Shop">
+          <a href="shop.html" class="icon-btn cart-trigger" id="cartTriggerMobile" aria-label="Shop">
             <svg viewBox="0 0 24 24" fill="none"><path d="M6 8h12l-1 12H7L6 8z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 8V6a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.8"/></svg>
+            <span class="cart-badge" id="cartBadgeMobile" hidden>0</span>
           </a>
         </div>
       </div>
       <div class="nav-cta-group">
-        <a href="shop.html" class="icon-btn" aria-label="Shop">
+        <a href="shop.html" class="icon-btn cart-trigger" id="cartTriggerDesktop" aria-label="Shop">
           <svg viewBox="0 0 24 24" fill="none"><path d="M6 8h12l-1 12H7L6 8z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 8V6a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.8"/></svg>
+          <span class="cart-badge" id="cartBadgeDesktop" hidden>0</span>
         </a>
         <div class="dropdown" id="applyDropdown">
           <button class="btn btn-primary dropdown-toggle" id="applyToggle" aria-haspopup="true" aria-expanded="false">Apply Now</button>
@@ -756,7 +817,7 @@
     </nav>
     <nav class="subnav-group">
       <a href="community-arts.html">Community &amp; Arts</a>
-      <a href="alumni.html" class="active" aria-current="page">Alumni</a>
+      <a href="alumni.html">Alumni</a>
       <a href="news.html">News</a>
       <a href="contact.html">Contact</a>
     </nav>
@@ -766,7 +827,7 @@
 
 <section class="page-hero">
   <div class="page-hero-photo" aria-hidden="true">
-    <img src="https://www.maruapula.org/wp-content/uploads/2021/12/Maru-a-pula-2019-11085.jpg" alt="">
+    <img src="https://images.pexels.com/photos/4440567/pexels-photo-4440567.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="">
   </div>
   <div class="hero-sun" aria-hidden="true"></div>
   <div class="hero-ring r2" aria-hidden="true"></div>
@@ -780,13 +841,13 @@
   </svg>
 
   <div class="page-hero-inner">
-    <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><span>Alumni</span></div>
-    <div class="eyebrow">4,000+ graduates, across the globe</div>
-    <h1>Once MaP, <em>always MaP</em>.</h1>
-    <p class="lede">Maru-a-Pula's alumni network stretches across continents — from diamond boardrooms to concert stages to a former President of Botswana. What connects them is where they started: the same Cambridge academics and weekly service commitment every current student is living through right now.</p>
+    <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><span>Shop</span></div>
+    <div class="eyebrow">MaP Merchandise</div>
+    <h1>Wear the <em>pula</em>.</h1>
+    <p class="lede">Official Maru-a-Pula apparel and accessories — for students, parents, and alumni who want to carry a bit of campus with them.</p>
     <div class="hero-cta">
-      <a href="#stories" class="btn btn-invert">See Notable Alumni ↓</a>
-      <a href="#contact" class="btn btn-ghost" style="border-color:rgba(255,255,255,0.35); color:#fff;">Alumni Contact</a>
+      <a href="#products" class="btn btn-invert">Shop All Products ↓</a>
+      <button class="btn btn-ghost cart-trigger" id="heroCartBtn" style="border-color:rgba(255,255,255,0.35); color:#fff;">View Cart</button>
     </div>
   </div>
 
@@ -795,335 +856,142 @@
   </div>
 </section>
 
-<section style="padding:36px 0 8px;">
-  <div class="wrap" style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center;">
-    <a href="#overview" class="btn btn-ghost">Overview</a>
-    <a href="#whats-new" class="btn btn-ghost">What's New at MaP</a>
-    <a href="#stories" class="btn btn-ghost">Alumni Stories</a>
-    <a href="#tell-your-story" class="btn btn-ghost">Tell Us Your Story</a>
-    <a href="#mentorship" class="btn btn-ghost">Mentorship &amp; Speaker Series</a>
-    <a href="#registration" class="btn btn-ghost">Registration</a>
-    <a href="#ovc-mentorship" class="btn btn-ghost">OVC Mentorship</a>
-    <a href="#giving" class="btn btn-ghost">Alumni Giving</a>
-    <a href="#update-form" class="btn btn-ghost">Update Form</a>
-    <a href="#contact" class="btn btn-ghost">Contact</a>
-  </div>
-</section>
-
-<section class="story section-pad" id="overview">
-  <div class="wrap story-grid">
-    <div class="photo story-mark">
-      <img src="https://www.maruapula.org/wp-content/uploads/2022/02/Maru-a-pula-2019-11694.jpg" alt="Maru-a-Pula alumni gathering at a reunion event">
-    </div>
-    <div>
-      <div class="eyebrow reveal">A network built to last</div>
-      <h3 class="reveal d1">Over 4,000 alumni, staying in touch.</h3>
-      <p class="reveal-fade d2">MaP's alumni community spans the globe, and the school works to keep it that way — a dedicated alumni platform, class agents for individual year groups, and regular reunion weekends that bring former classmates back to campus.</p>
-      <p class="reveal-fade d3">Whether it's updating your details, sharing an achievement, or signing up as a class agent, the alumni office wants to hear from every graduate, not just the ones making headlines.</p>
-    </div>
-  </div>
-</section>
-
-<section class="pillars section-pad" id="whats-new" style="background:var(--fog);">
+<section class="section-pad" id="products">
   <div class="wrap">
     <div class="section-head">
       <div>
-        <div class="eyebrow reveal">Alumni What's New at MaP</div>
-        <h2 class="reveal d1">Recent news for alumni</h2>
+        <div class="eyebrow reveal">The MaP store</div>
+        <h2 class="reveal d1">Shop merchandise</h2>
       </div>
-      <p class="reveal-fade d2">A running list of what's happening with the school and the wider alumni community.</p>
+      <p class="reveal-fade d2">Prices in Botswana Pula. Add anything to your cart to see it in action.</p>
     </div>
-    <div class="pillar-grid">
-      <div class="pillar-card">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6 3h12l3 6-9 12L3 9z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M3 9h18M9 3l3 6 3-6" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Naseem Lahri &rsquo;93 makes history</h4>
-        <p>Became the first Motswana woman to lead a diamond mining company as Managing Director of Lucara Botswana, and was profiled in The New Yorker.</p>
+
+    <div class="product-grid">
+      <div class="product-card">
+        <div class="product-photo"><img src="https://images.pexels.com/photos/4440567/pexels-photo-4440567.jpeg?auto=compress&cs=tinysrgb&w=600" alt="MaP Crest T-Shirt"></div>
+        <div class="product-body">
+          <h4>MaP Crest T-Shirt</h4>
+          <div class="product-price">P180</div>
+          <button class="add-to-cart-btn" data-id="tshirt" data-name="MaP Crest T-Shirt" data-price="180" data-image="https://images.pexels.com/photos/4440567/pexels-photo-4440567.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=200">Add to Cart</button>
+        </div>
       </div>
-      <div class="pillar-card">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Class of 2009 marks its reunion</h4>
-        <p>A milestone reunion weekend brought the class back to campus for dinner, dancing, and speeches from staff who taught them.</p>
+
+      <div class="product-card">
+        <div class="product-photo"><img src="https://images.pexels.com/photos/18700207/pexels-photo-18700207.jpeg?auto=compress&cs=tinysrgb&w=600" alt="MaP Pullover Hoodie"></div>
+        <div class="product-body">
+          <h4>MaP Pullover Hoodie</h4>
+          <div class="product-price">P450</div>
+          <button class="add-to-cart-btn" data-id="hoodie" data-name="MaP Pullover Hoodie" data-price="450" data-image="https://images.pexels.com/photos/18700207/pexels-photo-18700207.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=200">Add to Cart</button>
+        </div>
       </div>
-      <div class="pillar-card">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 19V6l10-2v13" stroke="currentColor" stroke-width="1.6"/><circle cx="7" cy="19" r="2" stroke="currentColor" stroke-width="1.6"/><circle cx="17" cy="17" r="2" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Bokani Dyer &rsquo;02 returns to Maitisong</h4>
-        <p>The award-winning jazz pianist came back to campus to perform for current students, ahead of an evening concert.</p>
+
+      <div class="product-card">
+        <div class="product-tile" style="background:var(--sun-2);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6"><path d="M3 13a9 9 0 0118 0" stroke-linecap="round"/><path d="M3 13h18v2a2 2 0 01-2 2H5a2 2 0 01-2-2v-2z"/><path d="M12 4v4" stroke-linecap="round"/></svg>
+        </div>
+        <div class="product-body">
+          <h4>MaP Baseball Cap</h4>
+          <div class="product-price">P150</div>
+          <button class="add-to-cart-btn" data-id="cap" data-name="MaP Baseball Cap" data-price="150" data-image="">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-tile" style="background:#C2540B;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6"><path d="M9 3h6v3l1.5 3v10a2 2 0 01-2 2h-5a2 2 0 01-2-2V9L9 6V3z" stroke-linejoin="round"/><path d="M8 12h8" stroke-linecap="round"/></svg>
+        </div>
+        <div class="product-body">
+          <h4>Insulated Water Bottle</h4>
+          <div class="product-price">P120</div>
+          <button class="add-to-cart-btn" data-id="bottle" data-name="Insulated Water Bottle" data-price="120" data-image="">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-tile" style="background:var(--ink);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6"><path d="M6 8h12l-1 12H7L6 8z" stroke-linejoin="round"/><path d="M9 8V6a3 3 0 016 0v2" stroke-linecap="round"/></svg>
+        </div>
+        <div class="product-body">
+          <h4>Canvas Tote Bag</h4>
+          <div class="product-price">P90</div>
+          <button class="add-to-cart-btn" data-id="tote" data-name="Canvas Tote Bag" data-price="90" data-image="">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-tile" style="background:#2F7D5B;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6"><path d="M9 3h6l-1 6 2 3-3 9-3-9 2-3-1-6z" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="product-body">
+          <h4>School Tie</h4>
+          <div class="product-price">P130</div>
+          <button class="add-to-cart-btn" data-id="tie" data-name="School Tie" data-price="130" data-image="">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-tile" style="background:#6B4FA0;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6"><path d="M5 4h11v14a2 2 0 01-2 2H7a2 2 0 01-2-2V4z" stroke-linejoin="round"/><path d="M16 8h2a2 2 0 012 2v2a2 2 0 01-2 2h-2" stroke-linecap="round"/></svg>
+        </div>
+        <div class="product-body">
+          <h4>Enamel Mug</h4>
+          <div class="product-price">P95</div>
+          <button class="add-to-cart-btn" data-id="mug" data-name="Enamel Mug" data-price="95" data-image="">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-tile" style="background:#2B5D8B;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6"><path d="M5 4h11a2 2 0 012 2v14H7a2 2 0 01-2-2V4z" stroke-linejoin="round"/><path d="M8 8h6M8 12h6" stroke-linecap="round"/></svg>
+        </div>
+        <div class="product-body">
+          <h4>Notebook Set</h4>
+          <div class="product-price">P75</div>
+          <button class="add-to-cart-btn" data-id="notebook" data-name="Notebook Set" data-price="75" data-image="">Add to Cart</button>
+        </div>
       </div>
     </div>
+
     <div class="draft-note reveal-fade d3" style="margin-top:32px;">
       <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
-      This feed should be replaced with genuinely current alumni news, and refreshed regularly, before publishing.
-    </div>
-  </div>
-</section>
-
-<section class="pillars section-pad" id="stories">
-  <div class="wrap">
-    <div class="section-head">
-      <div>
-        <div class="eyebrow reveal">Where MaP leads</div>
-        <h2 class="reveal d1">Alumni Stories</h2>
-      </div>
-      <p class="reveal-fade d2">A small sample of the more than 4,000 graduates carrying MaP's name forward.</p>
-    </div>
-    <div class="pillar-grid">
-      <div class="pillar-card">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6 3h12l3 6-9 12L3 9z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M3 9h18M9 3l3 6 3-6" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Naseem Lahri &rsquo;93</h4>
-        <p>Became the first Motswana woman to lead a diamond mining company as Managing Director of Lucara Botswana, and was profiled in The New Yorker.</p>
-      </div>
-      <div class="pillar-card">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 19V6l10-2v13" stroke="currentColor" stroke-width="1.6"/><circle cx="7" cy="19" r="2" stroke="currentColor" stroke-width="1.6"/><circle cx="17" cy="17" r="2" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Bokani Dyer &rsquo;02</h4>
-        <p>An award-winning jazz pianist now based in Cape Town, who has returned to campus to perform for current MaP students at Maitisong.</p>
-      </div>
-      <div class="pillar-card">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
-        <h4>Ruby Fako &rsquo;09</h4>
-        <p>Gave the student commencement address to Bucknell University's graduating class, after finishing her final year of high school on a MaP scholarship.</p>
-      </div>
-      <div class="pillar-card">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.4 6.6H21l-5.4 4 2 6.8-5.6-4.2-5.6 4.2 2-6.8-5.4-4h6.6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
-        <h4>A former President of Botswana</h4>
-        <p>The alumni network's most prominent member — one of many graduates who have gone on to lead in public life.</p>
-      </div>
-      <div class="pillar-card">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Class Reunions</h4>
-        <p>Year groups return for milestone reunion weekends — dinners, campus tours, and a chance to catch up with old classmates and teachers.</p>
-      </div>
-      <div class="pillar-card">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="1.6"/><circle cx="10" cy="7" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M22 21v-2a4 4 0 00-3-3.87" stroke="currentColor" stroke-width="1.6"/><path d="M16 3.13a4 4 0 010 7.75" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Give Back</h4>
-        <p>Alumni return as guest speakers, mentors, and — for some — teachers and staff, carrying the service ethos forward into a new generation.</p>
-      </div>
-    </div>
-    <div class="draft-note reveal-fade d3" style="margin-top:32px;">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
-      Alumni names, titles, and achievements should be reconfirmed with the Alumni office — and with each individual — before publishing.
-    </div>
-  </div>
-</section>
-
-<section class="cta-banner" id="tell-your-story" style="padding:70px 0;">
-  <div class="cta-photo" aria-hidden="true">
-    <img src="https://www.maruapula.org/wp-content/uploads/2022/02/Maru-a-pula-2019-10009.jpg" alt="">
-  </div>
-  <div class="wrap cta-inner" style="max-width:600px;">
-    <div class="eyebrow reveal-left">Tell us your story!</div>
-    <h2 class="reveal-left d1">Over 4,000 alumni doing amazing things.</h2>
-    <p class="reveal-left d2">MaP wants to celebrate your journey and achievements with you. Share what you've been up to since graduation — we'd love to feature it here.</p>
-    <div class="cta-buttons reveal-left d3">
-      <a href="#" class="btn btn-invert">Share Your Story →</a>
-    </div>
-  </div>
-</section>
-
-<section class="story section-pad" id="mentorship">
-  <div class="wrap story-grid">
-    <div class="photo story-mark">
-      <img src="https://www.maruapula.org/wp-content/uploads/2021/12/Maru-a-pula-2019-11085.jpg" alt="Alumni speaker at Maru-a-Pula School">
-    </div>
-    <div>
-      <div class="eyebrow reveal">Coming back to give something forward</div>
-      <h3 class="reveal d1">Alumni Mentorship &amp; Speaker Series</h3>
-      <p class="reveal-fade d2">Current students get real value from hearing where the MaP path can lead — alumni return to campus as guest speakers, sharing what their career, further study, or personal journey has looked like since graduation.</p>
-      <p class="reveal-fade d3">Beyond one-off talks, alumni can also sign up as ongoing mentors, offering guidance to current students navigating similar interests or plans.</p>
-      <a href="#registration" class="btn btn-ghost reveal-fade d3" style="margin-top:8px;">Register for the Speaker Series →</a>
-    </div>
-  </div>
-</section>
-
-<section class="pillars section-pad" id="registration" style="background:var(--fog);">
-  <div class="wrap">
-    <div class="section-head">
-      <div>
-        <div class="eyebrow reveal">Get involved</div>
-        <h2 class="reveal d1">Registration</h2>
-      </div>
-      <p class="reveal-fade d2">Sign up for the Mentorship &amp; Speaker Series, or register your interest in an upcoming reunion.</p>
-    </div>
-    <div class="pillar-grid" style="grid-template-columns:repeat(2,1fr);">
-      <div class="pillar-card">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 19V6l10-2v13" stroke="currentColor" stroke-width="1.6"/><circle cx="7" cy="19" r="2" stroke="currentColor" stroke-width="1.6"/><circle cx="17" cy="17" r="2" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Speaker Series &amp; Mentorship</h4>
-        <p>Register to give a talk, host a Q&amp;A, or mentor a current student one-on-one throughout the year.</p>
-        <a href="#" class="btn btn-ghost" style="margin-top:14px;">Register Your Interest →</a>
-      </div>
-      <div class="pillar-card">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Reunions &amp; Events</h4>
-        <p>Register for your year group's next reunion weekend, or an upcoming alumni event on or off campus.</p>
-        <a href="#" class="btn btn-ghost" style="margin-top:14px;">Register for an Event →</a>
-      </div>
-    </div>
-    <div class="draft-note reveal-fade d3" style="margin-top:32px;">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
-      Registration currently links nowhere — a working sign-up flow needs to be built before publishing.
-    </div>
-  </div>
-</section>
-
-<section class="story section-pad" id="ovc-mentorship">
-  <div class="wrap story-grid-rev">
-    <div>
-      <div class="eyebrow reveal">Pay it forward</div>
-      <h3 class="reveal d1">OVC Mentorship Programme</h3>
-      <p class="reveal-fade d2">Starting at a new school can be difficult, especially for students who feel vulnerable because of their personal or financial circumstances. Alumni mentors serve as role models for MaP's OVC Scholars — students on full scholarships as orphans or vulnerable children — helping them set and work toward personal goals.</p>
-      <p class="reveal-fade d3">Your own experience as a former MaP student is exactly what helps an OVC Scholar make the most of what the school has to offer.</p>
-      <a href="#" class="btn btn-ghost reveal-fade d3" style="margin-top:8px;">Sign Up to Be a Mentor →</a>
-    </div>
-    <div class="photo story-mark">
-      <img src="https://www.maruapula.org/wp-content/uploads/2022/02/MaP-Photos-In-Class-10327.jpg" alt="OVC Scholars at Maru-a-Pula School">
-    </div>
-  </div>
-</section>
-
-<section class="pillars section-pad" id="giving" style="background:var(--fog);">
-  <div class="wrap">
-    <div class="section-head">
-      <div>
-        <div class="eyebrow reveal">Ways to give back</div>
-        <h2 class="reveal d1">Alumni Giving</h2>
-      </div>
-      <p class="reveal-fade d2">Time, expertise, and financial support all help MaP keep its promise to the next generation of students.</p>
-    </div>
-    <div class="pillar-grid">
-      <div class="pillar-card">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <h4>OVC Scholarships</h4>
-        <p>Gifts that help fund full scholarships for orphans and vulnerable children to attend MaP.</p>
-      </div>
-      <div class="pillar-card">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="1.6"/><circle cx="10" cy="7" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M22 21v-2a4 4 0 00-3-3.87" stroke="currentColor" stroke-width="1.6"/><path d="M16 3.13a4 4 0 010 7.75" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Time as a Mentor</h4>
-        <p>Giving doesn't have to be financial — mentoring an OVC Scholar or speaking to current students counts too.</p>
-      </div>
-      <div class="pillar-card">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 21V10l8-6 8 6v11" stroke="currentColor" stroke-width="1.6"/><path d="M9 21v-6h6v6" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Campus &amp; Facilities</h4>
-        <p>Alumni gifts also support ongoing improvements to classrooms, boarding houses, and Maitisong itself.</p>
-      </div>
-    </div>
-    <a href="#" class="btn btn-invert" style="margin-top:32px;">Give to MaP →</a>
-    <div class="draft-note reveal-fade d3" style="margin-top:20px;">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
-      A working donation/payment flow is planned for a future Donate page and isn't built yet.
-    </div>
-  </div>
-</section>
-
-<section class="story section-pad" id="update-form">
-  <div class="wrap">
-    <div class="section-head" style="margin-bottom:36px;">
-      <div>
-        <div class="eyebrow reveal">Keep your details current</div>
-        <h2 class="reveal d1">Alumni Update Form</h2>
-      </div>
-      <p class="reveal-fade d2">Let the alumni office know where you are and what you're up to.</p>
-    </div>
-    <form class="simple-form" onsubmit="return false;">
-      <div class="field">
-        <label for="alum-name">Full name</label>
-        <input type="text" id="alum-name" placeholder="Your name">
-      </div>
-      <div class="field">
-        <label for="alum-year">Graduating class / year</label>
-        <input type="text" id="alum-year" placeholder="e.g. 2015">
-      </div>
-      <div class="field">
-        <label for="alum-email">Email address</label>
-        <input type="email" id="alum-email" placeholder="you@example.com">
-      </div>
-      <div class="field">
-        <label for="alum-location">Current location</label>
-        <input type="text" id="alum-location" placeholder="City, country">
-      </div>
-      <div class="field full">
-        <label for="alum-update">What's new with you?</label>
-        <textarea id="alum-update" placeholder="Studies, career, achievements — anything you'd like MaP to know"></textarea>
-      </div>
-      <div class="field full">
-        <button type="submit" class="btn btn-primary" style="align-self:flex-start;">Submit Update →</button>
-      </div>
-    </form>
-    <div class="draft-note reveal-fade d3" style="margin-top:28px;">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
-      This form is a visual placeholder — it doesn't submit anywhere yet. Wiring it up is Phase 4 (Functionality) work.
-    </div>
-  </div>
-</section>
-
-<section class="pillars section-pad" id="contact" style="background:var(--fog);">
-  <div class="wrap">
-    <div class="section-head">
-      <div>
-        <div class="eyebrow reveal">Get in touch</div>
-        <h2 class="reveal d1">Alumni Contact</h2>
-      </div>
-    </div>
-    <div class="pillar-grid" style="grid-template-columns:repeat(3,1fr);">
-      <div class="pillar-card">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 4h16v16H4z" stroke="currentColor" stroke-width="1.6"/><path d="M4 6l8 7 8-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <h4>Email</h4>
-        <p>alumni@maruapula.org</p>
-      </div>
-      <div class="pillar-card">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3-8.7A2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .3 2 .7 3a2 2 0 01-.5 2L8 10a16 16 0 006 6l1.3-1.3a2 2 0 012-.5c1 .4 2 .6 3 .7a2 2 0 011.7 2z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
-        <h4>Phone</h4>
-        <p>+267 391 2953</p>
-      </div>
-      <div class="pillar-card">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-5-7-11a7 7 0 0114 0c0 6-7 11-7 11z" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Address</h4>
-        <p>4725 Maruapula Way, Gaborone, Botswana</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="pillars section-pad" id="explore-more">
-  <div class="wrap">
-    <div class="section-head">
-      <div>
-        <div class="eyebrow reveal">Keep exploring</div>
-        <h2 class="reveal d1">See the rest of MaP</h2>
-      </div>
-    </div>
-    <div class="pillar-grid">
-      <a href="community-service.html" class="pillar-card" style="display:block;">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-5-7-11a7 7 0 0114 0c0 6-7 11-7 11z" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Community &amp; Service →</h4>
-        <p>The tradition every MaP alumnus started with, still required today.</p>
-      </a>
-      <a href="maitisong-arts.html" class="pillar-card" style="display:block;">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 19V6l10-2v13" stroke="currentColor" stroke-width="1.6"/><circle cx="7" cy="19" r="2" stroke="currentColor" stroke-width="1.6"/><circle cx="17" cy="17" r="2" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Maitisong &amp; the Arts →</h4>
-        <p>Where alumni like Bokani Dyer got their start on stage.</p>
-      </a>
-      <a href="about.html" class="pillar-card" style="display:block;">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
-        <h4>About MaP →</h4>
-        <p>Our founding, our mission, and over 50 years of history.</p>
-      </a>
+      Products, prices, and real product photography need to be confirmed with the Business Office before publishing. The cart works, but checkout isn't wired up to real payments yet — that's Phase 4 (Functionality) work.
     </div>
   </div>
 </section>
 
 <section class="cta-banner">
   <div class="cta-photo" aria-hidden="true">
-    <img src="https://www.maruapula.org/wp-content/uploads/2021/12/Maru-a-pula-2019-11085.jpg" alt="">
+    <img src="https://www.maruapula.org/wp-content/uploads/2022/02/Maru-a-pula-2019-11694.jpg" alt="">
   </div>
   <div class="wrap cta-inner">
-    <div class="eyebrow reveal-left">Reconnect with MaP</div>
-    <h2 class="reveal-left d1">Update your details, or plan your class reunion.</h2>
-    <p class="reveal-left d2">Get in touch with the alumni office to stay in the loop on school news, alumni events, and reunion weekends.</p>
+    <div class="eyebrow reveal-left">Proceeds support MaP</div>
+    <h2 class="reveal-left d1">Every purchase helps fund school programmes.</h2>
+    <p class="reveal-left d2">From OVC scholarships to Maitisong performances, school merchandise plays a small part in keeping MaP running.</p>
     <div class="cta-buttons reveal-left d3">
-      <a href="#contact" class="btn btn-invert">Contact the Alumni Office →</a>
-      <a href="#update-form" class="btn btn-ghost" style="border-color:rgba(255,255,255,0.35); color:#fff;">Update Your Details</a>
+      <a href="#products" class="btn btn-invert">Shop All Products →</a>
+      <a href="alumni.html#giving" class="btn btn-ghost" style="border-color:rgba(255,255,255,0.35); color:#fff;">Other Ways to Give</a>
     </div>
   </div>
 </section>
+
+<div class="cart-overlay" id="cartOverlay"></div>
+<aside class="cart-drawer" id="cartDrawer" aria-hidden="true" aria-label="Shopping cart">
+  <div class="cart-drawer-header">
+    <h3>Your Cart</h3>
+    <button class="cart-drawer-close" id="cartClose" aria-label="Close cart">
+      <svg viewBox="0 0 24 24" fill="none" width="16" height="16"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-drawer-footer">
+    <div class="cart-subtotal"><span>Subtotal</span><span id="cartSubtotal">P0</span></div>
+    <button class="btn btn-primary" id="cartCheckout" style="width:100%; justify-content:center;">Checkout →</button>
+    <div class="draft-note" style="margin-top:16px;">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
+      This cart saves in your browser, but checkout is a placeholder — no real payment is processed.
+    </div>
+  </div>
+</aside>
 
 <footer>
   <div class="wrap">
@@ -1265,6 +1133,154 @@
     document.addEventListener('keydown', function(e){
       if(e.key === 'Escape') closeSubnav();
     });
+  })();
+</script>
+<script>
+  (function(){
+    var STORAGE_KEY = 'mapShopCart';
+    var overlay = document.getElementById('cartOverlay');
+    var drawer = document.getElementById('cartDrawer');
+    var itemsEl = document.getElementById('cartItems');
+    var subtotalEl = document.getElementById('cartSubtotal');
+    var badges = [document.getElementById('cartBadgeDesktop'), document.getElementById('cartBadgeMobile')];
+    if(!overlay || !drawer || !itemsEl) return;
+
+    function loadCart(){
+      try {
+        var raw = window.localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : [];
+      } catch(e){ return []; }
+    }
+    function saveCart(cart){
+      try { window.localStorage.setItem(STORAGE_KEY, JSON.stringify(cart)); } catch(e){}
+    }
+
+    var cart = loadCart();
+
+    function findLine(id){
+      for(var i=0; i<cart.length; i++){ if(cart[i].id === id) return cart[i]; }
+      return null;
+    }
+
+    function addToCart(product){
+      var line = findLine(product.id);
+      if(line){ line.qty += 1; }
+      else { cart.push({ id: product.id, name: product.name, price: product.price, image: product.image, qty: 1 }); }
+      saveCart(cart);
+      renderCart();
+    }
+    function removeFromCart(id){
+      cart = cart.filter(function(l){ return l.id !== id; });
+      saveCart(cart);
+      renderCart();
+    }
+    function setQty(id, qty){
+      var line = findLine(id);
+      if(!line) return;
+      if(qty <= 0){ removeFromCart(id); return; }
+      line.qty = qty;
+      saveCart(cart);
+      renderCart();
+    }
+
+    function totalCount(){
+      return cart.reduce(function(sum, l){ return sum + l.qty; }, 0);
+    }
+    function subtotal(){
+      return cart.reduce(function(sum, l){ return sum + (l.price * l.qty); }, 0);
+    }
+
+    function renderCart(){
+      var count = totalCount();
+      badges.forEach(function(b){
+        if(!b) return;
+        if(count > 0){ b.hidden = false; b.textContent = count > 99 ? '99+' : String(count); }
+        else { b.hidden = true; }
+      });
+      subtotalEl.textContent = 'P' + subtotal();
+
+      if(!cart.length){
+        itemsEl.innerHTML =
+          '<div class="cart-empty">' +
+          '<svg viewBox="0 0 24 24" fill="none"><path d="M6 8h12l-1 12H7L6 8z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 8V6a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.6"/></svg>' +
+          '<p>Your cart is empty.</p></div>';
+        return;
+      }
+
+      itemsEl.innerHTML = '';
+      cart.forEach(function(line){
+        var row = document.createElement('div');
+        row.className = 'cart-line';
+        var thumbHTML = line.image
+          ? '<img src="' + line.image + '" alt="">'
+          : '<svg viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>';
+        row.innerHTML =
+          '<div class="cart-line-thumb">' + thumbHTML + '</div>' +
+          '<div class="cart-line-body">' +
+            '<h5>' + line.name + '</h5>' +
+            '<div class="cart-line-price">P' + line.price + '</div>' +
+            '<div class="cart-qty">' +
+              '<button type="button" data-action="dec" aria-label="Decrease quantity">−</button>' +
+              '<span>' + line.qty + '</span>' +
+              '<button type="button" data-action="inc" aria-label="Increase quantity">+</button>' +
+            '</div>' +
+            '<button type="button" class="cart-remove" data-action="remove">Remove</button>' +
+          '</div>';
+        row.querySelector('[data-action="dec"]').addEventListener('click', function(){ setQty(line.id, line.qty - 1); });
+        row.querySelector('[data-action="inc"]').addEventListener('click', function(){ setQty(line.id, line.qty + 1); });
+        row.querySelector('[data-action="remove"]').addEventListener('click', function(){ removeFromCart(line.id); });
+        itemsEl.appendChild(row);
+      });
+    }
+
+    function openCart(){
+      overlay.classList.add('open');
+      drawer.classList.add('open');
+      drawer.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeCart(){
+      overlay.classList.remove('open');
+      drawer.classList.remove('open');
+      drawer.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.cart-trigger').forEach(function(btn){
+      btn.addEventListener('click', function(e){
+        e.preventDefault();
+        openCart();
+      });
+    });
+    document.getElementById('cartClose').addEventListener('click', closeCart);
+    overlay.addEventListener('click', closeCart);
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape') closeCart();
+    });
+    document.getElementById('cartCheckout').addEventListener('click', function(){
+      if(!cart.length) return;
+      alert('This is a demo cart — checkout isn\'t connected to real payments yet.');
+    });
+
+    document.querySelectorAll('.add-to-cart-btn').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        addToCart({
+          id: btn.getAttribute('data-id'),
+          name: btn.getAttribute('data-name'),
+          price: parseFloat(btn.getAttribute('data-price')),
+          image: btn.getAttribute('data-image') || ''
+        });
+        btn.textContent = 'Added ✓';
+        btn.classList.add('added');
+        setTimeout(function(){
+          btn.textContent = 'Add to Cart';
+          btn.classList.remove('added');
+        }, 1200);
+        openCart();
+      });
+    });
+
+    renderCart();
   })();
 </script>
 </body>
