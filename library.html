@@ -840,6 +840,7 @@
     background:#fff; border:1px solid var(--line); transition:transform .18s ease, box-shadow .18s ease;
   }
   .lb-row:hover{transform:translateX(4px); box-shadow:0 12px 26px -18px rgba(0,0,0,0.3);}
+  .lb-row{cursor:pointer;}
   .lb-row.rank-1{background:linear-gradient(90deg, rgba(255,226,154,0.35), #fff 40%); border-color:rgba(242,167,59,0.4);}
   .lb-row.rank-2{background:linear-gradient(90deg, rgba(0,0,0,0.05), #fff 40%);}
   .lb-row.rank-3{background:linear-gradient(90deg, rgba(194,84,11,0.08), #fff 40%);}
@@ -859,12 +860,30 @@
   .lb-bar-wrap{flex:2; min-width:60px; height:6px; background:var(--fog); border-radius:100px; overflow:hidden; display:none;}
   @media (min-width:700px){ .lb-bar-wrap{display:block;} }
   .lb-bar{height:100%; border-radius:100px; background:linear-gradient(90deg,var(--sun-2),var(--sun-3));}
+  .lb-chevron{
+    width:28px; height:28px; border-radius:50%; border:1.5px solid var(--line); background:#fff;
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+    transition:transform .25s ease, background .2s ease;
+  }
+  .lb-chevron svg{width:12px; height:12px; color:var(--mid);}
+  .lb-row.expanded .lb-chevron{transform:rotate(180deg); background:var(--fog);}
+  .lb-item + .lb-item{margin-top:10px;}
+  .lb-expand{max-height:0; overflow:hidden; transition:max-height .32s ease;}
+  .lb-expand.open{max-height:320px;}
+  .lb-expand-inner{padding:16px 20px 18px 78px;}
+  .lb-books-title{font-size:0.76rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:var(--mid); margin-bottom:10px;}
+  .lb-book-chips{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:8px;}
+  .lb-chip{font-size:0.8rem; padding:5px 12px; border-radius:100px; background:var(--fog); color:var(--ink); border:1px solid var(--line);}
+  .lb-more-note{font-size:0.78rem; color:var(--mid); font-style:italic;}
+  .lb-empty-note{font-size:0.84rem; color:var(--mid);}
+  @media (max-width:640px){ .lb-expand-inner{padding-left:20px;} }
 
   /* ===== LIBRARIAN ADMIN PANEL ===== */
   .admin-panel{background:var(--ink); color:#fff; border-radius:var(--radius); padding:36px; margin-top:20px;}
   .admin-panel h3{font-family:'Fraunces',serif; font-size:1.3rem; margin-bottom:6px;}
   .admin-panel > p{color:rgba(255,255,255,0.6); font-size:0.9rem; margin-bottom:26px;}
-  .admin-form{display:grid; grid-template-columns:1.3fr 0.8fr 0.8fr auto; gap:12px; align-items:end;}
+  .admin-form{display:flex; flex-direction:column; gap:16px;}
+  .admin-form-row{display:grid; grid-template-columns:1.3fr 0.8fr 0.8fr auto; gap:12px; align-items:end;}
   .admin-form .field{display:flex; flex-direction:column; gap:6px;}
   .admin-form label{font-size:0.76rem; font-weight:600; color:rgba(255,255,255,0.7);}
   .admin-form input, .admin-form select{
@@ -876,7 +895,7 @@
   .admin-form select option{color:#000;}
   .admin-reset{background:none; border:none; color:rgba(255,255,255,0.5); font-size:0.8rem; text-decoration:underline; cursor:pointer; margin-top:16px;}
   .admin-reset:hover{color:#fff;}
-  @media (max-width:760px){ .admin-form{grid-template-columns:1fr 1fr;} }
+  @media (max-width:760px){ .admin-form-row{grid-template-columns:1fr 1fr;} }
 
   /* ===== PRINT STYLESHEET (leaderboard only) ===== */
   @media print{
@@ -1207,22 +1226,28 @@
       <h3>Librarian tools</h3>
       <p>Add or update a reader below — the leaderboard above updates immediately.</p>
       <form class="admin-form" id="adminForm">
-        <div class="field">
-          <label for="adminName">Reader name</label>
-          <input type="text" id="adminName" placeholder="e.g. Naledi P." required>
+        <div class="admin-form-row">
+          <div class="field">
+            <label for="adminName">Reader name</label>
+            <input type="text" id="adminName" placeholder="e.g. Naledi P." required>
+          </div>
+          <div class="field">
+            <label for="adminList">List</label>
+            <select id="adminList">
+              <option value="month">This Month</option>
+              <option value="year">This Year</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="adminCount">Books read</label>
+            <input type="number" id="adminCount" min="1" placeholder="e.g. 8" required>
+          </div>
+          <button type="submit" class="btn btn-invert">Add / Update</button>
         </div>
         <div class="field">
-          <label for="adminList">List</label>
-          <select id="adminList">
-            <option value="month">This Month</option>
-            <option value="year">This Year</option>
-          </select>
+          <label for="adminBooks">Book titles (comma-separated, optional — leave blank to keep existing titles)</label>
+          <input type="text" id="adminBooks" placeholder="e.g. The Alchemist, 1984, Sapiens">
         </div>
-        <div class="field">
-          <label for="adminCount">Books read</label>
-          <input type="number" id="adminCount" min="1" placeholder="e.g. 8" required>
-        </div>
-        <button type="submit" class="btn btn-invert">Add / Update</button>
       </form>
       <button class="admin-reset" id="adminReset" type="button">Reset to sample data</button>
       <div class="gate-note" style="margin-top:22px;">
@@ -1595,6 +1620,18 @@
 
     /* ---------- Leaderboard ---------- */
     var LB_KEY = 'mapLibraryLeaderboard';
+    var readerBooks = {
+      "Naledi P.": ["Purple Hibiscus", "The Alchemist", "Things Fall Apart", "1984", "The Kite Runner", "Half of a Yellow Sun"],
+      "Katlego M.": ["Sapiens", "A Brief History of Time", "Guns, Germs, and Steel", "Long Walk to Freedom", "A History of Botswana", "1984"],
+      "Boitumelo S.": ["To Kill a Mockingbird", "Pride and Prejudice", "Macbeth", "Twelfth Night", "The Diary of a Young Girl"],
+      "Thabo K.": ["The Fault in Our Stars", "The Kite Runner", "Animal Farm", "Nervous Conditions"],
+      "Refilwe T.": ["A Grain of Wheat", "Cry, the Beloved Country", "The Story of an African Farm", "Things Fall Apart"],
+      "Kagiso D.": ["1984", "Animal Farm", "Twelfth Night"],
+      "Lesego B.": ["Sapiens", "Guns, Germs, and Steel", "A Brief History of Time"],
+      "Onalenna M.": ["Purple Hibiscus", "Half of a Yellow Sun", "Nervous Conditions"],
+      "Tumelo R.": ["The Alchemist", "The Kite Runner"],
+      "Amantle K.": ["Pride and Prejudice", "Macbeth"]
+    };
     var defaultLeaderboard = {
       month: [
         {name:"Naledi P.", count:14}, {name:"Katlego M.", count:12}, {name:"Boitumelo S.", count:11},
@@ -1607,6 +1644,11 @@
         {name:"Kagiso D.", count:61}, {name:"Lesego B.", count:58}, {name:"Tumelo R.", count:52}, {name:"Amantle K.", count:47}
       ]
     };
+    ["month", "year"].forEach(function(period){
+      defaultLeaderboard[period].forEach(function(entry){
+        entry.books = readerBooks[entry.name] ? readerBooks[entry.name].slice() : [];
+      });
+    });
 
     function loadLeaderboard(){
       try {
@@ -1634,6 +1676,10 @@
       return out.toUpperCase();
     }
 
+    function escapeHtmlLb(s){
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
     function renderLeaderboard(){
       if(!leaderboardList) return;
       var list = (leaderboardData[activeTab] || []).slice().sort(function(a,b){ return b.count - a.count; }).slice(0, 10);
@@ -1641,16 +1687,54 @@
       leaderboardList.innerHTML = '';
       list.forEach(function(entry, i){
         var rank = i + 1;
+        var item = document.createElement('div');
+        item.className = 'lb-item';
+
         var row = document.createElement('div');
         row.className = 'lb-row rank-' + rank;
         var pct = Math.max(8, Math.round((entry.count / max) * 100));
         row.innerHTML =
           '<div class="lb-rank">' + rank + '</div>' +
           '<div class="lb-avatar">' + initials(entry.name) + '</div>' +
-          '<div class="lb-name">' + entry.name + '</div>' +
+          '<div class="lb-name">' + escapeHtmlLb(entry.name) + '</div>' +
           '<div class="lb-bar-wrap"><div class="lb-bar" style="width:' + pct + '%;"></div></div>' +
-          '<div class="lb-count">' + entry.count + ' books</div>';
-        leaderboardList.appendChild(row);
+          '<div class="lb-count">' + entry.count + ' books</div>' +
+          '<button class="lb-chevron" type="button" aria-label="Show books read">' +
+            '<svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+          '</button>';
+
+        var expand = document.createElement('div');
+        expand.className = 'lb-expand';
+        var books = entry.books || [];
+        var periodWord = activeTab === 'month' ? 'this month' : 'this year';
+        var bodyHtml = '';
+        if(books.length){
+          bodyHtml += '<div class="lb-books-title">Books read ' + periodWord + '</div><div class="lb-book-chips">';
+          books.forEach(function(t){ bodyHtml += '<span class="lb-chip">' + escapeHtmlLb(t) + '</span>'; });
+          bodyHtml += '</div>';
+          var remaining = entry.count - books.length;
+          if(remaining > 0){
+            bodyHtml += '<div class="lb-more-note">+ ' + remaining + ' more book' + (remaining === 1 ? '' : 's') + ' recorded, titles not listed yet</div>';
+          }
+        } else {
+          bodyHtml = '<div class="lb-empty-note">No individual titles recorded for ' + escapeHtmlLb(entry.name) + ' yet — the librarian can add them from the tools below.</div>';
+        }
+        expand.innerHTML = '<div class="lb-expand-inner">' + bodyHtml + '</div>';
+
+        row.addEventListener('click', function(){
+          var isOpen = expand.classList.contains('open');
+          if(isOpen){
+            expand.classList.remove('open');
+            row.classList.remove('expanded');
+          } else {
+            expand.classList.add('open');
+            row.classList.add('expanded');
+          }
+        });
+
+        item.appendChild(row);
+        item.appendChild(expand);
+        leaderboardList.appendChild(item);
       });
       if(printMeta){
         var periodLabel = activeTab === 'month' ? 'This Month' : 'This Year';
@@ -1690,12 +1774,19 @@
         var name = document.getElementById('adminName').value.trim();
         var list = document.getElementById('adminList').value;
         var count = parseInt(document.getElementById('adminCount').value, 10);
+        var booksRaw = document.getElementById('adminBooks').value.trim();
         if(!name || !count || count < 1) return;
 
         var arr = leaderboardData[list] || [];
         var existing = arr.find(function(e){ return e.name.toLowerCase() === name.toLowerCase(); });
-        if(existing){ existing.count = count; }
-        else { arr.push({ name: name, count: count }); }
+        var newBooks = booksRaw ? booksRaw.split(',').map(function(t){ return t.trim(); }).filter(Boolean) : null;
+
+        if(existing){
+          existing.count = count;
+          if(newBooks) existing.books = newBooks;
+        } else {
+          arr.push({ name: name, count: count, books: newBooks || [] });
+        }
         arr.sort(function(a,b){ return b.count - a.count; });
         leaderboardData[list] = arr.slice(0, 10);
 
