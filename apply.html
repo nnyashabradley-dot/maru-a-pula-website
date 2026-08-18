@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sciences — Maru-a-Pula School</title>
+<title>Apply — Maru-a-Pula School</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
@@ -668,6 +668,46 @@
   /* ===== NAV ACTIVE STATE ===== */
   nav ul a.active, .subnav a.active{color:var(--sun-3);}
   nav ul a.active{background:rgba(0,0,0,0.055);}
+  /* ===== APPLICATION FORM ===== */
+  .apply-hero{background:var(--fog); padding:150px 0 60px;}
+  .apply-hero h1{font-size:2.2rem; margin:20px 0 10px;}
+  .apply-hero p{color:var(--mid); max-width:560px; font-size:1.02rem;}
+  .apply-type-pill{
+    display:inline-flex; align-items:center; gap:8px; font-size:0.78rem; font-weight:700; text-transform:uppercase;
+    letter-spacing:0.05em; color:var(--sun-3); background:rgba(194,84,11,0.1); padding:6px 16px; border-radius:100px; margin-bottom:16px;
+  }
+  .apply-layout{display:grid; grid-template-columns:1fr 320px; gap:50px; align-items:start; padding:60px 0 90px;}
+  .apply-form-card{background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:40px; box-shadow:0 30px 60px -34px rgba(0,0,0,0.2);}
+  .apply-section-title{font-family:'Fraunces',serif; font-size:1.15rem; font-weight:600; margin:32px 0 18px; padding-top:24px; border-top:1px solid var(--line);}
+  .apply-section-title:first-child{margin-top:0; padding-top:0; border-top:none;}
+  .apply-grid{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  .apply-field{display:flex; flex-direction:column; gap:7px; margin-bottom:18px;}
+  .apply-field.full{grid-column:1/-1;}
+  .apply-field label{font-size:0.82rem; font-weight:600; color:var(--ink);}
+  .apply-field .req{color:var(--sun-3);}
+  .apply-field input, .apply-field select, .apply-field textarea{
+    border:1.5px solid var(--line); border-radius:10px; padding:11px 14px; font-family:'Inter',sans-serif;
+    font-size:0.94rem; color:var(--ink); outline:none; transition:border-color .2s ease; background:#fff;
+  }
+  .apply-field input:focus, .apply-field select:focus, .apply-field textarea:focus{border-color:var(--black);}
+  .apply-field textarea{resize:vertical; min-height:90px;}
+  .apply-radio-row{display:flex; gap:10px; flex-wrap:wrap;}
+  .apply-radio-chip{
+    flex:1; min-width:130px; border:1.5px solid var(--line); border-radius:10px; padding:12px 14px;
+    display:flex; align-items:center; gap:9px; cursor:pointer; transition:all .18s ease;
+  }
+  .apply-radio-chip:has(input:checked){border-color:var(--ink); background:var(--fog);}
+  .apply-radio-chip input{width:auto; margin:0;}
+  .apply-radio-chip span{font-size:0.88rem; font-weight:600;}
+  .apply-sidebar{position:sticky; top:110px; display:flex; flex-direction:column; gap:20px;}
+  .apply-side-card{background:var(--ink); color:#fff; border-radius:var(--radius); padding:26px;}
+  .apply-side-card h4{font-family:'Fraunces',serif; font-size:1.1rem; margin-bottom:10px;}
+  .apply-side-card p{color:rgba(255,255,255,0.65); font-size:0.86rem; line-height:1.6; margin-bottom:14px;}
+  .apply-side-card a{color:var(--sun-1); font-weight:600; font-size:0.86rem;}
+  .apply-checklist{list-style:none; display:flex; flex-direction:column; gap:10px;}
+  .apply-checklist li{display:flex; gap:10px; align-items:flex-start; font-size:0.86rem; color:rgba(255,255,255,0.8);}
+  .apply-checklist svg{width:15px; height:15px; color:var(--sun-1); flex-shrink:0; margin-top:2px;}
+  @media (max-width:900px){ .apply-layout{grid-template-columns:1fr;} .apply-sidebar{position:static;} .apply-grid{grid-template-columns:1fr;} }
 </style>
 </head>
 <body>
@@ -681,7 +721,7 @@
       <nav>
         <ul>
           <li><a href="about.html">About</a></li>
-          <li><a href="academics.html" class="active" aria-current="page">Academics</a></li>
+          <li><a href="academics.html">Academics</a></li>
           <li><a href="community-arts.html">Community &amp; Arts</a></li>
           <li><a href="alumni.html">Alumni</a></li>
           <li><a href="news.html">News</a></li>
@@ -741,7 +781,7 @@
     <nav class="subnav-group">
       <a href="index.html">Home</a>
       <a href="about.html">About</a>
-      <a href="academics.html" class="active" aria-current="page">Academics</a>
+      <a href="academics.html">Academics</a>
     </nav>
     <nav class="subnav-group">
       <a href="community-arts.html">Community &amp; Arts</a>
@@ -754,182 +794,129 @@
 </div>
 
 
-<section class="page-hero">
-  <div class="page-hero-photo" aria-hidden="true">
-    <img src="https://www.maruapula.org/wp-content/uploads/2022/02/MaP-Photos-In-Class-10327.jpg" alt="">
-  </div>
-  <div class="hero-sun" aria-hidden="true"></div>
-  <div class="hero-ring r2" aria-hidden="true"></div>
-  <div class="hero-ring r3" aria-hidden="true"></div>
-  <svg class="cloud-drift c1" width="220" height="70" viewBox="0 0 220 70" aria-hidden="true" style="top:90px;">
-    <ellipse cx="60" cy="40" rx="60" ry="24" fill="#fff" opacity="0.9"/>
-    <ellipse cx="120" cy="30" rx="50" ry="28" fill="#fff" opacity="0.9"/>
-  </svg>
-  <svg class="cloud-drift c2" width="160" height="50" viewBox="0 0 160 50" aria-hidden="true">
-    <ellipse cx="60" cy="30" rx="55" ry="18" fill="#fff"/>
-  </svg>
-
-  <div class="page-hero-inner">
-    <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><a href="academics.html">Academics</a><span>/</span><span>Arts</span></div>
-    <div class="eyebrow">Subject spotlight</div>
-    <h1>The Arts, with a <em>real stage</em>.</h1>
-    <p class="lede">Music, drama, and visual art at MaP aren't confined to a classroom — Maitisong Theatre, right on campus, gives Arts students a genuine performance space most schools can't offer.</p>
-    <div class="hero-cta">
-      <a href="#syllabus" class="btn btn-invert">See the Syllabus ↓</a>
-      <a href="#department" class="btn btn-ghost" style="border-color:rgba(255,255,255,0.35); color:#fff;">Meet the Department</a>
-    </div>
-  </div>
-
-  <div class="horizon" aria-hidden="true">
-    <svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path d="M0 90V40C240 10 480 0 720 12C960 24 1200 60 1440 40V90H0Z" fill="#FFFFFF"/></svg>
-  </div>
-</section>
-
-<section class="story section-pad" id="overview">
-  <div class="wrap story-grid">
-    <div class="photo story-mark">
-      <img src="https://www.maruapula.org/wp-content/uploads/2024/03/IMG_5620-375x375.jpg" alt="Arts students at Maru-a-Pula School">
-    </div>
-    <div>
-      <div class="eyebrow reveal">A stage, not just a syllabus</div>
-      <h3 class="reveal d1">Where Maitisong makes the difference.</h3>
-      <p class="reveal-fade d2">Music, drama, and visual art run through every stage at MaP, but what sets the Arts here apart is Maitisong — Botswana's premier performing arts centre, based right on the school's own campus.</p>
-      <p class="reveal-fade d3">That means Arts students aren't just studying performance and technique in theory; they have a working theatre to actually use, including during the country's largest annual arts festival.</p>
-    </div>
-  </div>
-</section>
-
-<section class="story section-pad" id="syllabus" style="background:var(--fog);">
+<section class="apply-hero">
   <div class="wrap">
-    <div class="section-head">
-      <div>
-        <div class="eyebrow reveal">What's covered, and when</div>
-        <h2 class="reveal d1">The syllabus at each stage</h2>
-      </div>
-      <p class="reveal-fade d2">Three stages, all with access to Maitisong's facilities.</p>
-    </div>
-    <div class="timeline">
-      <div class="timeline-item reveal-fade" style="transition-delay:.05s;">
-        <div class="timeline-dot"></div>
-        <div class="timeline-year">Lower School · Form 1–3</div>
-        <h4>Music, drama &amp; visual art</h4>
-        <p>Every student gets exposure to all three disciplines, discovering where their interest lies before choosing what to carry forward.</p>
-      </div>
-      <div class="timeline-item reveal-fade" style="transition-delay:.12s;">
-        <div class="timeline-dot"></div>
-        <div class="timeline-year">IGCSE · Form 4–5</div>
-        <h4>IGCSE Arts subjects</h4>
-        <p>Students sit formal Cambridge examinations in their chosen Arts discipline, supported by Maitisong's facilities for performance-based subjects.</p>
-      </div>
-      <div class="timeline-item reveal-fade" style="transition-delay:.19s;">
-        <div class="timeline-dot"></div>
-        <div class="timeline-year">A-Level · Lower &amp; Upper Six</div>
-        <h4>A-Level specialisation</h4>
-        <p>For students continuing in music, drama, or visual art, A-Level study makes full use of Maitisong Theatre as a genuine working performance space.</p>
-      </div>
-    </div>
-    <div class="draft-note reveal-fade d3" style="margin-top:32px;">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
-      Detailed syllabus content and Cambridge exam board specifics need to be confirmed with the Arts Department before publishing.
-    </div>
+    <div class="breadcrumb" style="color:var(--mid); margin-bottom:16px;"><a href="index.html" style="color:var(--mid);">Home</a><span>/</span><a href="admissions.html" style="color:var(--mid);">Admissions</a><span>/</span><span style="color:var(--ink);">Apply</span></div>
+    <div class="apply-type-pill" id="applyTypePill">Form 1 Entry</div>
+    <h1 id="applyHeading">Apply to Maru-a-Pula</h1>
+    <p id="applyLede">Start your child's application below. We'll be in touch once it's received.</p>
   </div>
 </section>
 
-<section class="pillars section-pad" id="department">
-  <div class="wrap">
-    <div class="section-head">
-      <div>
-        <div class="eyebrow reveal">Who teaches it</div>
-        <h2 class="reveal d1">Meet the Department</h2>
+<div class="wrap apply-layout">
+  <div class="apply-form-card">
+    <form id="applyForm" onsubmit="return false;">
+      <div class="apply-section-title">Student Details</div>
+      <div class="apply-grid">
+        <div class="apply-field full">
+          <label for="studentName">Student's full name <span class="req">*</span></label>
+          <input type="text" id="studentName" required>
+        </div>
+        <div class="apply-field">
+          <label for="studentDob">Date of birth <span class="req">*</span></label>
+          <input type="date" id="studentDob" required>
+        </div>
+        <div class="apply-field">
+          <label for="currentSchool">Current school <span class="req">*</span></label>
+          <input type="text" id="currentSchool" required>
+        </div>
+        <div class="apply-field full">
+          <label>Entry type</label>
+          <div class="apply-radio-row" id="entryTypeRow">
+            <label class="apply-radio-chip"><input type="radio" name="entryType" value="form1" checked><span>Form 1 Entry</span></label>
+            <label class="apply-radio-chip"><input type="radio" name="entryType" value="lateral"><span>Lateral Entry</span></label>
+          </div>
+        </div>
+        <div class="apply-field full">
+          <label for="formApplying">Form applying to</label>
+          <select id="formApplying">
+            <option>Form 1</option>
+            <option>Form 2</option>
+            <option>Form 3</option>
+            <option>Form 4</option>
+            <option>Form 5</option>
+            <option>Upper Six</option>
+          </select>
+        </div>
       </div>
-      <p class="reveal-fade d2">Specialist teachers across music, drama, and visual art.</p>
-    </div>
-    <div class="pillar-grid">
-      <div class="pillar-card">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4.5L6 21l1.5-7.5L2 9h7z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></div>
-        <h4>Music</h4>
-        <p>Teachers covering performance and music theory through to Cambridge examination level.</p>
-      </div>
-      <div class="pillar-card">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4.5L6 21l1.5-7.5L2 9h7z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></div>
-        <h4>Drama</h4>
-        <p>Staff who make full use of Maitisong Theatre for rehearsal and performance.</p>
-      </div>
-      <div class="pillar-card">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4.5L6 21l1.5-7.5L2 9h7z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></div>
-        <h4>Visual Art</h4>
-        <p>Teachers guiding students through technique, portfolio work, and exhibition.</p>
-      </div>
-    </div>
-    <div class="draft-note reveal-fade d3" style="margin-top:32px;">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
-      Named staff profiles, photos, and bios need to be supplied by the Arts Department before publishing.
-    </div>
-  </div>
-</section>
 
-<section class="story section-pad" id="beyond-classroom" style="background:var(--fog);">
-  <div class="wrap story-grid-rev">
-    <div>
-      <div class="eyebrow reveal">Outside the syllabus</div>
-      <h3 class="reveal d1">Beyond the classroom.</h3>
-      <p class="reveal-fade d2">Maitisong hosts Botswana's largest annual arts festival, held right on the MaP campus — a major event Arts students are directly involved in producing and performing at.</p>
-      <p class="reveal-fade d3">Beyond the festival, students have opportunities to perform, exhibit, and produce work throughout the year in a real venue, not just a classroom.</p>
-    </div>
-    <div class="photo story-mark">
-      <img src="https://www.maruapula.org/wp-content/uploads/2021/12/Maru-a-pula-2019-11085.jpg" alt="Maitisong Theatre performance at Maru-a-Pula School">
-    </div>
-  </div>
-  <div class="wrap">
-    <div class="draft-note reveal-fade d3" style="margin-top:32px;">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
-      Specific clubs, competitions, and activities need to be confirmed with the Arts Department before publishing.
-    </div>
-  </div>
-</section>
-
-<section class="pillars section-pad" id="explore-more">
-  <div class="wrap">
-    <div class="section-head">
-      <div>
-        <div class="eyebrow reveal">Keep exploring</div>
-        <h2 class="reveal d1">See where Arts fits in</h2>
+      <div class="apply-section-title">Living Arrangement</div>
+      <div class="apply-field full">
+        <div class="apply-radio-row">
+          <label class="apply-radio-chip"><input type="radio" name="livingType" value="day" checked><span>Day Student</span></label>
+          <label class="apply-radio-chip"><input type="radio" name="livingType" value="boarding"><span>Boarding Student</span></label>
+        </div>
       </div>
-    </div>
-    <div class="pillar-grid">
-      <a href="lower-school.html" class="pillar-card" style="display:block;">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-5-7-11a7 7 0 0114 0c0 6-7 11-7 11z" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Lower School →</h4>
-        <p>Where every student gets a first taste of music, drama, and visual art.</p>
-      </a>
-      <a href="upper-school.html" class="pillar-card" style="display:block;">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c2.5 2.5 3.8 5.8 3.8 9s-1.3 6.5-3.8 9c-2.5-2.5-3.8-5.8-3.8-9S9.5 5.5 12 3z" stroke="currentColor" stroke-width="1.8"/></svg></div>
-        <h4>Upper School →</h4>
-        <p>IGCSE and A-Level Arts examinations.</p>
-      </a>
-      <a href="subject-languages.html" class="pillar-card" style="display:block;">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 19V6l10-2v13" stroke="currentColor" stroke-width="1.6"/><circle cx="7" cy="19" r="2" stroke="currentColor" stroke-width="1.6"/><circle cx="17" cy="17" r="2" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Languages &amp; Literature →</h4>
-        <p>Closely tied to drama and performance texts.</p>
-      </a>
-    </div>
-  </div>
-</section>
 
-<section class="cta-banner">
-  <div class="cta-photo" aria-hidden="true">
-    <img src="https://www.maruapula.org/wp-content/uploads/2022/02/Maru-a-pula-2019-10009.jpg" alt="">
+      <div class="apply-section-title">Parent / Guardian Details</div>
+      <div class="apply-grid">
+        <div class="apply-field full">
+          <label for="guardianName">Full name <span class="req">*</span></label>
+          <input type="text" id="guardianName" required>
+        </div>
+        <div class="apply-field">
+          <label for="guardianEmail">Email address <span class="req">*</span></label>
+          <input type="email" id="guardianEmail" required>
+        </div>
+        <div class="apply-field">
+          <label for="guardianPhone">Phone number <span class="req">*</span></label>
+          <input type="tel" id="guardianPhone" required>
+        </div>
+        <div class="apply-field full">
+          <label for="relationship">Relationship to student</label>
+          <select id="relationship">
+            <option>Mother</option>
+            <option>Father</option>
+            <option>Guardian</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="apply-section-title">Anything Else</div>
+      <div class="apply-field full">
+        <label for="howHeard">How did you hear about MaP?</label>
+        <select id="howHeard">
+          <option>Word of mouth</option>
+          <option>Open Day</option>
+          <option>Alumni</option>
+          <option>Online search</option>
+          <option>Social media</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="apply-field full">
+        <label for="notes">Notes for the Admissions Office (optional)</label>
+        <textarea id="notes" placeholder="Anything you'd like us to know before we're in touch"></textarea>
+      </div>
+
+      <button type="submit" id="applySubmit" class="btn btn-primary" style="width:100%; justify-content:center; margin-top:8px;">Submit Application →</button>
+
+      <div class="draft-note" style="margin-top:24px;">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
+        This form is a visual placeholder — it doesn't submit anywhere yet. To start a real application, please contact the Admissions Office directly until this is wired up.
+      </div>
+    </form>
   </div>
-  <div class="wrap cta-inner">
-    <div class="eyebrow reveal-left">A stage waiting to be used</div>
-    <h2 class="reveal-left d1">See Maitisong Theatre in person.</h2>
-    <p class="reveal-left d2">Book a campus tour, meet current arts staff and students, or start your child's application today.</p>
-    <div class="cta-buttons reveal-left d3">
-      <a href="apply.html" class="btn btn-invert">Start Your Application →</a>
-      <a href="#" class="btn btn-ghost" style="border-color:rgba(255,255,255,0.35); color:#fff;">Book a Campus Tour</a>
+
+  <div class="apply-sidebar">
+    <div class="apply-side-card">
+      <h4>What you'll need</h4>
+      <ul class="apply-checklist">
+        <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Birth certificate</li>
+        <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Most recent school report</li>
+        <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Passport-sized photo</li>
+        <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Application fee</li>
+      </ul>
+      <p style="margin-top:14px; margin-bottom:0;">Exact requirements and fees should be confirmed with Admissions.</p>
+    </div>
+    <div class="apply-side-card">
+      <h4>Questions before you apply?</h4>
+      <p>Admissions can talk you through timing, fees, and what to expect at each stage.</p>
+      <a href="contact.html">Contact Admissions →</a>
     </div>
   </div>
-</section>
+</div>
 
 <footer>
   <div class="wrap">
@@ -1070,6 +1057,55 @@
     });
     document.addEventListener('keydown', function(e){
       if(e.key === 'Escape') closeSubnav();
+    });
+  })();
+</script>
+<script>
+  (function(){
+    var copy = {
+      form1: {
+        pill: 'Form 1 Entry',
+        heading: 'Apply for Form 1 Entry',
+        lede: "The primary entry point, alongside a full new cohort of Lower School students. Start your child's application below."
+      },
+      lateral: {
+        pill: 'Lateral Entry',
+        heading: 'Apply for Lateral Entry',
+        lede: 'A smaller number of places open in other forms as space allows. Start the application below, and Admissions will follow up to confirm availability.'
+      }
+    };
+
+    var pillEl = document.getElementById('applyTypePill');
+    var headingEl = document.getElementById('applyHeading');
+    var ledeEl = document.getElementById('applyLede');
+    var formApplying = document.getElementById('formApplying');
+    var radios = document.querySelectorAll('input[name="entryType"]');
+
+    function applyType(type){
+      if(!copy[type]) type = 'form1';
+      pillEl.textContent = copy[type].pill;
+      headingEl.textContent = copy[type].heading;
+      ledeEl.textContent = copy[type].lede;
+      radios.forEach(function(r){ r.checked = (r.value === type); });
+      if(type === 'form1'){
+        formApplying.value = 'Form 1';
+      }
+    }
+
+    radios.forEach(function(r){
+      r.addEventListener('change', function(){
+        if(r.checked) applyType(r.value);
+      });
+    });
+
+    var params = new URLSearchParams(window.location.search);
+    var initialType = params.get('type');
+    applyType(initialType === 'lateral' ? 'lateral' : 'form1');
+
+    var form = document.getElementById('applyForm');
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      alert("This is a demo application form — it isn't connected to a real submission system yet. Please contact the Admissions Office directly to start a real application.");
     });
   })();
 </script>
