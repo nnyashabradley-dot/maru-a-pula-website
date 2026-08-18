@@ -508,6 +508,8 @@
     display:flex; justify-content:space-between; padding-top:26px;
     font-size:0.78rem; color:rgba(255,255,255,0.4); flex-wrap:wrap; gap:12px;
   }
+  .footer-bottom a{transition:color .2s ease;}
+  .footer-bottom a:hover{color:rgba(255,255,255,0.85); text-decoration:underline;}
 
   /* ===== RESPONSIVE ===== */
   @media (max-width:1120px){
@@ -718,12 +720,12 @@
         <div class="dropdown" id="applyDropdown">
           <button class="btn btn-primary dropdown-toggle" id="applyToggle" aria-haspopup="true" aria-expanded="false">Apply Now</button>
           <div class="dropdown-menu" id="applyMenu">
-            <a href="#">Apply for Admission</a>
+            <a href="admissions.html">Apply for Admission</a>
             <div class="dropdown-divider"></div>
             <div class="dropdown-label">Sign in as</div>
-            <a href="#">Parents</a>
-            <a href="#">Students</a>
-            <a href="#">Teachers &amp; Staff</a>
+            <a href="signin.html?role=parent">Parents</a>
+            <a href="signin.html?role=student">Students</a>
+            <a href="signin.html?role=staff">Teachers &amp; Staff</a>
           </div>
         </div>
       </div>
@@ -959,9 +961,9 @@
         <ul>
           <li><a href="maitisong-arts.html">Maitisong Festival</a></li>
           <li><a href="alumni.html">Alumni Network</a></li>
-          <li><a href="#">Parent Portal</a></li>
-          <li><a href="#">Careers at MaP</a></li>
-          <li><a href="#">Financial Aid</a></li>
+          <li><a href="signin.html?role=parent">Parent Portal</a></li>
+          <li><a href="careers.html">Careers at MaP</a></li>
+          <li><a href="admissions.html">Financial Aid</a></li>
         </ul>
       </div>
       <div>
@@ -975,7 +977,7 @@
     </div>
     <div class="footer-bottom">
       <span>© 2026 Maru-a-Pula School. All rights reserved.</span>
-      <span>Privacy Policy · Accessibility · Site Map</span>
+      <span><a href="privacy.html">Privacy Policy</a> · <a href="accessibility.html">Accessibility</a> · <a href="safeguarding.html">Safeguarding</a> · <a href="sitemap.html">Site Map</a></span>
     </div>
   </div>
 </footer>
@@ -1068,6 +1070,18 @@
     });
     document.addEventListener('keydown', function(e){
       if(e.key === 'Escape') closeSubnav();
+    });
+  })();
+</script>
+<script>
+  (function(){
+    document.querySelectorAll('.nav-search-bar, .search-form').forEach(function(form){
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        var input = form.querySelector('input[type="text"]');
+        var q = input ? input.value.trim() : '';
+        window.location.href = 'search.html' + (q ? '?q=' + encodeURIComponent(q) : '');
+      });
     });
   })();
 </script>

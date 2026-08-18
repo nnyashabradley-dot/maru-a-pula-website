@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Student Life — Maru-a-Pula School</title>
+<title>Careers — Maru-a-Pula School</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
@@ -668,30 +668,32 @@
   /* ===== NAV ACTIVE STATE ===== */
   nav ul a.active, .subnav a.active{color:var(--sun-3);}
   nav ul a.active{background:rgba(0,0,0,0.055);}
-  /* ===== PHOTO CARD (sub-grids for Sport / Facilities / Boarding) ===== */
-  .pcard-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}  .pcard{
-    background:#fff; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;
-    transition:transform .2s ease, box-shadow .2s ease;
+  /* ===== LEGAL / POLICY PAGES ===== */
+  .legal-hero{background:var(--ink); color:#fff; padding:150px 0 60px;}
+  .legal-hero .breadcrumb{color:rgba(255,255,255,0.6);}
+  .legal-hero .breadcrumb a{color:rgba(255,255,255,0.6);}
+  .legal-hero .breadcrumb span:last-child{color:#fff;}
+  .legal-hero h1{font-size:2.4rem; margin:22px 0 12px;}
+  .legal-updated{font-family:'JetBrains Mono',monospace; font-size:0.82rem; color:rgba(255,255,255,0.5);}
+  .legal-banner{
+    display:flex; gap:14px; align-items:flex-start; background:rgba(242,167,59,0.12); border:1.5px solid rgba(242,167,59,0.35);
+    border-radius:14px; padding:18px 22px; margin-top:28px; max-width:720px;
   }
-  .pcard:hover{transform:translateY(-4px); box-shadow:0 20px 40px -24px rgba(0,0,0,0.3);}
-  .pcard-photo{height:150px; overflow:hidden;}
-  .pcard-photo img{width:100%; height:100%; object-fit:cover; transition:transform .5s ease;}
-  .pcard:hover .pcard-photo img{transform:scale(1.06);}
-  .pcard-body{padding:16px 18px 20px;}
-  .pcard-body h4{font-family:'Fraunces',serif; font-size:1.02rem; font-weight:600; color:var(--black); margin-bottom:6px;}
-  .pcard-body p{font-size:0.86rem; color:var(--mid); line-height:1.5;}
-  @media (max-width:900px){ .pcard-grid{grid-template-columns:repeat(2,1fr);} }
-  @media (max-width:560px){ .pcard-grid{grid-template-columns:1fr;} }
-
-  /* ===== PHOTO CARD CAROUSEL (horizontal scroll, e.g. Sport) ===== */
-  .pcard-track{
-    display:flex; gap:20px; overflow-x:auto; scroll-snap-type:x mandatory;
-    padding-bottom:14px; scrollbar-width:none; -ms-overflow-style:none;
-  }
-  .pcard-track::-webkit-scrollbar{display:none;}
-  .pcard-track .pcard{flex:0 0 230px; scroll-snap-align:start;}
-  .pcard-track .pcard-photo{height:150px;}
-  @media (max-width:640px){ .pcard-track .pcard{flex-basis:180px;} .pcard-track .pcard-photo{height:120px;} }
+  .legal-banner svg{width:20px; height:20px; color:var(--sun-1); flex-shrink:0; margin-top:2px;}
+  .legal-banner p{color:rgba(255,255,255,0.85); font-size:0.9rem; line-height:1.6; margin:0;}
+  .legal-body{max-width:760px; margin:0 auto; padding:64px 0;}
+  .legal-toc{background:var(--fog); border-radius:var(--radius); padding:26px 30px; margin-bottom:48px;}
+  .legal-toc h4{font-size:0.82rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--mid); margin-bottom:14px;}
+  .legal-toc ol{padding-left:20px; columns:2; gap:24px;}
+  .legal-toc li{font-size:0.92rem; margin-bottom:8px;}
+  .legal-toc a{color:var(--ink); font-weight:600;}
+  .legal-toc a:hover{color:var(--sun-3);}
+  .legal-section{margin-bottom:44px; scroll-margin-top:100px;}
+  .legal-section h2{font-size:1.4rem; margin-bottom:16px;}
+  .legal-section p{font-size:1rem; line-height:1.75; color:#2b2b2b; margin-bottom:16px;}
+  .legal-section ul{padding-left:22px; margin-bottom:16px;}
+  .legal-section li{font-size:1rem; line-height:1.75; color:#2b2b2b; margin-bottom:8px;}
+  @media (max-width:640px){ .legal-toc ol{columns:1;} .legal-hero h1{font-size:1.8rem;} }
 </style>
 </head>
 <body>
@@ -768,7 +770,7 @@
       <a href="academics.html">Academics</a>
     </nav>
     <nav class="subnav-group">
-      <a href="community-arts.html" class="active" aria-current="page">Community &amp; Arts</a>
+      <a href="community-arts.html">Community &amp; Arts</a>
       <a href="alumni.html">Alumni</a>
       <a href="news.html">News</a>
       <a href="contact.html">Contact</a>
@@ -780,7 +782,7 @@
 
 <section class="page-hero">
   <div class="page-hero-photo" aria-hidden="true">
-    <img src="https://www.maruapula.org/wp-content/uploads/2021/12/Maru-a-pula-2019-11085.jpg" alt="">
+    <img src="https://www.maruapula.org/wp-content/uploads/2022/02/MaP-Photos-In-Class-10327.jpg" alt="">
   </div>
   <div class="hero-sun" aria-hidden="true"></div>
   <div class="hero-ring r2" aria-hidden="true"></div>
@@ -794,13 +796,13 @@
   </svg>
 
   <div class="page-hero-inner">
-    <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><a href="community-arts.html">Community &amp; Arts</a><span>/</span><span>Student Life</span></div>
-    <div class="eyebrow">More than the classroom</div>
-    <h1>A day in the life at <em>MaP</em>.</h1>
-    <p class="lede">Around 500 day scholars and 100 boarders share the same six-day rotating timetable, the same playing fields, and the same packed calendar of clubs, sport, and music — whether you go home at 4pm or you're back in your boarding house.</p>
+    <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><span>Careers</span></div>
+    <div class="eyebrow">Work at MaP</div>
+    <h1>Teach, lead, or support <em>Africa's leading schools</em>.</h1>
+    <p class="lede">MaP hires both teaching and non-teaching staff throughout the year, as positions open up across departments — from the classroom to boarding houses to admin offices.</p>
     <div class="hero-cta">
-      <a href="#routine" class="btn btn-invert">See the Daily Routine ↓</a>
-      <a href="#sport" class="btn btn-ghost" style="border-color:rgba(255,255,255,0.35); color:#fff;">Explore Sport &amp; Clubs</a>
+      <a href="#openings" class="btn btn-invert">See How Hiring Works ↓</a>
+      <a href="contact.html" class="btn btn-ghost" style="border-color:rgba(255,255,255,0.35); color:#fff;">Contact HR</a>
     </div>
   </div>
 
@@ -809,373 +811,79 @@
   </div>
 </section>
 
-<section class="quick-actions">
-  <div class="qa-grid" style="grid-template-columns:repeat(4,1fr);">
-    <div class="qa-item" style="cursor:default;">
-      <span class="mono" style="font-size:1.5rem; font-weight:700; color:var(--sun-3);">~500</span>
-      <span>Day scholars</span>
-    </div>
-    <div class="qa-item" style="cursor:default;">
-      <span class="mono" style="font-size:1.5rem; font-weight:700; color:var(--sun-3);">~100</span>
-      <span>Boarders, girls and boys</span>
-    </div>
-    <div class="qa-item" style="cursor:default;">
-      <span class="mono" style="font-size:1.5rem; font-weight:700; color:var(--sun-3);">6</span>
-      <span>Periods a day, six-day rotation</span>
-    </div>
-    <div class="qa-item" style="cursor:default;">
-      <span class="mono" style="font-size:1.5rem; font-weight:700; color:var(--sun-3);">5</span>
-      <span>School days a week — no Saturday classes</span>
-    </div>
-  </div>
-  <div class="wrap">
-    <div class="draft-note reveal-fade d3" style="margin-top:14px;">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
-      Current day scholar and boarder numbers should be confirmed with the school before publishing.
-    </div>
-  </div>
-</section>
-
-<section class="gallery section-pad" id="in-pictures" style="padding-top:60px; padding-bottom:60px;">
+<section class="pillars section-pad" id="openings">
   <div class="wrap">
     <div class="section-head">
       <div>
-        <div class="eyebrow reveal">See it, don't just read it</div>
-        <h2 class="reveal d1">Student life in pictures</h2>
+        <div class="eyebrow reveal">What MaP typically hires for</div>
+        <h2 class="reveal d1">Teaching &amp; non-teaching roles</h2>
       </div>
-      <p class="reveal-fade d2">Click through to see what each part of student life actually looks like.</p>
-    </div>
-    <div class="gallery-grid">
-      <a href="#boarding" class="big">
-        <img src="https://images.pexels.com/photos/5158945/pexels-photo-5158945.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Boarders relaxing together in a boarding house common room">
-        <span class="gallery-cap">Boarding House Life</span>
-      </a>
-      <a href="#sport">
-        <img src="https://images.pexels.com/photos/10643677/pexels-photo-10643677.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Students playing basketball in school uniform">
-        <span class="gallery-cap">On the Pitch &amp; Court</span>
-      </a>
-      <a href="#facilities">
-        <img src="https://images.pexels.com/photos/8471835/pexels-photo-8471835.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Students doing a science experiment in the laboratory">
-        <span class="gallery-cap">Labs &amp; Facilities</span>
-      </a>
-      <a href="community-service.html">
-        <img src="https://www.maruapula.org/wp-content/uploads/2022/02/Maru-a-pula-2019-10009.jpg" alt="Students on a community service placement">
-        <span class="gallery-cap">Weekly Service</span>
-      </a>
-    </div>
-    <div class="draft-note reveal-fade d3" style="margin-top:28px;">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
-      These photos are illustrative stand-ins, not MaP's own photography — real campus photos of students boarding, playing sport, and in the labs should replace these before publishing.
-    </div>
-  </div>
-</section>
-
-<section class="story section-pad" id="boarding" style="padding-top:70px;">
-  <div class="wrap story-grid">
-    <div class="photo story-mark">
-      <img src="https://images.pexels.com/photos/5158945/pexels-photo-5158945.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Boarders relaxing together in a common room at Maru-a-Pula School">
-    </div>
-    <div>
-      <div class="eyebrow reveal">Home away from home</div>
-      <h3 class="reveal d1">Boarding houses</h3>
-      <p class="reveal-fade d2">Boarders live in single-sex houses organised by age, with older students in their own section and younger ones close by. It's a small, close-knit setup rather than a sprawling dormitory system — everyone in a house tends to know everyone else.</p>
-      <p class="reveal-fade d3">Boarding is available to any admitted student, and is often used by families who relocate for work partway through the school year, or who live too far from Gaborone to commute daily.</p>
-      <div class="draft-note reveal-fade d3">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
-        House names, current capacity, and boarding fees need to be confirmed with the Boarding Office before publishing.
-      </div>
-    </div>
-  </div>
-  <div class="wrap" style="margin-top:56px;">
-    <div class="pcard-grid" style="grid-template-columns:repeat(3,1fr);">
-      <div class="pcard">
-        <div class="pcard-photo"><img src="https://images.pexels.com/photos/5158945/pexels-photo-5158945.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Boarders relaxing together in a common room"></div>
-        <div class="pcard-body">
-          <h4>Common Room</h4>
-          <p>Where boarders unwind together outside of study hours — the social heart of each house.</p>
-        </div>
-      </div>
-      <a href="#facilities" class="pcard" style="display:block;">
-        <div class="pcard-photo"><img src="https://images.pexels.com/photos/8617514/pexels-photo-8617514.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Students eating together in the dining hall"></div>
-        <div class="pcard-body">
-          <h4>Meal Times →</h4>
-          <p>Shared meals in the dining hall, a fixed point in every boarder's day.</p>
-        </div>
-      </a>
-      <a href="#facilities" class="pcard" style="display:block;">
-        <div class="pcard-photo"><img src="https://images.pexels.com/photos/9572540/pexels-photo-9572540.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Students studying together"></div>
-        <div class="pcard-body">
-          <h4>Prep &amp; Study Time →</h4>
-          <p>Supervised study hours in the evening, before lights out.</p>
-        </div>
-      </a>
-    </div>
-    <div class="draft-note reveal-fade d3" style="margin-top:28px;">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
-      These are illustrative stock photos, not MaP's own boarding house photography — real photos of the actual houses should replace these before publishing.
-    </div>
-  </div>
-</section>
-
-<section class="story section-pad" id="routine" style="background:var(--fog);">
-  <div class="wrap story-grid-rev">
-    <div>
-      <div class="eyebrow reveal">Six days, five periods, one rotation</div>
-      <h3 class="reveal d1">The academic day</h3>
-      <p class="reveal-fade d2">MaP runs on a six-day timetable rotation squeezed into a five-day school week — so lessons don't fall on the same day every week, and no single subject always gets the sleepy last period. Each day has six periods, in a different order from the day before.</p>
-      <p class="reveal-fade d3">Most students carry four subjects at a time; Upper Six students finishing their final year can narrow to three. For boarders, the day starts early — showers and breakfast well before the first bell.</p>
-      <a href="academics.html" class="btn btn-ghost reveal-fade d3" style="margin-top:8px;">See how this fits into Academics →</a>
-    </div>
-    <div class="photo story-mark">
-      <img src="https://www.maruapula.org/wp-content/uploads/2022/02/MaP-Photos-In-Class-10327.jpg" alt="Students in class at Maru-a-Pula School">
-    </div>
-  </div>
-</section>
-
-<section class="story section-pad" id="sport">
-  <div class="wrap story-grid">
-    <div class="photo story-mark">
-      <img src="https://images.pexels.com/photos/8941564/pexels-photo-8941564.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Students in soccer uniform playing on the field">
-    </div>
-    <div>
-      <div class="eyebrow reveal">Fields, courts, and a pool</div>
-      <h3 class="reveal d1">Sport</h3>
-      <p class="reveal-fade d2">MaP's 50-acre campus has enough space and facilities to host multi-school track and field meets, alongside pitches and courts for football, rugby, cricket, basketball, and netball, plus a 25-metre swimming pool.</p>
-      <p class="reveal-fade d3">Teams compete regularly against other schools in the region, with a track record of strong results in local competition across several sports.</p>
-      <div class="draft-note reveal-fade d3">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
-        Current teams, fixtures, and season results need to be confirmed with the PE department before publishing.
-      </div>
-    </div>
-  </div>
-  <div class="wrap" style="margin-top:56px;">
-    <div class="section-head" style="margin-bottom:24px;">
-      <p class="reveal-fade d2" style="color:var(--mid); font-size:0.9rem;">Scroll to see all 9 sports →</p>
-      <div class="carousel-nav">
-        <button class="car-btn" id="sportPrev" aria-label="Scroll left" type="button">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <button class="car-btn" id="sportNext" aria-label="Scroll right" type="button">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-      </div>
-    </div>
-    <div class="pcard-track" id="sportTrack">
-      <div class="pcard">
-        <div class="pcard-photo"><img src="https://images.pexels.com/photos/10727439/pexels-photo-10727439.jpeg?auto=compress&cs=tinysrgb&w=700" alt="An empty green football pitch marked out for a match"></div>
-        <div class="pcard-body">
-          <h4>Football</h4>
-          <p>Pitches marked out for regular fixtures, with room for a full-size match.</p>
-        </div>
-      </div>
-      <div class="pcard">
-        <div class="pcard-photo"><img src="https://images.pexels.com/photos/3645005/pexels-photo-3645005.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Rugby players in action on the field"></div>
-        <div class="pcard-body">
-          <h4>Rugby</h4>
-          <p>A regular fixture on the sporting calendar, played on the same grounds as football.</p>
-        </div>
-      </div>
-      <div class="pcard">
-        <div class="pcard-photo"><img src="https://images.pexels.com/photos/13509977/pexels-photo-13509977.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Students playing cricket on a grassy field"></div>
-        <div class="pcard-body">
-          <h4>Cricket</h4>
-          <p>Bat and ball on the same wide fields that host football and rugby in other seasons.</p>
-        </div>
-      </div>
-      <div class="pcard">
-        <div class="pcard-photo"><img src="https://images.pexels.com/photos/10643677/pexels-photo-10643677.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Students playing basketball in school uniform"></div>
-        <div class="pcard-body">
-          <h4>Basketball</h4>
-          <p>Outdoor courts in regular use at break times and after school, not just for fixtures.</p>
-        </div>
-      </div>
-      <div class="pcard">
-        <div class="pcard-photo"><img src="https://images.pexels.com/photos/31013869/pexels-photo-31013869.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Students playing netball on an outdoor court"></div>
-        <div class="pcard-body">
-          <h4>Netball</h4>
-          <p>One of the most consistently competitive teams in local school fixtures.</p>
-        </div>
-      </div>
-      <div class="pcard">
-        <div class="pcard-photo"><img src="https://images.pexels.com/photos/1263349/pexels-photo-1263349.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Students racing in a swimming pool"></div>
-        <div class="pcard-body">
-          <h4>Swimming</h4>
-          <p>The 25-metre pool hosts training, lessons, and inter-school swim meets.</p>
-        </div>
-      </div>
-      <div class="pcard">
-        <div class="pcard-photo"><img src="https://images.pexels.com/photos/34514/pexels-photo-34514.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Athletes running on a track and field oval"></div>
-        <div class="pcard-body">
-          <h4>Athletics</h4>
-          <p>Track and field events, with enough space on campus to host multi-school meets.</p>
-        </div>
-      </div>
-      <div class="pcard">
-        <div class="pcard-photo"><img src="https://images.pexels.com/photos/6203673/pexels-photo-6203673.jpeg?auto=compress&cs=tinysrgb&w=700" alt="A student playing volleyball"></div>
-        <div class="pcard-body">
-          <h4>Volleyball</h4>
-          <p>Played on the same indoor and outdoor courts used for basketball and netball.</p>
-        </div>
-      </div>
-      <div class="pcard">
-        <div class="pcard-photo"><img src="https://images.pexels.com/photos/8223993/pexels-photo-8223993.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Students playing tennis on a court"></div>
-        <div class="pcard-body">
-          <h4>Tennis</h4>
-          <p>Courts open to students outside of formal PE periods, as well as for fixtures.</p>
-        </div>
-      </div>
-    </div>
-    <div class="draft-note reveal-fade d3" style="margin-top:28px;">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
-      These are illustrative stock photos, not MaP's own team photography — real match-day photos of MaP's own teams should replace these before publishing.
-    </div>
-  </div>
-</section>
-
-<section class="story section-pad" id="facilities">
-  <div class="wrap story-grid-rev">
-    <div>
-      <div class="eyebrow reveal">A 50-acre campus</div>
-      <h3 class="reveal d1">Facilities</h3>
-      <p class="reveal-fade d2">Beyond classrooms, MaP's campus includes dedicated science laboratories, a library for quiet study and research, boarding houses, sports fields and courts, a swimming pool, and Maitisong Theatre for music, drama, and assemblies.</p>
-      <p class="reveal-fade d3">It's the kind of space that lets a single campus hold a full school day, a full sports fixture, and a full theatre production, all without students ever needing to leave.</p>
-    </div>
-    <div class="photo story-mark">
-      <img src="https://images.pexels.com/photos/9572540/pexels-photo-9572540.jpeg?auto=compress&cs=tinysrgb&w=900" alt="Students studying together in the library">
-    </div>
-  </div>
-  <div class="wrap" style="margin-top:56px;">
-    <div class="pcard-grid">
-      <div class="pcard">
-        <div class="pcard-photo"><img src="https://images.pexels.com/photos/8471835/pexels-photo-8471835.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Students doing a science experiment in the laboratory"></div>
-        <div class="pcard-body">
-          <h4>Science Laboratories</h4>
-          <p>Dedicated lab space for biology, chemistry, and physics, used from Form 1 right through to A-Level.</p>
-        </div>
-      </div>
-      <a href="library.html" class="pcard" style="display:block; position:relative;">
-        <div class="pcard-photo"><img src="https://images.pexels.com/photos/9572540/pexels-photo-9572540.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Students studying together in the library"></div>
-        <div class="pcard-body">
-          <h4>Library →</h4>
-          <p>Search the catalogue and see this month's top readers. For MaP parents, students, and staff.</p>
-        </div>
-      </a>
-      <a href="#sport" class="pcard" style="display:block;">
-        <div class="pcard-photo"><img src="https://images.pexels.com/photos/10727439/pexels-photo-10727439.jpeg?auto=compress&cs=tinysrgb&w=700" alt="A football pitch on campus"></div>
-        <div class="pcard-body">
-          <h4>Sports Complex →</h4>
-          <p>Pitches, courts, and a 25-metre pool across the grounds.</p>
-        </div>
-      </a>
-      <a href="#boarding" class="pcard" style="display:block;">
-        <div class="pcard-photo"><img src="https://images.pexels.com/photos/5158945/pexels-photo-5158945.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Boarders relaxing together in a common room"></div>
-        <div class="pcard-body">
-          <h4>Boarding Houses →</h4>
-          <p>Home for around 100 students during term time.</p>
-        </div>
-      </a>
-      <a href="maitisong-arts.html" class="pcard" style="display:block;">
-        <div class="pcard-photo"><img src="https://www.maruapula.org/wp-content/uploads/2021/12/Maru-a-pula-2019-11085.jpg" alt="Maitisong Theatre at Maru-a-Pula School"></div>
-        <div class="pcard-body">
-          <h4>Maitisong Theatre →</h4>
-          <p>A 450-seat venue for music, drama, and assemblies.</p>
-        </div>
-      </a>
-      <div class="pcard">
-        <div class="pcard-photo"><img src="https://images.pexels.com/photos/8617514/pexels-photo-8617514.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Students eating lunch together in the dining hall"></div>
-        <div class="pcard-body">
-          <h4>Dining Hall</h4>
-          <p>Shared meals for boarders, and a lunchtime hub for day scholars too.</p>
-        </div>
-      </div>
-    </div>
-    <div class="draft-note reveal-fade d3" style="margin-top:32px;">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
-      Facility details should be confirmed with the school, and photographed properly, before publishing.
-    </div>
-  </div>
-</section>
-
-<section class="pillars section-pad" id="clubs" style="background:var(--fog);">
-  <div class="wrap">
-    <div class="section-head">
-      <div>
-        <div class="eyebrow reveal">Beyond the timetable</div>
-        <h2 class="reveal d1">Clubs &amp; activities</h2>
-      </div>
-      <p class="reveal-fade d2">A full extracurricular programme runs alongside academics, sport, and the weekly service commitment.</p>
+      <p class="reveal-fade d2">Openings vary by year, but tend to fall into these areas.</p>
     </div>
     <div class="pillar-grid">
       <div class="pillar-card">
         <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h9l5 5v10a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.6"/><path d="M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>MaP Journalists</h4>
-        <p>A student journalism club that covers school life and visiting guests, from Maitisong performers to exchange students.</p>
+        <h4>Subject Teachers</h4>
+        <p>Sciences, Mathematics, English, Humanities, Languages, and more, up to A-Level.</p>
       </div>
-      <a href="maitisong-arts.html" class="pillar-card" style="display:block;">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 19V6l10-2v13" stroke="currentColor" stroke-width="1.6"/><circle cx="7" cy="19" r="2" stroke="currentColor" stroke-width="1.6"/><circle cx="17" cy="17" r="2" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Music, Drama &amp; Art →</h4>
-        <p>The marimba band, drama productions, and visual art all run through Maitisong and the Arts programme.</p>
-      </a>
-      <a href="community-service.html" class="pillar-card" style="display:block;">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-5-7-11a7 7 0 0114 0c0 6-7 11-7 11z" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Weekly Service →</h4>
-        <p>Required of every student, every week — not a club exactly, but very much part of student life.</p>
-      </a>
       <div class="pillar-card">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M8 12h8M12 8v8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
-        <h4>Debate &amp; Academic Clubs</h4>
-        <p>Subject-specific clubs and societies run throughout the year, often linked to inter-school competitions.</p>
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 19V6l10-2v13" stroke="currentColor" stroke-width="1.6"/><circle cx="7" cy="19" r="2" stroke="currentColor" stroke-width="1.6"/><circle cx="17" cy="17" r="2" stroke="currentColor" stroke-width="1.6"/></svg></div>
+        <h4>Arts &amp; Music</h4>
+        <p>Drama, music, and visual art staff who bring Maitisong's programme to life.</p>
       </div>
+      <div class="pillar-card">
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-5-7-11a7 7 0 0114 0c0 6-7 11-7 11z" stroke="currentColor" stroke-width="1.6"/></svg></div>
+        <h4>Boarding &amp; Pastoral Staff</h4>
+        <p>House staff and pastoral roles supporting MaP's boarding students day to day.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2" stroke="currentColor" stroke-width="1.6"/></svg></div>
+        <h4>Administration</h4>
+        <p>Business office, admissions, HR, and other roles that keep the school running.</p>
+      </div>
+      <div class="pillar-card">
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 21V10l8-6 8 6v11" stroke="currentColor" stroke-width="1.6"/><path d="M9 21v-6h6v6" stroke="currentColor" stroke-width="1.6"/></svg></div>
+        <h4>Facilities &amp; Grounds</h4>
+        <p>Maintaining a 50-acre campus, from classrooms to sports fields.</p>
+      </div>
+      <a href="contact.html" class="pillar-card" style="display:block;">
+        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h4>Ask What's Currently Open →</h4>
+        <p>Reach out to HR directly for the current, real list of open positions.</p>
+      </a>
     </div>
     <div class="draft-note reveal-fade d3" style="margin-top:32px;">
       <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
-      The full, current list of clubs and societies needs to be confirmed with the school before publishing.
+      These are illustrative categories of roles MaP has hired for in the past, not a live list of current vacancies. A real, current openings list needs to be provided by HR before this page goes live.
     </div>
   </div>
 </section>
 
-<section class="story section-pad" id="leadership">
+<section class="story section-pad" id="how-to-apply" style="background:var(--fog);">
   <div class="wrap story-grid-rev">
     <div>
-      <div class="eyebrow reveal">Earned, not appointed</div>
-      <h3 class="reveal d1">Student leadership</h3>
-      <p class="reveal-fade d2">Older students take on formal leadership roles across the school — in boarding houses, on sports teams, and through a student council that gives students a real voice in how the school runs day to day.</p>
-      <p class="reveal-fade d3">It's one more way MaP's service ethos shows up outside the weekly service programme itself: student leaders are expected to look out for the students below them, not just represent their own year.</p>
-      <div class="draft-note reveal-fade d3">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
-        The exact structure of prefects, house captains, and the student council needs to be confirmed with the school before publishing.
-      </div>
+      <div class="eyebrow reveal">Straightforward, on purpose</div>
+      <h3 class="reveal d1">How to apply</h3>
+      <p class="reveal-fade d2">Applications go directly to the HR Office by email, as a single PDF document containing a cover letter explaining why you're a good fit for the role, and a CV with contact details for three referees.</p>
+      <p class="reveal-fade d3">Certificates aren't needed at application stage — only if you're shortlisted and asked for them at interview. Only shortlisted candidates are contacted.</p>
+      <a href="contact.html" class="btn btn-ghost reveal-fade d3" style="margin-top:8px;">Get in touch with HR →</a>
     </div>
     <div class="photo story-mark">
-      <img src="https://www.maruapula.org/wp-content/uploads/2022/02/Maru-a-pula-2019-11694.jpg" alt="Student life at Maru-a-Pula School">
+      <img src="https://www.maruapula.org/wp-content/uploads/2022/02/Maru-a-pula-2019-10009.jpg" alt="Staff at Maru-a-Pula School">
     </div>
   </div>
 </section>
 
-<section class="pillars section-pad" id="explore-more" style="background:var(--fog);">
-  <div class="wrap">
-    <div class="section-head">
-      <div>
-        <div class="eyebrow reveal">Keep exploring</div>
-        <h2 class="reveal d1">See the rest of MaP</h2>
-      </div>
+<section class="story section-pad" id="child-protection">
+  <div class="wrap story-grid">
+    <div class="photo story-mark">
+      <img src="https://www.maruapula.org/wp-content/uploads/2021/12/Maru-a-pula-2019-11085.jpg" alt="Maru-a-Pula School campus">
     </div>
-    <div class="pillar-grid">
-      <a href="academics.html" class="pillar-card" style="display:block;">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h9l5 5v10a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.6"/><path d="M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Academics →</h4>
-        <p>How the Cambridge curriculum fits around the six-day rotation.</p>
-      </a>
-      <a href="community-service.html" class="pillar-card" style="display:block;">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-5-7-11a7 7 0 0114 0c0 6-7 11-7 11z" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Community &amp; Service →</h4>
-        <p>The weekly commitment every student and teacher shares.</p>
-      </a>
-      <a href="maitisong-arts.html" class="pillar-card" style="display:block;">
-        <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 19V6l10-2v13" stroke="currentColor" stroke-width="1.6"/><circle cx="7" cy="19" r="2" stroke="currentColor" stroke-width="1.6"/><circle cx="17" cy="17" r="2" stroke="currentColor" stroke-width="1.6"/></svg></div>
-        <h4>Maitisong &amp; the Arts →</h4>
-        <p>Where music, drama, and visual art come together.</p>
-      </a>
+    <div>
+      <div class="eyebrow reveal">A standard we hold every hire to</div>
+      <h3 class="reveal d1">Safe recruitment</h3>
+      <p class="reveal-fade d2">MaP aligns its hiring practices with the recommendations of the International Task Force on Child Protection, as well as Botswana's Children's Act. Every staff member who joins the school undergoes a criminal record check and background screening before starting work.</p>
+      <p class="reveal-fade d3">It's a non-negotiable part of working here — see our <a href="safeguarding.html" style="color:var(--sun-3); font-weight:600;">Safeguarding page</a> for more on how MaP approaches child protection more broadly.</p>
     </div>
   </div>
 </section>
@@ -1185,12 +893,11 @@
     <img src="https://www.maruapula.org/wp-content/uploads/2022/02/Maru-a-pula-2019-11694.jpg" alt="">
   </div>
   <div class="wrap cta-inner">
-    <div class="eyebrow reveal-left">See it firsthand</div>
-    <h2 class="reveal-left d1">Come find out what a week at MaP actually feels like.</h2>
-    <p class="reveal-left d2">Book a campus tour, meet current students and boarding staff, or start your child's application today.</p>
+    <div class="eyebrow reveal-left">Interested in joining MaP?</div>
+    <h2 class="reveal-left d1">Get in touch with the HR Office.</h2>
+    <p class="reveal-left d2">Send your cover letter and CV as a single PDF, and we'll be in touch if it's a fit.</p>
     <div class="cta-buttons reveal-left d3">
-      <a href="#" class="btn btn-invert">Start Your Application →</a>
-      <a href="#" class="btn btn-ghost" style="border-color:rgba(255,255,255,0.35); color:#fff;">Book a Campus Tour</a>
+      <a href="contact.html" class="btn btn-invert">Contact HR →</a>
     </div>
   </div>
 </section>
@@ -1334,24 +1041,6 @@
     });
     document.addEventListener('keydown', function(e){
       if(e.key === 'Escape') closeSubnav();
-    });
-  })();
-</script>
-<script>
-  (function(){
-    var track = document.getElementById('sportTrack');
-    var prev = document.getElementById('sportPrev');
-    var next = document.getElementById('sportNext');
-    if(!track || !prev || !next) return;
-    function scrollAmount(){
-      var card = track.querySelector('.pcard');
-      return card ? card.getBoundingClientRect().width + 20 : 250;
-    }
-    prev.addEventListener('click', function(){
-      track.scrollBy({ left: -scrollAmount() * 2, behavior: 'smooth' });
-    });
-    next.addEventListener('click', function(){
-      track.scrollBy({ left: scrollAmount() * 2, behavior: 'smooth' });
     });
   })();
 </script>
