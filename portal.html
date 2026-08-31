@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shop — Maru-a-Pula School</title>
+<title>My Portal — Maru-a-Pula School</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
@@ -126,7 +126,6 @@
     width:36px; height:36px; border-radius:50%; border:none;
     background:transparent; display:flex; align-items:center; justify-content:center;
     cursor:pointer; color:var(--ink); flex-shrink:0; transition: all .2s ease;
-    position:relative;
   }
   .icon-btn:hover{background:#fff; color:var(--black); box-shadow:0 2px 6px rgba(0,0,0,0.1);}
   .icon-btn svg{width:16px; height:16px;}
@@ -669,75 +668,52 @@
   /* ===== NAV ACTIVE STATE ===== */
   nav ul a.active, .subnav a.active{color:var(--sun-3);}
   nav ul a.active{background:rgba(0,0,0,0.055);}
-  /* ===== SHOP: CART BADGE ===== */
-  .cart-badge{
-    position:absolute; top:-2px; right:-2px; min-width:17px; height:17px; padding:0 4px;
-    border-radius:999px; background:var(--sun-3); color:#fff; font-family:'Inter',sans-serif;
-    font-size:0.62rem; font-weight:700; display:flex; align-items:center; justify-content:center;
-    line-height:1; box-shadow:0 0 0 2px #fff;
+  /* ===== PORTAL ===== */
+  .portal-hero{background:var(--ink); color:#fff; padding:150px 0 50px;}
+  .portal-welcome{display:flex; align-items:center; gap:18px; margin-bottom:8px;}
+  .portal-avatar{width:54px; height:54px; border-radius:50%; background:linear-gradient(135deg,var(--sun-1),var(--sun-2)); color:#3d2a00; display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif; font-weight:700; font-size:1.3rem; flex-shrink:0;}
+  .portal-hero h1{font-size:1.9rem; margin-bottom:4px;}
+  .portal-hero .role-label{color:rgba(255,255,255,0.55); font-family:'JetBrains Mono',monospace; font-size:0.82rem;}
+  .portal-signout{
+    border:1.5px solid rgba(255,255,255,0.25); background:transparent; color:#fff; border-radius:100px;
+    padding:9px 18px; font-family:'Inter',sans-serif; font-weight:600; font-size:0.84rem; cursor:pointer; transition:all .2s ease;
   }
-  /* ===== SHOP: PRODUCT GRID ===== */
-  .product-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:26px;}
-  .product-card{
-    background:#fff; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;
-    transition:transform .2s ease, box-shadow .2s ease;
-  }
-  .product-card:hover{transform:translateY(-4px); box-shadow:0 22px 40px -24px rgba(0,0,0,0.3);}
-  .product-photo{height:180px; overflow:hidden;}
-  .product-photo img{width:100%; height:100%; object-fit:cover;}
-  .product-body{padding:18px 20px 22px;}
-  .product-body h4{font-size:1rem; font-weight:600; margin-bottom:4px; color:var(--black);}
-  .product-price{font-family:'JetBrains Mono',monospace; font-size:0.92rem; color:var(--mid); margin-bottom:14px;}
-  .add-to-cart-btn{
-    width:100%; border:1.5px solid var(--ink); background:transparent; color:var(--ink);
-    border-radius:999px; padding:10px 16px; font-family:'Inter',sans-serif; font-size:0.86rem; font-weight:600;
-    cursor:pointer; transition:background .18s ease, color .18s ease;
-  }
-  .add-to-cart-btn:hover{background:var(--ink); color:#fff;}
-  .add-to-cart-btn.added{background:#2F7D5B; border-color:#2F7D5B; color:#fff;}
-  @media (max-width:920px){ .product-grid{grid-template-columns:repeat(2,1fr);} }
-  @media (max-width:520px){ .product-grid{grid-template-columns:1fr;} }
+  .portal-signout:hover{background:#fff; color:var(--ink);}
+  .portal-locked{max-width:560px; margin:0 auto; text-align:center; padding:120px 24px;}
+  .portal-locked h1{font-size:1.9rem; margin-bottom:14px;}
+  .portal-locked p{color:var(--mid); margin-bottom:28px;}
+  #portalContent{display:none;}
+  #portalContent.unlocked{display:block;}
 
-  /* ===== SHOP: CART DRAWER ===== */
-  .cart-overlay{
-    position:fixed; inset:0; background:rgba(11,11,12,0.45); z-index:200;
-    opacity:0; pointer-events:none; transition:opacity .25s ease;
+  .portal-stats{display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin:-40px 0 40px;}
+  .portal-stat-card{background:#fff; border:1px solid var(--line); border-radius:14px; padding:22px 20px; box-shadow:0 20px 40px -28px rgba(0,0,0,0.25);}
+  .portal-stat-card .num{font-family:'Fraunces',serif; font-size:1.7rem; font-weight:700; color:var(--black);}
+  .portal-stat-card .label{font-size:0.82rem; color:var(--mid); margin-top:4px;}
+  .portal-grid{display:grid; grid-template-columns:1.4fr 1fr; gap:26px; align-items:start;}
+  .portal-card{background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:28px; margin-bottom:26px;}
+  .portal-card h3{font-family:'Fraunces',serif; font-size:1.2rem; margin-bottom:18px;}
+  .portal-table{width:100%; border-collapse:collapse;}
+  .portal-table th{text-align:left; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--mid); padding:8px 10px; border-bottom:1px solid var(--line);}
+  .portal-table td{padding:12px 10px; border-bottom:1px solid var(--line); font-size:0.92rem;}
+  .portal-table tr:last-child td{border-bottom:none;}
+  .grade-pill{display:inline-block; font-weight:700; font-size:0.82rem; padding:3px 11px; border-radius:100px; background:rgba(47,125,91,0.12); color:#2F7D5B;}
+  .portal-timetable{display:flex; flex-direction:column; gap:2px;}
+  .tt-row{display:flex; align-items:center; gap:16px; padding:13px 0; border-bottom:1px solid var(--line);}
+  .tt-row:last-child{border-bottom:none;}
+  .tt-time{font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:var(--mid); width:90px; flex-shrink:0;}
+  .tt-subject{font-weight:600; font-size:0.94rem;}
+  .portal-list{list-style:none; display:flex; flex-direction:column; gap:14px;}
+  .portal-list li{display:flex; justify-content:space-between; gap:12px; font-size:0.9rem; padding-bottom:14px; border-bottom:1px solid var(--line);}
+  .portal-list li:last-child{border-bottom:none; padding-bottom:0;}
+  .portal-list .due{font-family:'JetBrains Mono',monospace; font-size:0.78rem; color:var(--sun-3); white-space:nowrap;}
+  .portal-quick-actions{display:flex; flex-direction:column; gap:10px;}
+  .portal-quick-actions a{
+    display:flex; align-items:center; gap:12px; padding:12px 14px; border-radius:10px; border:1px solid var(--line);
+    font-size:0.9rem; font-weight:600; transition:all .18s ease;
   }
-  .cart-overlay.open{opacity:1; pointer-events:auto;}
-  .cart-drawer{
-    position:fixed; top:0; right:0; height:100%; width:420px; max-width:92vw;
-    background:#fff; z-index:201; box-shadow:-20px 0 50px -20px rgba(0,0,0,0.35);
-    display:flex; flex-direction:column; transform:translateX(100%);
-    transition:transform .3s cubic-bezier(.22,1,.36,1);
-  }
-  .cart-drawer.open{transform:translateX(0);}
-  .cart-drawer-header{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:24px 24px 18px; border-bottom:1px solid var(--line);
-  }
-  .cart-drawer-header h3{font-family:'Fraunces',serif; font-size:1.3rem;}
-  .cart-drawer-close{width:34px; height:34px; border-radius:50%; border:1.5px solid var(--line); background:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:border-color .2s ease, background .2s ease;}
-  .cart-drawer-close:hover{border-color:var(--ink); background:var(--fog);}
-  .cart-items{flex:1; overflow-y:auto; padding:8px 24px;}
-  .cart-empty{padding:60px 10px; text-align:center; color:var(--mid);}
-  .cart-empty svg{width:44px; height:44px; margin:0 auto 16px; opacity:0.35;}
-  .cart-line{display:flex; gap:14px; padding:18px 0; border-bottom:1px solid var(--line);}
-  .cart-line-thumb{width:64px; height:64px; border-radius:10px; overflow:hidden; flex-shrink:0; background:var(--fog); display:flex; align-items:center; justify-content:center;}
-  .cart-line-thumb img{width:100%; height:100%; object-fit:cover;}
-  .cart-line-thumb svg{width:28px; height:28px;}
-  .cart-line-body{flex:1; min-width:0;}
-  .cart-line-body h5{font-size:0.92rem; font-weight:600; margin-bottom:2px;}
-  .cart-line-price{font-family:'JetBrains Mono',monospace; font-size:0.82rem; color:var(--mid); margin-bottom:8px;}
-  .cart-qty{display:flex; align-items:center; gap:10px;}
-  .cart-qty button{width:24px; height:24px; border-radius:50%; border:1.5px solid var(--line); background:#fff; cursor:pointer; font-size:0.9rem; line-height:1; display:flex; align-items:center; justify-content:center;}
-  .cart-qty button:hover{border-color:var(--ink);}
-  .cart-qty span{font-size:0.86rem; font-weight:600; min-width:16px; text-align:center;}
-  .cart-remove{background:none; border:none; color:var(--mid); font-size:0.76rem; text-decoration:underline; cursor:pointer; margin-top:8px; padding:0;}
-  .cart-remove:hover{color:var(--sun-3);}
-  .cart-drawer-footer{padding:20px 24px 26px; border-top:1px solid var(--line);}
-  .cart-subtotal{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:16px;}
-  .cart-subtotal span:first-child{font-size:0.9rem; color:var(--mid);}
-  .cart-subtotal span:last-child{font-family:'Fraunces',serif; font-size:1.4rem; font-weight:600;}
+  .portal-quick-actions a:hover{background:var(--fog); border-color:var(--ink);}
+  .portal-quick-actions svg{width:16px; height:16px; color:var(--sun-3); flex-shrink:0;}
+  @media (max-width:900px){ .portal-grid{grid-template-columns:1fr;} .portal-stats{grid-template-columns:repeat(2,1fr); margin-top:0;} }
 </style>
 </head>
 <body>
@@ -778,16 +754,14 @@
               </form>
             </div>
           </div>
-          <a href="shop.html" class="icon-btn cart-trigger" id="cartTriggerMobile" aria-label="Shop">
+          <a href="shop.html" class="icon-btn" aria-label="Shop">
             <svg viewBox="0 0 24 24" fill="none"><path d="M6 8h12l-1 12H7L6 8z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 8V6a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.8"/></svg>
-            <span class="cart-badge" id="cartBadgeMobile" hidden>0</span>
           </a>
         </div>
       </div>
       <div class="nav-cta-group">
-        <a href="shop.html" class="icon-btn cart-trigger" id="cartTriggerDesktop" aria-label="Shop">
+        <a href="shop.html" class="icon-btn" aria-label="Shop">
           <svg viewBox="0 0 24 24" fill="none"><path d="M6 8h12l-1 12H7L6 8z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 8V6a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.8"/></svg>
-          <span class="cart-badge" id="cartBadgeDesktop" hidden>0</span>
         </a>
         <div class="dropdown" id="applyDropdown">
           <button class="btn btn-primary dropdown-toggle" id="applyToggle" aria-haspopup="true" aria-expanded="false">Apply Now</button>
@@ -837,398 +811,199 @@
 </div>
 
 
-<section class="page-hero">
-  <div class="page-hero-photo" aria-hidden="true">
-    <img src="https://www.maruapula.org/wp-content/uploads/2021/12/Maru-a-pula-2019-11085.jpg" alt="">
-  </div>
-  <div class="hero-sun" aria-hidden="true"></div>
-  <div class="hero-ring r2" aria-hidden="true"></div>
-  <div class="hero-ring r3" aria-hidden="true"></div>
-  <svg class="cloud-drift c1" width="220" height="70" viewBox="0 0 220 70" aria-hidden="true" style="top:90px;">
-    <ellipse cx="60" cy="40" rx="60" ry="24" fill="#fff" opacity="0.9"/>
-    <ellipse cx="120" cy="30" rx="50" ry="28" fill="#fff" opacity="0.9"/>
-  </svg>
-  <svg class="cloud-drift c2" width="160" height="50" viewBox="0 0 160 50" aria-hidden="true">
-    <ellipse cx="60" cy="30" rx="55" ry="18" fill="#fff"/>
-  </svg>
-
-  <div class="page-hero-inner">
-    <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><span>Shop</span></div>
-    <div class="eyebrow">MaP Merchandise</div>
-    <h1>Wear the <em>pula</em>.</h1>
-    <p class="lede">Official Maru-a-Pula apparel and accessories — for students, parents, and alumni who want to carry a bit of campus with them.</p>
-    <div class="hero-cta">
-      <a href="#products" class="btn btn-invert">Shop All Products ↓</a>
-      <button class="btn btn-ghost cart-trigger" id="heroCartBtn" style="border-color:rgba(255,255,255,0.35); color:#fff;">View Cart</button>
+<div id="portalLocked">
+  <section class="page-hero" style="min-height:60vh;">
+    <div class="page-hero-inner">
+      <div class="portal-locked" style="color:#fff;">
+        <div class="eyebrow">Members only</div>
+        <h1>You're not signed in.</h1>
+        <p style="color:rgba(255,255,255,0.65);">The Portal shows grades, timetables, and school updates for parents, students, and staff. Sign in to see your own.</p>
+        <a href="signin.html" class="btn btn-invert">Go to Sign In →</a>
+      </div>
     </div>
-  </div>
+  </section>
+</div>
 
-  <div class="horizon" aria-hidden="true">
-    <svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path d="M0 90V40C240 10 480 0 720 12C960 24 1200 60 1440 40V90H0Z" fill="#FFFFFF"/></svg>
-  </div>
-</section>
-
-<section class="section-pad" id="products">
+<div id="portalContent">
+<section class="portal-hero">
   <div class="wrap">
-    <div class="section-head">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:20px;">
+      <div class="portal-welcome">
+        <div class="portal-avatar" id="portalAvatar">?</div>
+        <div>
+          <h1 id="portalWelcome">Welcome back.</h1>
+          <div class="role-label" id="portalRoleLabel">Portal</div>
+        </div>
+      </div>
+      <button class="portal-signout" id="portalSignOut" type="button">Sign Out</button>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="draft-note" style="margin:24px 0 0;">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
+    Everything below is illustrative demo data to show what a signed-in Portal could look like — it isn't connected to MaP's real student records yet, and this sign-in isn't real authentication (see the note on the Sign In page).
+  </div>
+
+  <!-- ===== PARENT VIEW ===== -->
+  <div id="viewParent" style="display:none;">
+    <div class="portal-stats">
+      <div class="portal-stat-card"><div class="num">96%</div><div class="label">Attendance this term</div></div>
+      <div class="portal-stat-card"><div class="num">B+</div><div class="label">Average grade</div></div>
+      <div class="portal-stat-card"><div class="num">P0.00</div><div class="label">Fees balance</div></div>
+      <div class="portal-stat-card"><div class="num">4</div><div class="label">Books read this term</div></div>
+    </div>
+    <div class="portal-grid">
       <div>
-        <div class="eyebrow reveal">The 50th Anniversary Collection</div>
-        <h2 class="reveal d1">Shop merchandise</h2>
-      </div>
-      <p class="reveal-fade d2">34 items, prices in Botswana Pula. Add anything to your cart to see it in action.</p>
-    </div>
-
-    <div class="product-grid">
-      <div class="product-card">
-        <div class="product-photo"><img src="assets/shop/50th-bottle.png" alt="50th Bottle"></div>
-        <div class="product-body">
-          <h4>50th Bottle</h4>
-          <div class="product-price">P300</div>
-          <button class="add-to-cart-btn" data-id="50th-bottle" data-name="50th Bottle" data-price="300" data-image="assets/shop/50th-bottle.png">Add to Cart</button>
+        <div class="portal-card">
+          <h3>Thabo's recent grades</h3>
+          <table class="portal-table">
+            <thead><tr><th>Subject</th><th>Term</th><th>Grade</th></tr></thead>
+            <tbody>
+              <tr><td>Mathematics</td><td>Term 2</td><td><span class="grade-pill">A-</span></td></tr>
+              <tr><td>Sciences</td><td>Term 2</td><td><span class="grade-pill">B+</span></td></tr>
+              <tr><td>English</td><td>Term 2</td><td><span class="grade-pill">B+</span></td></tr>
+              <tr><td>Humanities</td><td>Term 2</td><td><span class="grade-pill">B</span></td></tr>
+              <tr><td>Life Skills</td><td>Term 2</td><td><span class="grade-pill">A</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="portal-card">
+          <h3>Fees &amp; billing</h3>
+          <p style="color:var(--mid); font-size:0.92rem; margin-bottom:16px;">Term 2 fees are paid in full. Term 3 invoices are issued at the start of next term.</p>
+          <a href="#" class="btn btn-ghost" onclick="return false;">View Billing History →</a>
         </div>
       </div>
-
-      <div class="product-card">
-        <div class="product-photo"><img src="assets/shop/50th-notebook.png" alt="50th Notebook"></div>
-        <div class="product-body">
-          <h4>50th Notebook</h4>
-          <div class="product-price">P70</div>
-          <button class="add-to-cart-btn" data-id="50th-notebook" data-name="50th Notebook" data-price="70" data-image="assets/shop/50th-notebook.png">Add to Cart</button>
+      <div>
+        <div class="portal-card">
+          <h3>Upcoming for Thabo</h3>
+          <ul class="portal-list">
+            <li><span>Cambridge Oct/Nov Exam Series Begins</span><span class="due">5 Oct</span></li>
+            <li><span>The President's Concert at Maitisong</span><span class="due">7 Nov</span></li>
+            <li><span>Speech Day &amp; Prize-Giving</span><span class="due">20 Nov</span></li>
+          </ul>
         </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-photo"><img src="assets/shop/50th-tshirt-black.png" alt="50th T-Shirt (Black)"></div>
-        <div class="product-body">
-          <h4>50th T-Shirt (Black)</h4>
-          <div class="product-price">P160</div>
-          <button class="add-to-cart-btn" data-id="50th-tshirt-black" data-name="50th T-Shirt (Black)" data-price="160" data-image="assets/shop/50th-tshirt-black.png">Add to Cart</button>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-photo"><img src="assets/shop/50th-tshirt-white.png" alt="50th T-Shirt (White)"></div>
-        <div class="product-body">
-          <h4>50th T-Shirt (White)</h4>
-          <div class="product-price">P160</div>
-          <button class="add-to-cart-btn" data-id="50th-tshirt-white" data-name="50th T-Shirt (White)" data-price="160" data-image="assets/shop/50th-tshirt-white.png">Add to Cart</button>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-photo"><img src="assets/shop/artesian-tote-bag.png" alt="Artesian Tote Bag"></div>
-        <div class="product-body">
-          <h4>Artesian Tote Bag</h4>
-          <div class="product-price">P70</div>
-          <button class="add-to-cart-btn" data-id="artesian-tote-bag" data-name="Artesian Tote Bag" data-price="70" data-image="assets/shop/artesian-tote-bag.png">Add to Cart</button>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-photo"><img src="assets/shop/axiom-ball-pen.png" alt="Axiom Ball Pen"></div>
-        <div class="product-body">
-          <h4>Axiom Ball Pen</h4>
-          <div class="product-price">P30</div>
-          <button class="add-to-cart-btn" data-id="axiom-ball-pen" data-name="Axiom Ball Pen" data-price="30" data-image="assets/shop/axiom-ball-pen.png">Add to Cart</button>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-photo"><img src="assets/shop/cap-black.png" alt="Cap (Black)"></div>
-        <div class="product-body">
-          <h4>Cap (Black)</h4>
-          <div class="product-price">P55</div>
-          <button class="add-to-cart-btn" data-id="cap-black" data-name="Cap (Black)" data-price="55" data-image="assets/shop/cap-black.png">Add to Cart</button>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-photo"><img src="assets/shop/cap-white.png" alt="Cap (White)"></div>
-        <div class="product-body">
-          <h4>Cap (White)</h4>
-          <div class="product-price">P55</div>
-          <button class="add-to-cart-btn" data-id="cap-white" data-name="Cap (White)" data-price="55" data-image="assets/shop/cap-white.png">Add to Cart</button>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-photo"><img src="assets/shop/centralis-ball-pen.png" alt="Centralis Ball Pen"></div>
-        <div class="product-body">
-          <h4>Centralis Ball Pen</h4>
-          <div class="product-price">P30</div>
-          <button class="add-to-cart-btn" data-id="centralis-ball-pen" data-name="Centralis Ball Pen" data-price="30" data-image="assets/shop/centralis-ball-pen.png">Add to Cart</button>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-photo"><img src="assets/shop/drawstring-bag-black.png" alt="Drawstring Bag (Black)"></div>
-        <div class="product-body">
-          <h4>Drawstring Bag (Black)</h4>
-          <div class="product-price">P40</div>
-          <button class="add-to-cart-btn" data-id="drawstring-bag-black" data-name="Drawstring Bag (Black)" data-price="40" data-image="assets/shop/drawstring-bag-black.png">Add to Cart</button>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-photo"><img src="assets/shop/drawstring-bag-white.png" alt="Drawstring Bag (White)"></div>
-        <div class="product-body">
-          <h4>Drawstring Bag (White)</h4>
-          <div class="product-price">P40</div>
-          <button class="add-to-cart-btn" data-id="drawstring-bag-white" data-name="Drawstring Bag (White)" data-price="40" data-image="assets/shop/drawstring-bag-white.png">Add to Cart</button>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-photo"><img src="assets/shop/embroidered-cap-black.png" alt="Embroidered Cap (Black)"></div>
-        <div class="product-body">
-          <h4>Embroidered Cap (Black)</h4>
-          <div class="product-price">P110</div>
-          <button class="add-to-cart-btn" data-id="embroidered-cap-black" data-name="Embroidered Cap (Black)" data-price="110" data-image="assets/shop/embroidered-cap-black.png">Add to Cart</button>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-photo"><img src="assets/shop/embroidered-cap-white.png" alt="Embroidered Cap (White)"></div>
-        <div class="product-body">
-          <h4>Embroidered Cap (White)</h4>
-          <div class="product-price">P110</div>
-          <button class="add-to-cart-btn" data-id="embroidered-cap-white" data-name="Embroidered Cap (White)" data-price="110" data-image="assets/shop/embroidered-cap-white.png">Add to Cart</button>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-photo"><img src="assets/shop/embroidered-polo-men-black.png" alt="Embroidered Polo (Men, Black)"></div>
-        <div class="product-body">
-          <h4>Embroidered Polo (Men, Black)</h4>
-          <div class="product-price">P250</div>
-          <button class="add-to-cart-btn" data-id="embroidered-polo-men-black" data-name="Embroidered Polo (Men, Black)" data-price="250" data-image="assets/shop/embroidered-polo-men-black.png">Add to Cart</button>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-photo"><img src="assets/shop/embroidered-polo-men-white.png" alt="Embroidered Polo (Men, White)"></div>
-        <div class="product-body">
-          <h4>Embroidered Polo (Men, White)</h4>
-          <div class="product-price">P250</div>
-          <button class="add-to-cart-btn" data-id="embroidered-polo-men-white" data-name="Embroidered Polo (Men, White)" data-price="250" data-image="assets/shop/embroidered-polo-men-white.png">Add to Cart</button>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-photo"><img src="assets/shop/embroidered-polo-women-black.png" alt="Embroidered Polo (Women, Black)"></div>
-        <div class="product-body">
-          <h4>Embroidered Polo (Women, Black)</h4>
-          <div class="product-price">P250</div>
-          <button class="add-to-cart-btn" data-id="embroidered-polo-women-black" data-name="Embroidered Polo (Women, Black)" data-price="250" data-image="assets/shop/embroidered-polo-women-black.png">Add to Cart</button>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-photo"><img src="assets/shop/embroidered-polo-women-white.png" alt="Embroidered Polo (Women, White)"></div>
-        <div class="product-body">
-          <h4>Embroidered Polo (Women, White)</h4>
-          <div class="product-price">P250</div>
-          <button class="add-to-cart-btn" data-id="embroidered-polo-women-white" data-name="Embroidered Polo (Women, White)" data-price="250" data-image="assets/shop/embroidered-polo-women-white.png">Add to Cart</button>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-photo"><img src="assets/shop/embroidered-tshirt-men-black.png" alt="Embroidered T-Shirt (Men, Black)"></div>
-        <div class="product-body">
-          <h4>Embroidered T-Shirt (Men, Black)</h4>
-          <div class="product-price">P300</div>
-          <button class="add-to-cart-btn" data-id="embroidered-tshirt-men-black" data-name="Embroidered T-Shirt (Men, Black)" data-price="300" data-image="assets/shop/embroidered-tshirt-men-black.png">Add to Cart</button>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-photo"><img src="assets/shop/embroidered-tshirt-men-white.png" alt="Embroidered T-Shirt (Men, White)"></div>
-        <div class="product-body">
-          <h4>Embroidered T-Shirt (Men, White)</h4>
-          <div class="product-price">P300</div>
-          <button class="add-to-cart-btn" data-id="embroidered-tshirt-men-white" data-name="Embroidered T-Shirt (Men, White)" data-price="300" data-image="assets/shop/embroidered-tshirt-men-white.png">Add to Cart</button>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-photo"><img src="assets/shop/embroidered-tshirt-women-black.png" alt="Embroidered T-Shirt (Women, Black)"></div>
-        <div class="product-body">
-          <h4>Embroidered T-Shirt (Women, Black)</h4>
-          <div class="product-price">P300</div>
-          <button class="add-to-cart-btn" data-id="embroidered-tshirt-women-black" data-name="Embroidered T-Shirt (Women, Black)" data-price="300" data-image="assets/shop/embroidered-tshirt-women-black.png">Add to Cart</button>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-photo"><img src="assets/shop/embroidered-tshirt-women-white.png" alt="Embroidered T-Shirt (Women, White)"></div>
-        <div class="product-body">
-          <h4>Embroidered T-Shirt (Women, White)</h4>
-          <div class="product-price">P300</div>
-          <button class="add-to-cart-btn" data-id="embroidered-tshirt-women-white" data-name="Embroidered T-Shirt (Women, White)" data-price="300" data-image="assets/shop/embroidered-tshirt-women-white.png">Add to Cart</button>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-photo"><img src="assets/shop/lanyard.png" alt="Lanyard"></div>
-        <div class="product-body">
-          <h4>Lanyard</h4>
-          <div class="product-price">P70</div>
-          <button class="add-to-cart-btn" data-id="lanyard" data-name="Lanyard" data-price="70" data-image="assets/shop/lanyard.png">Add to Cart</button>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-photo"><img src="assets/shop/memory-stick.png" alt="Memory Stick"></div>
-        <div class="product-body">
-          <h4>Memory Stick</h4>
-          <div class="product-price">P100</div>
-          <button class="add-to-cart-btn" data-id="memory-stick" data-name="Memory Stick" data-price="100" data-image="assets/shop/memory-stick.png">Add to Cart</button>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-photo"><img src="assets/shop/mens-golf-shirt.png" alt="Men&rsquo;s Golf Shirt"></div>
-        <div class="product-body">
-          <h4>Men&rsquo;s Golf Shirt</h4>
-          <div class="product-price">P250</div>
-          <button class="add-to-cart-btn" data-id="mens-golf-shirt" data-name="Men&rsquo;s Golf Shirt" data-price="250" data-image="assets/shop/mens-golf-shirt.png">Add to Cart</button>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-photo"><img src="assets/shop/mens-hoodie.png" alt="Men&rsquo;s Hoodie"></div>
-        <div class="product-body">
-          <h4>Men&rsquo;s Hoodie</h4>
-          <div class="product-price">P350</div>
-          <button class="add-to-cart-btn" data-id="mens-hoodie" data-name="Men&rsquo;s Hoodie" data-price="350" data-image="assets/shop/mens-hoodie.png">Add to Cart</button>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-photo"><img src="assets/shop/mug.png" alt="Mug"></div>
-        <div class="product-body">
-          <h4>Mug</h4>
-          <div class="product-price">P60</div>
-          <button class="add-to-cart-btn" data-id="mug" data-name="Mug" data-price="60" data-image="assets/shop/mug.png">Add to Cart</button>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-photo"><img src="assets/shop/notebook.png" alt="Notebook"></div>
-        <div class="product-body">
-          <h4>Notebook</h4>
-          <div class="product-price">P50</div>
-          <button class="add-to-cart-btn" data-id="notebook" data-name="Notebook" data-price="50" data-image="assets/shop/notebook.png">Add to Cart</button>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-photo"><img src="assets/shop/portable-mug.png" alt="Portable Mug"></div>
-        <div class="product-body">
-          <h4>Portable Mug</h4>
-          <div class="product-price">P85</div>
-          <button class="add-to-cart-btn" data-id="portable-mug" data-name="Portable Mug" data-price="85" data-image="assets/shop/portable-mug.png">Add to Cart</button>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-photo"><img src="assets/shop/silicone-wristband.png" alt="Silicone Wristband"></div>
-        <div class="product-body">
-          <h4>Silicone Wristband</h4>
-          <div class="product-price">P15</div>
-          <button class="add-to-cart-btn" data-id="silicone-wristband" data-name="Silicone Wristband" data-price="15" data-image="assets/shop/silicone-wristband.png">Add to Cart</button>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-photo"><img src="assets/shop/tubular-bandana-black.png" alt="Tubular Bandana (Black)"></div>
-        <div class="product-body">
-          <h4>Tubular Bandana (Black)</h4>
-          <div class="product-price">P40</div>
-          <button class="add-to-cart-btn" data-id="tubular-bandana-black" data-name="Tubular Bandana (Black)" data-price="40" data-image="assets/shop/tubular-bandana-black.png">Add to Cart</button>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-photo"><img src="assets/shop/tubular-bandana-white.png" alt="Tubular Bandana (White)"></div>
-        <div class="product-body">
-          <h4>Tubular Bandana (White)</h4>
-          <div class="product-price">P40</div>
-          <button class="add-to-cart-btn" data-id="tubular-bandana-white" data-name="Tubular Bandana (White)" data-price="40" data-image="assets/shop/tubular-bandana-white.png">Add to Cart</button>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-photo"><img src="assets/shop/unisex-tshirt.png" alt="Unisex T-Shirt"></div>
-        <div class="product-body">
-          <h4>Unisex T-Shirt</h4>
-          <div class="product-price">P100</div>
-          <button class="add-to-cart-btn" data-id="unisex-tshirt" data-name="Unisex T-Shirt" data-price="100" data-image="assets/shop/unisex-tshirt.png">Add to Cart</button>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-photo"><img src="assets/shop/water-bottle.png" alt="Water Bottle"></div>
-        <div class="product-body">
-          <h4>Water Bottle</h4>
-          <div class="product-price">P150</div>
-          <button class="add-to-cart-btn" data-id="water-bottle" data-name="Water Bottle" data-price="150" data-image="assets/shop/water-bottle.png">Add to Cart</button>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-photo"><img src="assets/shop/womens-hoody.png" alt="Women&rsquo;s Hoody"></div>
-        <div class="product-body">
-          <h4>Women&rsquo;s Hoody</h4>
-          <div class="product-price">P350</div>
-          <button class="add-to-cart-btn" data-id="womens-hoody" data-name="Women&rsquo;s Hoody" data-price="350" data-image="assets/shop/womens-hoody.png">Add to Cart</button>
+        <div class="portal-card">
+          <h3>Quick actions</h3>
+          <div class="portal-quick-actions">
+            <a href="#" onclick="return false;"><svg viewBox="0 0 24 24" fill="none"><path d="M4 4h16v16H4z" stroke="currentColor" stroke-width="1.6"/><path d="M4 6l8 7 8-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Message a Teacher</a>
+            <a href="#" onclick="return false;"><svg viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="1.6"/><circle cx="10" cy="7" r="4" stroke="currentColor" stroke-width="1.6"/></svg>Update Contact Details</a>
+            <a href="news.html"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.6"/></svg>View Full Calendar</a>
+            <a href="library.html"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h9l5 5v10a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.6"/></svg>Thabo's Library Account</a>
+          </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="draft-note reveal-fade d3" style="margin-top:32px;">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
-      Product names and prices are pulled from MaP's real 50th Anniversary merchandise line. Photos are cropped from lower-resolution reference screenshots, so they're a bit soft — swap in the original high-res product photography before this goes live. The cart works, but checkout isn't wired up to real payments yet — that's Phase 4 (Functionality) work.
+  <!-- ===== STUDENT VIEW ===== -->
+  <div id="viewStudent" style="display:none;">
+    <div class="portal-stats">
+      <div class="portal-stat-card"><div class="num">Day 3</div><div class="label">of 6, this week</div></div>
+      <div class="portal-stat-card"><div class="num">B+</div><div class="label">Average grade</div></div>
+      <div class="portal-stat-card"><div class="num">4</div><div class="label">Books read this term</div></div>
+      <div class="portal-stat-card"><div class="num">2</div><div class="label">Assignments due</div></div>
+    </div>
+    <div class="portal-grid">
+      <div>
+        <div class="portal-card">
+          <h3>Today's timetable — Day 3</h3>
+          <div class="portal-timetable">
+            <div class="tt-row"><div class="tt-time">Period 1</div><div class="tt-subject">Mathematics</div></div>
+            <div class="tt-row"><div class="tt-time">Period 2</div><div class="tt-subject">Sciences — Chemistry</div></div>
+            <div class="tt-row"><div class="tt-time">Period 3</div><div class="tt-subject">English</div></div>
+            <div class="tt-row"><div class="tt-time">Period 4</div><div class="tt-subject">Life Skills</div></div>
+            <div class="tt-row"><div class="tt-time">Period 5</div><div class="tt-subject">Humanities</div></div>
+            <div class="tt-row"><div class="tt-time">Period 6</div><div class="tt-subject">Free Period</div></div>
+          </div>
+        </div>
+        <div class="portal-card">
+          <h3>Recent grades</h3>
+          <table class="portal-table">
+            <thead><tr><th>Subject</th><th>Assessment</th><th>Grade</th></tr></thead>
+            <tbody>
+              <tr><td>Mathematics</td><td>Term test</td><td><span class="grade-pill">A-</span></td></tr>
+              <tr><td>Sciences</td><td>Lab report</td><td><span class="grade-pill">B+</span></td></tr>
+              <tr><td>English</td><td>Essay</td><td><span class="grade-pill">B+</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div class="portal-card">
+          <h3>Library account</h3>
+          <p style="font-size:0.9rem; margin-bottom:6px;"><strong>Currently borrowed:</strong> The Kite Runner</p>
+          <p style="font-size:0.85rem; color:var(--sun-3); margin-bottom:16px;">Due back in 6 days</p>
+          <a href="library.html" class="btn btn-ghost">Search the Library →</a>
+        </div>
+        <div class="portal-card">
+          <h3>Upcoming assignments</h3>
+          <ul class="portal-list">
+            <li><span>Chemistry lab write-up</span><span class="due">Thu</span></li>
+            <li><span>English essay draft</span><span class="due">Mon</span></li>
+          </ul>
+        </div>
+        <div class="portal-card">
+          <h3>Quick actions</h3>
+          <div class="portal-quick-actions">
+            <a href="news.html"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.6"/></svg>View Full Calendar</a>
+            <a href="#" onclick="return false;"><svg viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="1.6"/><circle cx="10" cy="7" r="4" stroke="currentColor" stroke-width="1.6"/></svg>Update Profile</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</section>
 
-<section class="cta-banner">
-  <div class="cta-photo" aria-hidden="true">
-    <img src="https://www.maruapula.org/wp-content/uploads/2022/02/Maru-a-pula-2019-11694.jpg" alt="">
-  </div>
-  <div class="wrap cta-inner">
-    <div class="eyebrow reveal-left">Proceeds support MaP</div>
-    <h2 class="reveal-left d1">Every purchase helps fund school programmes.</h2>
-    <p class="reveal-left d2">From OVC scholarships to Maitisong performances, school merchandise plays a small part in keeping MaP running.</p>
-    <div class="cta-buttons reveal-left d3">
-      <a href="#products" class="btn btn-invert">Shop All Products →</a>
-      <a href="alumni.html#giving" class="btn btn-ghost" style="border-color:rgba(255,255,255,0.35); color:#fff;">Other Ways to Give</a>
+  <!-- ===== STAFF VIEW ===== -->
+  <div id="viewStaff" style="display:none;">
+    <div class="portal-stats">
+      <div class="portal-stat-card"><div class="num">4</div><div class="label">Classes today</div></div>
+      <div class="portal-stat-card"><div class="num">118</div><div class="label">Total students</div></div>
+      <div class="portal-stat-card"><div class="num">12</div><div class="label">Grades to enter</div></div>
+      <div class="portal-stat-card"><div class="num">3</div><div class="label">Staff announcements</div></div>
+    </div>
+    <div class="portal-grid">
+      <div>
+        <div class="portal-card">
+          <h3>Today's classes</h3>
+          <div class="portal-timetable">
+            <div class="tt-row"><div class="tt-time">Period 1</div><div class="tt-subject">Form 3B — Mathematics</div></div>
+            <div class="tt-row"><div class="tt-time">Period 3</div><div class="tt-subject">Form 4A — Mathematics</div></div>
+            <div class="tt-row"><div class="tt-time">Period 5</div><div class="tt-subject">Upper Six — Further Maths</div></div>
+            <div class="tt-row"><div class="tt-time">Period 6</div><div class="tt-subject">Form 1C — Mathematics</div></div>
+          </div>
+        </div>
+        <div class="portal-card">
+          <h3>Staff announcements</h3>
+          <ul class="portal-list">
+            <li><span>Term 3 reports due for submission</span><span class="due">Fri</span></li>
+            <li><span>Staff meeting — exam board changes</span><span class="due">Mon</span></li>
+            <li><span>Sports Day duty roster posted</span><span class="due">Wed</span></li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="portal-card">
+          <h3>Admin tools</h3>
+          <div class="portal-quick-actions">
+            <a href="library.html#leaderboard"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h9l5 5v10a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.6"/></svg>Update Library Leaderboard</a>
+            <a href="#" onclick="return false;"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h9l5 5v10a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.6"/><path d="M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.6"/></svg>Post a News Update</a>
+            <a href="news.html"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.6"/></svg>Manage Events Calendar</a>
+            <a href="contact.html"><svg viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="1.6"/><circle cx="10" cy="7" r="4" stroke="currentColor" stroke-width="1.6"/></svg>Staff Directory</a>
+          </div>
+        </div>
+        <div class="portal-card">
+          <h3>This week's focus</h3>
+          <p style="font-size:0.9rem; color:var(--mid);">Term 2 reports close Friday — grade entry for all Form 3 and Form 4 classes should be finalised before then.</p>
+        </div>
+      </div>
     </div>
   </div>
-</section>
-
-<div class="cart-overlay" id="cartOverlay"></div>
-<aside class="cart-drawer" id="cartDrawer" aria-hidden="true" aria-label="Shopping cart">
-  <div class="cart-drawer-header">
-    <h3>Your Cart</h3>
-    <button class="cart-drawer-close" id="cartClose" aria-label="Close cart">
-      <svg viewBox="0 0 24 24" fill="none" width="16" height="16"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-    </button>
-  </div>
-  <div class="cart-items" id="cartItems"></div>
-  <div class="cart-drawer-footer">
-    <div class="cart-subtotal"><span>Subtotal</span><span id="cartSubtotal">P0</span></div>
-    <button class="btn btn-primary" id="cartCheckout" style="width:100%; justify-content:center;">Checkout →</button>
-    <div class="draft-note" style="margin-top:16px;">
-      <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
-      This cart saves in your browser, but checkout is a placeholder — no real payment is processed.
-    </div>
-  </div>
-</aside>
+</div>
+</div>
 
 <footer>
-  <div class="wrap">
     <div class="footer-grid">
       <div class="footer-brand">
         <a href="index.html" class="logo">
@@ -1275,7 +1050,6 @@
       <span>© 2026 Maru-a-Pula School. All rights reserved.</span>
       <span><a href="privacy.html">Privacy Policy</a> · <a href="accessibility.html">Accessibility</a> · <a href="safeguarding.html">Safeguarding</a> · <a href="sitemap.html">Site Map</a></span>
     </div>
-  </div>
 </footer>
 <script>
   (function(){
@@ -1372,150 +1146,43 @@
 </script>
 <script>
   (function(){
-    var STORAGE_KEY = 'mapShopCart';
-    var overlay = document.getElementById('cartOverlay');
-    var drawer = document.getElementById('cartDrawer');
-    var itemsEl = document.getElementById('cartItems');
-    var subtotalEl = document.getElementById('cartSubtotal');
-    var badges = [document.getElementById('cartBadgeDesktop'), document.getElementById('cartBadgeMobile')];
-    if(!overlay || !drawer || !itemsEl) return;
+    var SESSION_KEY = 'mapDemoSession';
+    var session = null;
+    try {
+      var raw = window.localStorage.getItem(SESSION_KEY);
+      session = raw ? JSON.parse(raw) : null;
+    } catch(e){}
 
-    function loadCart(){
-      try {
-        var raw = window.localStorage.getItem(STORAGE_KEY);
-        return raw ? JSON.parse(raw) : [];
-      } catch(e){ return []; }
-    }
-    function saveCart(cart){
-      try { window.localStorage.setItem(STORAGE_KEY, JSON.stringify(cart)); } catch(e){}
+    var locked = document.getElementById('portalLocked');
+    var content = document.getElementById('portalContent');
+
+    if(!session || !session.role){
+      return; // portalLocked stays visible by default, portalContent stays hidden
     }
 
-    var cart = loadCart();
+    locked.style.display = 'none';
+    content.classList.add('unlocked');
 
-    function findLine(id){
-      for(var i=0; i<cart.length; i++){ if(cart[i].id === id) return cart[i]; }
-      return null;
-    }
+    var roleLabels = { parent: 'Parent Portal', student: 'Student Portal', staff: 'Staff Portal' };
+    var initials = session.name.trim().split(/\s+/).map(function(w){ return w[0]; }).slice(0,2).join('').toUpperCase();
 
-    function addToCart(product){
-      var line = findLine(product.id);
-      if(line){ line.qty += 1; }
-      else { cart.push({ id: product.id, name: product.name, price: product.price, image: product.image, qty: 1 }); }
-      saveCart(cart);
-      renderCart();
-    }
-    function removeFromCart(id){
-      cart = cart.filter(function(l){ return l.id !== id; });
-      saveCart(cart);
-      renderCart();
-    }
-    function setQty(id, qty){
-      var line = findLine(id);
-      if(!line) return;
-      if(qty <= 0){ removeFromCart(id); return; }
-      line.qty = qty;
-      saveCart(cart);
-      renderCart();
-    }
+    document.getElementById('portalAvatar').textContent = initials;
+    document.getElementById('portalWelcome').textContent = 'Welcome back, ' + session.name.split(' ')[0] + '.';
+    document.getElementById('portalRoleLabel').textContent = roleLabels[session.role] || 'Portal';
 
-    function totalCount(){
-      return cart.reduce(function(sum, l){ return sum + l.qty; }, 0);
-    }
-    function subtotal(){
-      return cart.reduce(function(sum, l){ return sum + (l.price * l.qty); }, 0);
-    }
-
-    function renderCart(){
-      var count = totalCount();
-      badges.forEach(function(b){
-        if(!b) return;
-        if(count > 0){ b.hidden = false; b.textContent = count > 99 ? '99+' : String(count); }
-        else { b.hidden = true; }
-      });
-      subtotalEl.textContent = 'P' + subtotal();
-
-      if(!cart.length){
-        itemsEl.innerHTML =
-          '<div class="cart-empty">' +
-          '<svg viewBox="0 0 24 24" fill="none"><path d="M6 8h12l-1 12H7L6 8z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 8V6a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.6"/></svg>' +
-          '<p>Your cart is empty.</p></div>';
-        return;
-      }
-
-      itemsEl.innerHTML = '';
-      cart.forEach(function(line){
-        var row = document.createElement('div');
-        row.className = 'cart-line';
-        var thumbHTML = line.image
-          ? '<img src="' + line.image + '" alt="">'
-          : '<svg viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>';
-        row.innerHTML =
-          '<div class="cart-line-thumb">' + thumbHTML + '</div>' +
-          '<div class="cart-line-body">' +
-            '<h5>' + line.name + '</h5>' +
-            '<div class="cart-line-price">P' + line.price + '</div>' +
-            '<div class="cart-qty">' +
-              '<button type="button" data-action="dec" aria-label="Decrease quantity">−</button>' +
-              '<span>' + line.qty + '</span>' +
-              '<button type="button" data-action="inc" aria-label="Increase quantity">+</button>' +
-            '</div>' +
-            '<button type="button" class="cart-remove" data-action="remove">Remove</button>' +
-          '</div>';
-        row.querySelector('[data-action="dec"]').addEventListener('click', function(){ setQty(line.id, line.qty - 1); });
-        row.querySelector('[data-action="inc"]').addEventListener('click', function(){ setQty(line.id, line.qty + 1); });
-        row.querySelector('[data-action="remove"]').addEventListener('click', function(){ removeFromCart(line.id); });
-        itemsEl.appendChild(row);
-      });
-    }
-
-    function openCart(){
-      overlay.classList.add('open');
-      drawer.classList.add('open');
-      drawer.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeCart(){
-      overlay.classList.remove('open');
-      drawer.classList.remove('open');
-      drawer.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-    }
-
-    document.querySelectorAll('.cart-trigger').forEach(function(btn){
-      btn.addEventListener('click', function(e){
-        e.preventDefault();
-        openCart();
-      });
-    });
-    document.getElementById('cartClose').addEventListener('click', closeCart);
-    overlay.addEventListener('click', closeCart);
-    document.addEventListener('keydown', function(e){
-      if(e.key === 'Escape') closeCart();
-    });
-    document.getElementById('cartCheckout').addEventListener('click', function(){
-      if(!cart.length) return;
-      alert('This is a demo cart — checkout isn\'t connected to real payments yet.');
+    var views = { parent: 'viewParent', student: 'viewStudent', staff: 'viewStaff' };
+    Object.keys(views).forEach(function(r){
+      var el = document.getElementById(views[r]);
+      if(el) el.style.display = (r === session.role) ? 'block' : 'none';
     });
 
-    document.querySelectorAll('.add-to-cart-btn').forEach(function(btn){
-      btn.addEventListener('click', function(){
-        addToCart({
-          id: btn.getAttribute('data-id'),
-          name: btn.getAttribute('data-name'),
-          price: parseFloat(btn.getAttribute('data-price')),
-          image: btn.getAttribute('data-image') || ''
-        });
-        btn.textContent = 'Added ✓';
-        btn.classList.add('added');
-        setTimeout(function(){
-          btn.textContent = 'Add to Cart';
-          btn.classList.remove('added');
-        }, 1200);
-        openCart();
+    var signOut = document.getElementById('portalSignOut');
+    if(signOut){
+      signOut.addEventListener('click', function(){
+        try { window.localStorage.removeItem(SESSION_KEY); } catch(e){}
+        window.location.href = 'index.html';
       });
-    });
-
-    renderCart();
+    }
   })();
 </script>
 <script>

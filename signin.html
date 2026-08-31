@@ -753,6 +753,17 @@
             <a href="signin.html?role=staff">Teachers &amp; Staff</a>
           </div>
         </div>
+        <div class="dropdown" id="signedInDropdown" style="display:none;">
+          <button class="btn btn-ghost dropdown-toggle" id="signedInToggle" aria-haspopup="true" aria-expanded="false">
+            <span id="signedInAvatar" style="display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:50%; background:var(--sun-2); color:#3d2a00; font-size:0.66rem; font-weight:700; margin-right:6px;">?</span>
+            <span id="signedInName">Account</span>
+          </button>
+          <div class="dropdown-menu" id="signedInMenu">
+            <a href="portal.html">My Portal</a>
+            <div class="dropdown-divider"></div>
+            <a href="#" id="signOutBtn">Sign Out</a>
+          </div>
+        </div>
       </div>
       <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="subnav">
         <span></span><span></span><span></span>
@@ -810,7 +821,7 @@
       <div class="signin-card">
         <h2 id="signinHeading">Parent sign in</h2>
         <p id="signinSub">Access grades, fees, and school updates for your child.</p>
-        <form onsubmit="return false;">
+        <form id="signinForm" onsubmit="return false;">
           <div class="signin-field">
             <label for="signinEmail">Email address</label>
             <input type="email" id="signinEmail" placeholder="you@example.com">
@@ -827,7 +838,7 @@
         </form>
         <div class="draft-note" style="margin-top:22px;">
           <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
-          This sign-in form is a visual placeholder — there's no real account system behind it yet. Genuine authentication is Phase 4 work.
+          There's no real account system behind this yet — any email/password will "sign you in" to a demo Portal so you can see what's planned. Genuine authentication is still to come.
         </div>
       </div>
       <p style="text-align:center; margin-top:22px; font-size:0.9rem; color:var(--mid);">
@@ -950,6 +961,7 @@
       });
     }
     wireDropdown('applyDropdown', 'applyToggle');
+    wireDropdown('signedInDropdown', 'signedInToggle');
     wireDropdown('searchDropdownMobile', 'searchToggleMobile', function(){
       var input = document.getElementById('searchInputMobile');
       if(input) setTimeout(function(){ input.focus(); }, 50);
@@ -989,12 +1001,20 @@
       student: { h: 'Student sign in', s: 'Check your timetable, grades, and the library catalogue.' },
       staff: { h: 'Staff sign in', s: 'Access class lists, the staff directory, and admin tools.' }
     };
+    var demoNames = {
+      parent: 'Kesitegile Modise',
+      student: 'Thabo K.',
+      staff: 'Otsile Ramotswe'
+    };
+    var currentRole = 'parent';
+
     tabs.forEach(function(tab){
       tab.addEventListener('click', function(){ selectRole(tab.getAttribute('data-role')); });
     });
 
     function selectRole(role){
       if(!copy[role]) return;
+      currentRole = role;
       tabs.forEach(function(t){ t.classList.toggle('active', t.getAttribute('data-role') === role); });
       heading.textContent = copy[role].h;
       sub.textContent = copy[role].s;
@@ -1003,6 +1023,16 @@
     var params = new URLSearchParams(window.location.search);
     var initialRole = params.get('role');
     if(initialRole && copy[initialRole]) selectRole(initialRole);
+
+    var signinForm = document.getElementById('signinForm');
+    if(signinForm){
+      signinForm.addEventListener('submit', function(e){
+        e.preventDefault();
+        var session = { role: currentRole, name: demoNames[currentRole] || 'Account' };
+        try { window.localStorage.setItem('mapDemoSession', JSON.stringify(session)); } catch(err){}
+        window.location.href = 'portal.html';
+      });
+    }
   })();
 </script>
 <script>
@@ -1015,6 +1045,39 @@
         window.location.href = 'search.html' + (q ? '?q=' + encodeURIComponent(q) : '');
       });
     });
+  })();
+</script>
+<script>
+  (function(){
+    var SESSION_KEY = 'mapDemoSession';
+    var session = null;
+    try {
+      var raw = window.localStorage.getItem(SESSION_KEY);
+      session = raw ? JSON.parse(raw) : null;
+    } catch(e){}
+
+    var applyDropdown = document.getElementById('applyDropdown');
+    var signedInDropdown = document.getElementById('signedInDropdown');
+    var signedInName = document.getElementById('signedInName');
+    var signedInAvatar = document.getElementById('signedInAvatar');
+    var signOutBtn = document.getElementById('signOutBtn');
+
+    if(session && session.name && applyDropdown && signedInDropdown){
+      applyDropdown.style.display = 'none';
+      signedInDropdown.style.display = '';
+      if(signedInName) signedInName.textContent = session.name;
+      if(signedInAvatar){
+        var initials = session.name.trim().split(/\s+/).map(function(w){ return w[0]; }).slice(0,2).join('').toUpperCase();
+        signedInAvatar.textContent = initials;
+      }
+    }
+    if(signOutBtn){
+      signOutBtn.addEventListener('click', function(e){
+        e.preventDefault();
+        try { window.localStorage.removeItem(SESSION_KEY); } catch(err){}
+        window.location.href = 'index.html';
+      });
+    }
   })();
 </script>
 </body>

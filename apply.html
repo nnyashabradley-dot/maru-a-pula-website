@@ -768,6 +768,17 @@
             <a href="signin.html?role=staff">Teachers &amp; Staff</a>
           </div>
         </div>
+        <div class="dropdown" id="signedInDropdown" style="display:none;">
+          <button class="btn btn-ghost dropdown-toggle" id="signedInToggle" aria-haspopup="true" aria-expanded="false">
+            <span id="signedInAvatar" style="display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:50%; background:var(--sun-2); color:#3d2a00; font-size:0.66rem; font-weight:700; margin-right:6px;">?</span>
+            <span id="signedInName">Account</span>
+          </button>
+          <div class="dropdown-menu" id="signedInMenu">
+            <a href="portal.html">My Portal</a>
+            <div class="dropdown-divider"></div>
+            <a href="#" id="signOutBtn">Sign Out</a>
+          </div>
+        </div>
       </div>
       <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="subnav">
         <span></span><span></span><span></span>
@@ -1031,6 +1042,7 @@
       });
     }
     wireDropdown('applyDropdown', 'applyToggle');
+    wireDropdown('signedInDropdown', 'signedInToggle');
     wireDropdown('searchDropdownMobile', 'searchToggleMobile', function(){
       var input = document.getElementById('searchInputMobile');
       if(input) setTimeout(function(){ input.focus(); }, 50);
@@ -1119,6 +1131,39 @@
         window.location.href = 'search.html' + (q ? '?q=' + encodeURIComponent(q) : '');
       });
     });
+  })();
+</script>
+<script>
+  (function(){
+    var SESSION_KEY = 'mapDemoSession';
+    var session = null;
+    try {
+      var raw = window.localStorage.getItem(SESSION_KEY);
+      session = raw ? JSON.parse(raw) : null;
+    } catch(e){}
+
+    var applyDropdown = document.getElementById('applyDropdown');
+    var signedInDropdown = document.getElementById('signedInDropdown');
+    var signedInName = document.getElementById('signedInName');
+    var signedInAvatar = document.getElementById('signedInAvatar');
+    var signOutBtn = document.getElementById('signOutBtn');
+
+    if(session && session.name && applyDropdown && signedInDropdown){
+      applyDropdown.style.display = 'none';
+      signedInDropdown.style.display = '';
+      if(signedInName) signedInName.textContent = session.name;
+      if(signedInAvatar){
+        var initials = session.name.trim().split(/\s+/).map(function(w){ return w[0]; }).slice(0,2).join('').toUpperCase();
+        signedInAvatar.textContent = initials;
+      }
+    }
+    if(signOutBtn){
+      signOutBtn.addEventListener('click', function(e){
+        e.preventDefault();
+        try { window.localStorage.removeItem(SESSION_KEY); } catch(err){}
+        window.location.href = 'index.html';
+      });
+    }
   })();
 </script>
 </body>
