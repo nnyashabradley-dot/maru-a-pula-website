@@ -713,6 +713,37 @@
   }
   .portal-quick-actions a:hover{background:var(--fog); border-color:var(--ink);}
   .portal-quick-actions svg{width:16px; height:16px; color:var(--sun-3); flex-shrink:0;}
+
+  /* ===== CAMPUS ROSTER (security) ===== */
+  .roster-summary{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:22px;}
+  .roster-sum-card{border:1px solid var(--line); border-radius:12px; padding:16px 18px;}
+  .roster-sum-card .n{font-family:'Fraunces',serif; font-size:1.5rem; font-weight:700; line-height:1;}
+  .roster-sum-card .l{font-size:0.78rem; color:var(--mid); margin-top:5px;}
+  .roster-sum-card.on{background:rgba(47,125,91,0.07); border-color:rgba(47,125,91,0.3);}
+  .roster-sum-card.on .n{color:#2F7D5B;}
+  .roster-sum-card.out{background:rgba(194,84,11,0.07); border-color:rgba(194,84,11,0.3);}
+  .roster-sum-card.out .n{color:#C2540B;}
+  .roster-sum-card.late{background:rgba(180,40,40,0.07); border-color:rgba(180,40,40,0.3);}
+  .roster-sum-card.late .n{color:#B42828;}
+  .roster-controls{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:16px;}
+  .roster-search{flex:1; min-width:180px; display:flex; align-items:center; gap:9px; border:1.5px solid var(--line); border-radius:100px; padding:10px 16px; background:#fff;}
+  .roster-search svg{width:15px; height:15px; color:var(--mid); flex-shrink:0;}
+  .roster-search input{flex:1; border:none; outline:none; font-family:'Inter',sans-serif; font-size:0.9rem; background:transparent;}
+  .roster-filter{border:1.5px solid var(--line); border-radius:100px; padding:9px 15px; font-family:'Inter',sans-serif; font-size:0.84rem; background:#fff; outline:none; cursor:pointer;}
+  .roster-table-wrap{border:1px solid var(--line); border-radius:12px; overflow:hidden; max-height:420px; overflow-y:auto;}
+  .roster-table{width:100%; border-collapse:collapse;}
+  .roster-table th{position:sticky; top:0; background:var(--fog); text-align:left; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--mid); padding:11px 14px; border-bottom:1px solid var(--line); z-index:1;}
+  .roster-table td{padding:12px 14px; border-bottom:1px solid var(--line); font-size:0.88rem;}
+  .roster-table tr:last-child td{border-bottom:none;}
+  .roster-table tr:hover td{background:var(--fog);}
+  .roster-name{font-weight:600; color:var(--black);}
+  .roster-status{display:inline-flex; align-items:center; gap:6px; font-size:0.78rem; font-weight:700;}
+  .roster-status .dot{width:7px; height:7px; border-radius:50%; flex-shrink:0;}
+  .st-on{color:#2F7D5B;} .st-on .dot{background:#2F7D5B;}
+  .st-out{color:#C2540B;} .st-out .dot{background:#C2540B;}
+  .st-late{color:#B42828;} .st-late .dot{background:#B42828;}
+  .roster-empty{padding:40px 20px; text-align:center; color:var(--mid); font-size:0.9rem;}
+  .roster-time{font-family:'JetBrains Mono',monospace; font-size:0.8rem; color:var(--mid);}
   @media (max-width:900px){ .portal-grid{grid-template-columns:1fr;} .portal-stats{grid-template-columns:repeat(2,1fr); margin-top:0;} }
 </style>
 </head>
@@ -1062,6 +1093,42 @@
       <div class="portal-stat-card"><div class="num">1</div><div class="label">Open maintenance request</div></div>
       <div class="portal-stat-card"><div class="num">0</div><div class="label">Open incidents</div></div>
     </div>
+
+    <div class="portal-card">
+      <h3>Campus roster — who's on site right now</h3>
+      <div class="roster-summary">
+        <div class="roster-sum-card on"><div class="n" id="rosterOnCount">0</div><div class="l">On campus</div></div>
+        <div class="roster-sum-card out"><div class="n" id="rosterOutCount">0</div><div class="l">Signed out</div></div>
+        <div class="roster-sum-card late"><div class="n" id="rosterLateCount">0</div><div class="l">Overdue return</div></div>
+      </div>
+      <div class="roster-controls">
+        <div class="roster-search">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <input type="text" id="rosterSearch" placeholder="Search by student name…">
+        </div>
+        <select class="roster-filter" id="rosterFormFilter"><option value="">All forms</option></select>
+        <select class="roster-filter" id="rosterStatusFilter">
+          <option value="">All statuses</option>
+          <option value="on">On campus</option>
+          <option value="out">Signed out</option>
+          <option value="late">Overdue return</option>
+        </select>
+      </div>
+      <div class="roster-table-wrap">
+        <table class="roster-table">
+          <thead>
+            <tr><th>Student</th><th>Form</th><th>Type</th><th>Status</th><th>Signed Out</th><th>Destination</th><th>Expected Back</th></tr>
+          </thead>
+          <tbody id="rosterBody"></tbody>
+        </table>
+        <div class="roster-empty" id="rosterEmpty" style="display:none;">No students match this search.</div>
+      </div>
+      <div class="draft-note" style="margin-top:18px;">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
+        Sample roster data for demonstration only — these are invented names, not real students. A live version would need to connect to the school's actual sign-in/sign-out system, and access should be restricted to staff who genuinely need it.
+      </div>
+    </div>
+
     <div class="portal-grid">
       <div>
         <div class="portal-card">
@@ -1292,6 +1359,107 @@
         try { window.localStorage.removeItem(SESSION_KEY); } catch(e){}
         window.location.href = 'index.html';
       });
+    }
+
+    /* ---------- Campus roster (non-teaching / security only) ---------- */
+    if(session.role === 'nonteaching'){
+      var roster = [
+        {name:"Amantle Kgosi", form:"Form 1", type:"Day", status:"on"},
+        {name:"Boitumelo Sekgoma", form:"Form 1", type:"Boarder", status:"on"},
+        {name:"Kagiso Dintwe", form:"Form 1", type:"Day", status:"out", outAt:"1:15 PM", dest:"Medical appointment", back:"3:30 PM"},
+        {name:"Lesego Baruti", form:"Form 2", type:"Day", status:"on"},
+        {name:"Naledi Phiri", form:"Form 2", type:"Boarder", status:"on"},
+        {name:"Onalenna Moeti", form:"Form 2", type:"Day", status:"on"},
+        {name:"Refilwe Tau", form:"Form 2", type:"Boarder", status:"out", outAt:"12:40 PM", dest:"Dental appointment", back:"2:00 PM", late:true},
+        {name:"Thabo Kefilwe", form:"Form 3", type:"Day", status:"on"},
+        {name:"Tumelo Rankopo", form:"Form 3", type:"Boarder", status:"on"},
+        {name:"Katlego Mogale", form:"Form 3", type:"Day", status:"on"},
+        {name:"Gorata Selepe", form:"Form 3", type:"Day", status:"out", outAt:"2:05 PM", dest:"Service placement — Old Naledi", back:"4:30 PM"},
+        {name:"Mpho Letsholo", form:"Form 4", type:"Boarder", status:"on"},
+        {name:"Neo Bogosi", form:"Form 4", type:"Day", status:"on"},
+        {name:"Tebogo Marumo", form:"Form 4", type:"Day", status:"on"},
+        {name:"Kefilwe Zibani", form:"Form 4", type:"Boarder", status:"out", outAt:"2:05 PM", dest:"Service placement — Old Naledi", back:"4:30 PM"},
+        {name:"Bonolo Segwai", form:"Form 5", type:"Day", status:"on"},
+        {name:"Tshepo Nkwe", form:"Form 5", type:"Boarder", status:"on"},
+        {name:"Larona Motsumi", form:"Form 5", type:"Day", status:"out", outAt:"11:20 AM", dest:"Sports fixture — away", back:"5:00 PM"},
+        {name:"Warona Diteko", form:"Upper Six", type:"Boarder", status:"on"},
+        {name:"Oarabile Mmusi", form:"Upper Six", type:"Day", status:"on"},
+        {name:"Pako Ntsima", form:"Upper Six", type:"Day", status:"out", outAt:"11:20 AM", dest:"Sports fixture — away", back:"5:00 PM"},
+        {name:"Sethunya Kabo", form:"Upper Six", type:"Boarder", status:"on"}
+      ];
+
+      var rosterBody = document.getElementById('rosterBody');
+      var rosterEmpty = document.getElementById('rosterEmpty');
+      var rosterSearch = document.getElementById('rosterSearch');
+      var formFilter = document.getElementById('rosterFormFilter');
+      var statusFilter = document.getElementById('rosterStatusFilter');
+
+      if(rosterBody){
+        var forms = [];
+        roster.forEach(function(s){ if(forms.indexOf(s.form) === -1) forms.push(s.form); });
+        forms.forEach(function(fm){
+          var opt = document.createElement('option');
+          opt.value = fm; opt.textContent = fm;
+          formFilter.appendChild(opt);
+        });
+
+        function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+        function effectiveStatus(s){
+          if(s.status === 'out' && s.late) return 'late';
+          return s.status;
+        }
+
+        function renderRoster(){
+          var q = (rosterSearch.value || '').trim().toLowerCase();
+          var fm = formFilter.value;
+          var st = statusFilter.value;
+
+          var filtered = roster.filter(function(s){
+            var matchQ = !q || s.name.toLowerCase().indexOf(q) > -1;
+            var matchF = !fm || s.form === fm;
+            var matchS = !st || effectiveStatus(s) === st;
+            return matchQ && matchF && matchS;
+          });
+
+          rosterBody.innerHTML = '';
+          filtered.forEach(function(s){
+            var es = effectiveStatus(s);
+            var label = es === 'on' ? 'On campus' : (es === 'late' ? 'Overdue' : 'Signed out');
+            var cls = es === 'on' ? 'st-on' : (es === 'late' ? 'st-late' : 'st-out');
+            var tr = document.createElement('tr');
+            tr.innerHTML =
+              '<td class="roster-name">' + esc(s.name) + '</td>' +
+              '<td>' + esc(s.form) + '</td>' +
+              '<td>' + esc(s.type) + '</td>' +
+              '<td><span class="roster-status ' + cls + '"><span class="dot"></span>' + label + '</span></td>' +
+              '<td class="roster-time">' + (s.outAt ? esc(s.outAt) : '—') + '</td>' +
+              '<td>' + (s.dest ? esc(s.dest) : '—') + '</td>' +
+              '<td class="roster-time">' + (s.back ? esc(s.back) : '—') + '</td>';
+            rosterBody.appendChild(tr);
+          });
+          rosterEmpty.style.display = filtered.length ? 'none' : 'block';
+        }
+
+        function updateCounts(){
+          var on = 0, out = 0, late = 0;
+          roster.forEach(function(s){
+            var es = effectiveStatus(s);
+            if(es === 'on') on++;
+            else if(es === 'late') late++;
+            else out++;
+          });
+          document.getElementById('rosterOnCount').textContent = on;
+          document.getElementById('rosterOutCount').textContent = out;
+          document.getElementById('rosterLateCount').textContent = late;
+        }
+
+        rosterSearch.addEventListener('input', renderRoster);
+        formFilter.addEventListener('change', renderRoster);
+        statusFilter.addEventListener('change', renderRoster);
+        updateCounts();
+        renderRoster();
+      }
     }
   })();
 </script>
