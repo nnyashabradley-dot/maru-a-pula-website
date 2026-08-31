@@ -948,10 +948,6 @@
 </section>
 
 <div class="wrap">
-  <div class="draft-note" style="margin:24px 0 0;">
-    <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
-    Demo portal — illustrative data, generated names, and not real authentication.
-  </div>
 
   <!-- ===== PARENT VIEW ===== -->
   <div id="viewParent" style="display:none;">
@@ -1483,7 +1479,7 @@
         { form:"Form 3", streams:["3M","3L","3K","3J"] },
         { form:"Form 4", streams:["4M","4L","4K","4J"] },
         { form:"Form 5", streams:["5M","5L","5K","5J"] },
-        { form:"Form 6", streams:["LM6","UM6"] }
+        { form:"Form 6", streams:["L6M","L6L","L6K","L6J","U6"] }
       ];
       var departments = ["Sciences","Mathematics","Humanities","Languages","Arts & Maitisong",
         "Physical Education","Administration","Boarding","Facilities","Library"];
@@ -1517,7 +1513,7 @@
       formGroups.forEach(function(g){
         g.streams.forEach(function(stream){
           var isSixth = (g.form === 'Form 6');
-          var size = isSixth ? (40 + Math.floor(rnd() * 9)) : (32 + Math.floor(rnd() * 5));
+          var size = isSixth ? (20 + Math.floor(rnd() * 6)) : (30 + Math.floor(rnd() * 4));
           for(var i = 0; i < size; i++){
             var status = 'on', extra = null;
             if(rnd() > 0.94){ status = 'out'; extra = outReasons[Math.floor(rnd() * outReasons.length)]; }
@@ -1622,7 +1618,7 @@
           if(kindLabel === 'Facility') return 'cf';
           var m = String(title).match(/(\d)/);
           if(m) return 'c' + m[1];
-          if(/^(LM6|UM6)$/.test(title)) return 'c6';
+          if(/^(L6|U6)/.test(title)) return 'c6';
           return 'c1';
         }
 
