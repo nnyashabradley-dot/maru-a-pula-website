@@ -757,26 +757,53 @@
   .roster-breadcrumb button:hover{text-decoration:underline;}
   .roster-breadcrumb .sep{color:var(--mid);}
   .roster-breadcrumb .current{font-weight:600; color:var(--ink);}
-  .card-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(210px,1fr)); gap:16px;}
+  .card-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(215px,1fr)); gap:18px;}
   .drill-card{
-    border:1px solid var(--line); border-radius:14px; padding:20px; background:#fff; cursor:pointer;
-    text-align:left; font-family:'Inter',sans-serif; transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    position:relative; border:none; border-radius:18px; padding:22px 20px 20px; cursor:pointer;
+    text-align:left; font-family:'Inter',sans-serif; overflow:hidden; color:#fff;
+    transition:transform .2s cubic-bezier(.22,1,.36,1), box-shadow .2s ease;
+    box-shadow:0 10px 24px -14px rgba(0,0,0,0.4);
   }
-  .drill-card:hover{transform:translateY(-3px); box-shadow:0 18px 34px -22px rgba(0,0,0,0.32); border-color:var(--ink);}
-  .drill-card .dc-top{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:14px;}
-  .drill-card .dc-icon{width:36px; height:36px; border-radius:10px; background:var(--fog); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
-  .drill-card .dc-icon svg{width:17px; height:17px; color:var(--sun-3);}
-  .drill-card .dc-kind{font-size:0.68rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--mid); background:var(--fog); padding:3px 9px; border-radius:100px;}
-  .drill-card .dc-title{font-family:'Fraunces',serif; font-size:1.15rem; font-weight:600; color:var(--black); margin-bottom:10px;}
-  .drill-card .dc-nums{display:flex; align-items:baseline; gap:6px; margin-bottom:10px;}
-  .drill-card .dc-on{font-family:'JetBrains Mono',monospace; font-size:1.45rem; font-weight:700; color:#2F7D5B; line-height:1;}
-  .drill-card .dc-of{font-family:'JetBrains Mono',monospace; font-size:0.86rem; color:var(--mid);}
-  .drill-card .dc-bar{height:5px; border-radius:100px; background:var(--fog); overflow:hidden; margin-bottom:10px;}
-  .drill-card .dc-bar-fill{height:100%; border-radius:100px; background:#2F7D5B;}
-  .drill-card .dc-alerts{display:flex; gap:12px; font-size:0.76rem; font-weight:600;}
-  .drill-card .dc-alert-out{color:#C2540B;}
-  .drill-card .dc-alert-late{color:#B42828;}
-  .drill-card .dc-none{font-size:0.76rem; color:var(--mid);}
+  .drill-card::after{
+    content:''; position:absolute; top:-40px; right:-40px; width:130px; height:130px; border-radius:50%;
+    background:rgba(255,255,255,0.13); pointer-events:none;
+  }
+  .drill-card:hover{transform:translateY(-5px) scale(1.015); box-shadow:0 26px 44px -20px rgba(0,0,0,0.5);}
+  /* form colour ramp */
+  .drill-card.c1{background:linear-gradient(145deg,#C2540B,#E0761F);}
+  .drill-card.c2{background:linear-gradient(145deg,#2F7D5B,#3FA076);}
+  .drill-card.c3{background:linear-gradient(145deg,#2B5D8B,#3B7DB5);}
+  .drill-card.c4{background:linear-gradient(145deg,#6B4FA0,#8C6CC4);}
+  .drill-card.c5{background:linear-gradient(145deg,#B4442D,#D65F44);}
+  .drill-card.c6{background:linear-gradient(145deg,#33415c,#4A5C80);}
+  .drill-card.cf{background:linear-gradient(145deg,#8B5E34,#AE7A4A);}
+  .drill-card .dc-top{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:16px; position:relative; z-index:1;}
+  .drill-card .dc-icon{
+    width:38px; height:38px; border-radius:11px; background:rgba(255,255,255,0.2);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+    backdrop-filter:blur(2px);
+  }
+  .drill-card .dc-icon svg{width:18px; height:18px; color:#fff;}
+  .drill-card .dc-kind{
+    font-size:0.62rem; font-weight:700; text-transform:uppercase; letter-spacing:0.07em; color:#fff;
+    background:rgba(255,255,255,0.2); padding:4px 10px; border-radius:100px;
+  }
+  .drill-card .dc-title{font-family:'Fraunces',serif; font-size:1.28rem; font-weight:600; color:#fff; margin-bottom:12px; position:relative; z-index:1;}
+  .drill-card .dc-nums{display:flex; align-items:baseline; gap:6px; margin-bottom:11px; position:relative; z-index:1;}
+  .drill-card .dc-on{font-family:'JetBrains Mono',monospace; font-size:1.8rem; font-weight:700; color:#fff; line-height:1;}
+  .drill-card .dc-of{font-family:'JetBrains Mono',monospace; font-size:0.82rem; color:rgba(255,255,255,0.75);}
+  .drill-card .dc-bar{height:6px; border-radius:100px; background:rgba(0,0,0,0.22); overflow:hidden; margin-bottom:12px; position:relative; z-index:1;}
+  .drill-card .dc-bar-fill{height:100%; border-radius:100px; background:#fff; transition:width .4s ease;}
+  .drill-card .dc-alerts{display:flex; gap:8px; flex-wrap:wrap; position:relative; z-index:1;}
+  .drill-card .dc-alerts span{
+    font-size:0.7rem; font-weight:700; padding:4px 10px; border-radius:100px;
+    background:rgba(0,0,0,0.25); color:#fff;
+  }
+  .drill-card .dc-alert-late{background:rgba(255,120,120,0.35) !important; color:#fff !important;}
+  .drill-card .dc-none{
+    font-size:0.7rem; font-weight:700; padding:4px 10px; border-radius:100px;
+    background:rgba(255,255,255,0.2); color:#fff; display:inline-block; position:relative; z-index:1;
+  }
   .people-list{border:1px solid var(--line); border-radius:12px; overflow:hidden; max-height:460px; overflow-y:auto;}
   .loc-person{display:flex; align-items:center; gap:12px; padding:12px 18px; border-bottom:1px solid var(--line); font-size:0.88rem; background:#fff;}
   .loc-person:last-child{border-bottom:none;}
@@ -923,7 +950,7 @@
 <div class="wrap">
   <div class="draft-note" style="margin:24px 0 0;">
     <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
-    Everything below is illustrative demo data to show what a signed-in Portal could look like — it isn't connected to MaP's real student records yet, and this sign-in isn't real authentication (see the note on the Sign In page).
+    Demo portal — illustrative data, generated names, and not real authentication.
   </div>
 
   <!-- ===== PARENT VIEW ===== -->
@@ -1202,10 +1229,6 @@
         </div>
       </div>
 
-      <div class="draft-note" style="margin-top:18px;">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
-        Sample roster data for demonstration only — these are generated names, not real students or staff. A live version would need to connect to the school's actual sign-in/sign-out system, and access should be restricted to staff who genuinely need it.
-      </div>
     </div>
 
     <div class="portal-grid">
@@ -1595,12 +1618,20 @@
           facility: '<svg viewBox="0 0 24 24" fill="none"><path d="M3 9l9-6 9 6v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" stroke="currentColor" stroke-width="1.6"/><path d="M9 21V12h6v9" stroke="currentColor" stroke-width="1.6"/></svg>'
         };
 
+        function colourFor(title, kindLabel){
+          if(kindLabel === 'Facility') return 'cf';
+          var m = String(title).match(/(\d)/);
+          if(m) return 'c' + m[1];
+          if(/^(LM6|UM6)$/.test(title)) return 'c6';
+          return 'c1';
+        }
+
         function makeCard(title, kindLabel, people, iconKey, onClick){
           var t = tally(people);
           var pct = t.total ? Math.round((t.on / t.total) * 100) : 0;
           var btn = document.createElement('button');
           btn.type = 'button';
-          btn.className = 'drill-card';
+          btn.className = 'drill-card ' + colourFor(title, kindLabel);
           var alerts = '';
           if(t.out || t.late){
             alerts = '<div class="dc-alerts">' +
