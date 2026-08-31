@@ -748,24 +748,39 @@
   .roster-view-tabs{display:inline-flex; background:var(--fog); border-radius:100px; padding:4px; gap:2px; margin-bottom:16px;}
   .roster-view-tab{padding:8px 18px; border-radius:100px; border:none; background:transparent; font-family:'Inter',sans-serif; font-weight:600; font-size:0.82rem; color:var(--mid); cursor:pointer; transition:all .2s ease;}
   .roster-view-tab.active{background:#fff; color:var(--ink); box-shadow:0 3px 10px -4px rgba(0,0,0,0.2);}
-  /* grouped-by-location view */
-  .loc-group{border:1px solid var(--line); border-radius:12px; margin-bottom:12px; overflow:hidden;}
-  .loc-head{
-    display:flex; align-items:center; gap:14px; padding:14px 18px; background:#fff; cursor:pointer;
-    transition:background .15s ease;
+  /* ===== DRILL-DOWN CARD SYSTEM ===== */
+  .roster-breadcrumb{display:flex; align-items:center; gap:8px; margin-bottom:18px; font-size:0.88rem; flex-wrap:wrap;}
+  .roster-breadcrumb button{
+    background:none; border:none; padding:0; font-family:'Inter',sans-serif; font-size:0.88rem;
+    font-weight:600; color:var(--sun-3); cursor:pointer;
   }
-  .loc-head:hover{background:var(--fog);}
-  .loc-chevron{width:22px; height:22px; border-radius:50%; border:1.5px solid var(--line); display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:transform .25s ease;}
-  .loc-chevron svg{width:11px; height:11px; color:var(--mid);}
-  .loc-group.open .loc-chevron{transform:rotate(180deg);}
-  .loc-name{font-weight:600; font-size:0.94rem; flex:1; min-width:0;}
-  .loc-kind{font-size:0.72rem; color:var(--mid); background:var(--fog); padding:3px 10px; border-radius:100px; flex-shrink:0;}
-  .loc-count{font-family:'JetBrains Mono',monospace; font-size:0.84rem; color:var(--mid); flex-shrink:0;}
-  .loc-body{max-height:0; overflow:hidden; transition:max-height .3s ease; background:var(--fog);}
-  .loc-group.open .loc-body{max-height:1400px; overflow-y:auto;}
-  .loc-people{padding:6px 18px 14px;}
-  .loc-person{display:flex; align-items:center; gap:12px; padding:9px 0; border-bottom:1px solid var(--line); font-size:0.87rem;}
+  .roster-breadcrumb button:hover{text-decoration:underline;}
+  .roster-breadcrumb .sep{color:var(--mid);}
+  .roster-breadcrumb .current{font-weight:600; color:var(--ink);}
+  .card-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(210px,1fr)); gap:16px;}
+  .drill-card{
+    border:1px solid var(--line); border-radius:14px; padding:20px; background:#fff; cursor:pointer;
+    text-align:left; font-family:'Inter',sans-serif; transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  }
+  .drill-card:hover{transform:translateY(-3px); box-shadow:0 18px 34px -22px rgba(0,0,0,0.32); border-color:var(--ink);}
+  .drill-card .dc-top{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:14px;}
+  .drill-card .dc-icon{width:36px; height:36px; border-radius:10px; background:var(--fog); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .drill-card .dc-icon svg{width:17px; height:17px; color:var(--sun-3);}
+  .drill-card .dc-kind{font-size:0.68rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--mid); background:var(--fog); padding:3px 9px; border-radius:100px;}
+  .drill-card .dc-title{font-family:'Fraunces',serif; font-size:1.15rem; font-weight:600; color:var(--black); margin-bottom:10px;}
+  .drill-card .dc-nums{display:flex; align-items:baseline; gap:6px; margin-bottom:10px;}
+  .drill-card .dc-on{font-family:'JetBrains Mono',monospace; font-size:1.45rem; font-weight:700; color:#2F7D5B; line-height:1;}
+  .drill-card .dc-of{font-family:'JetBrains Mono',monospace; font-size:0.86rem; color:var(--mid);}
+  .drill-card .dc-bar{height:5px; border-radius:100px; background:var(--fog); overflow:hidden; margin-bottom:10px;}
+  .drill-card .dc-bar-fill{height:100%; border-radius:100px; background:#2F7D5B;}
+  .drill-card .dc-alerts{display:flex; gap:12px; font-size:0.76rem; font-weight:600;}
+  .drill-card .dc-alert-out{color:#C2540B;}
+  .drill-card .dc-alert-late{color:#B42828;}
+  .drill-card .dc-none{font-size:0.76rem; color:var(--mid);}
+  .people-list{border:1px solid var(--line); border-radius:12px; overflow:hidden; max-height:460px; overflow-y:auto;}
+  .loc-person{display:flex; align-items:center; gap:12px; padding:12px 18px; border-bottom:1px solid var(--line); font-size:0.88rem; background:#fff;}
   .loc-person:last-child{border-bottom:none;}
+  .loc-person:hover{background:var(--fog);}
   .loc-person .pname{font-weight:600; flex:1; min-width:0;}
   .loc-person .pmeta{font-size:0.78rem; color:var(--mid); flex-shrink:0;}
   .roster-pager{display:flex; align-items:center; justify-content:space-between; gap:14px; margin-top:16px; flex-wrap:wrap;}
@@ -1162,7 +1177,9 @@
       </div>
 
       <div id="rosterLocationView">
-        <div id="locGroups"></div>
+        <div class="roster-breadcrumb" id="rosterBreadcrumb"></div>
+        <div class="card-grid" id="cardGrid"></div>
+        <div class="people-list" id="peopleList" style="display:none;"></div>
         <div class="roster-empty" id="locEmpty" style="display:none;">No one matches this search.</div>
       </div>
 
@@ -1425,9 +1442,7 @@
 
     /* ---------- Campus roster (non-teaching / security only) ---------- */
     if(session.role === 'nonteaching'){
-      /* Generate a realistic roster of ~800 students + staff.
-         Names are generated from Setswana/Botswana name pools — these are
-         invented people for demonstration, not real students or staff. */
+      /* Generated demo roster — invented people, not real students or staff. */
       var firstNames = ["Amantle","Boitumelo","Kagiso","Lesego","Naledi","Onalenna","Refilwe","Thabo","Tumelo","Katlego",
         "Gorata","Mpho","Neo","Tebogo","Kefilwe","Bonolo","Tshepo","Larona","Warona","Oarabile",
         "Pako","Sethunya","Kabo","Goitseone","Lorato","Masego","Tiro","Bokang","Kelebogile","Reneilwe",
@@ -1436,19 +1451,19 @@
       var surnames = ["Kgosi","Sekgoma","Dintwe","Baruti","Phiri","Moeti","Tau","Kefilwe","Rankopo","Mogale",
         "Selepe","Letsholo","Bogosi","Marumo","Zibani","Segwai","Nkwe","Motsumi","Diteko","Mmusi",
         "Ntsima","Kabo","Sedimo","Modise","Ramotswe","Kgosidintsi","Molefe","Tshekiso","Pilane","Seretse",
-        "Mothibi","Ditshego","Gaborone","Khama","Masire","Mogae","Seretse","Balopi","Chilisa","Dikgang"];
+        "Mothibi","Ditshego","Gaborone","Khama","Masire","Mogae","Balopi","Chilisa","Dikgang","Moremi"];
 
+      var STREAM_LETTERS = ["M","L","K","J"];
       var formGroups = [
-        { form:"Form 1", classes:["1A","1B","1C","1D"] },
-        { form:"Form 2", classes:["2A","2B","2C","2D"] },
-        { form:"Form 3", classes:["3A","3B","3C","3D"] },
-        { form:"Form 4", classes:["4A","4B","4C","4D"] },
-        { form:"Form 5", classes:["5A","5B","5C"] },
-        { form:"Upper Six", classes:["6A","6B","6C"] }
+        { form:"Form 1", streams:["1M","1L","1K","1J"] },
+        { form:"Form 2", streams:["2M","2L","2K","2J"] },
+        { form:"Form 3", streams:["3M","3L","3K","3J"] },
+        { form:"Form 4", streams:["4M","4L","4K","4J"] },
+        { form:"Form 5", streams:["5M","5L","5K","5J"] },
+        { form:"Form 6", streams:["LM6","UM6"] }
       ];
       var departments = ["Sciences","Mathematics","Humanities","Languages","Arts & Maitisong",
         "Physical Education","Administration","Boarding","Facilities","Library"];
-
       var facilities = ["Library","Maitisong Theatre","Science Laboratories","Sports Fields",
         "Swimming Pool","Dining Hall","Boarding House A","Boarding House B","Administration Block"];
 
@@ -1462,88 +1477,61 @@
         { dest:"Maitisong rehearsal — off site", out:"1:00 PM", back:"4:00 PM" }
       ];
 
-      /* Deterministic pseudo-random so the roster is stable between renders */
       var seed = 20260817;
-      function rnd(){
-        seed = (seed * 1103515245 + 12345) % 2147483648;
-        return seed / 2147483648;
-      }
-      function pick(arr){ return arr[Math.floor(rnd() * arr.length)]; }
+      function rnd(){ seed = (seed * 1103515245 + 12345) % 2147483648; return seed / 2147483648; }
+      function pick(a){ return a[Math.floor(rnd() * a.length)]; }
 
       var roster = [];
       var usedNames = {};
       function makeName(){
         var n, guard = 0;
-        do {
-          n = pick(firstNames) + ' ' + pick(surnames);
-          guard++;
-        } while(usedNames[n] && guard < 40);
+        do { n = pick(firstNames) + ' ' + pick(surnames); guard++; }
+        while(usedNames[n] && guard < 40);
         usedNames[n] = true;
         return n;
       }
 
-      /* ~730 students across forms and classes */
       formGroups.forEach(function(g){
-        g.classes.forEach(function(cls){
-          var size = 32 + Math.floor(rnd() * 5); // 32-36 per class
+        g.streams.forEach(function(stream){
+          var isSixth = (g.form === 'Form 6');
+          var size = isSixth ? (40 + Math.floor(rnd() * 9)) : (32 + Math.floor(rnd() * 5));
           for(var i = 0; i < size; i++){
-            var r = rnd();
             var status = 'on', extra = null;
-            if(r > 0.94){
-              status = 'out';
-              extra = outReasons[Math.floor(rnd() * outReasons.length)];
-            }
-            var entry = {
-              name: makeName(),
-              kind: 'Student',
-              group: g.form,
-              location: 'Classroom ' + cls,
-              locationKind: 'Classroom',
-              type: rnd() > 0.75 ? 'Boarder' : 'Day',
-              status: status
+            if(rnd() > 0.94){ status = 'out'; extra = outReasons[Math.floor(rnd() * outReasons.length)]; }
+            var e = {
+              name: makeName(), kind: 'Student', group: g.form, stream: stream,
+              location: stream, locationKind: 'Classroom',
+              type: rnd() > 0.75 ? 'Boarder' : 'Day', status: status
             };
             if(extra){
-              entry.dest = extra.dest;
-              entry.outAt = extra.out;
-              entry.back = extra.back;
-              if(rnd() > 0.8) entry.late = true;
+              e.dest = extra.dest; e.outAt = extra.out; e.back = extra.back;
+              if(rnd() > 0.8) e.late = true;
             }
-            roster.push(entry);
+            roster.push(e);
           }
         });
       });
 
-      /* ~70 staff across departments and facilities */
       departments.forEach(function(dept){
-        var size = 5 + Math.floor(rnd() * 4); // 5-8 per dept
+        var size = 5 + Math.floor(rnd() * 4);
         for(var i = 0; i < size; i++){
-          var r = rnd();
           var status = 'on', extra = null;
-          if(r > 0.9){
-            status = 'out';
-            extra = { dest:"Off-site meeting", out:"9:30 AM", back:"3:00 PM" };
-          }
-          var entry = {
-            name: makeName(),
-            kind: 'Staff',
-            group: dept,
-            location: pick(facilities),
-            locationKind: 'Facility',
-            type: 'Staff',
-            status: status
+          if(rnd() > 0.9){ status = 'out'; extra = { dest:"Off-site meeting", out:"9:30 AM", back:"3:00 PM" }; }
+          var e = {
+            name: makeName(), kind: 'Staff', group: dept, stream: null,
+            location: pick(facilities), locationKind: 'Facility',
+            type: 'Staff', status: status
           };
-          if(extra){
-            entry.dest = extra.dest;
-            entry.outAt = extra.out;
-            entry.back = extra.back;
-          }
-          roster.push(entry);
+          if(extra){ e.dest = extra.dest; e.outAt = extra.out; e.back = extra.back; }
+          roster.push(e);
         }
       });
 
       var rosterBody = document.getElementById('rosterBody');
       var rosterEmpty = document.getElementById('rosterEmpty');
-      var locGroups = document.getElementById('locGroups');
+      var cardGrid = document.getElementById('cardGrid');
+      var peopleList = document.getElementById('peopleList');
+      var breadcrumb = document.getElementById('rosterBreadcrumb');
       var locEmpty = document.getElementById('locEmpty');
       var rosterSearch = document.getElementById('rosterSearch');
       var peopleFilter = document.getElementById('rosterPeopleFilter');
@@ -1557,94 +1545,200 @@
       var pagerNext = document.getElementById('pagerNext');
       var pagerInfo = document.getElementById('pagerInfo');
 
-      if(rosterBody && locGroups){
+      if(rosterBody && cardGrid){
         var PAGE_SIZE = 50;
         var currentPage = 1;
         var currentView = 'location';
+        /* drill state: level = 'top' | 'streams' | 'people' */
+        var drill = { level: 'top', form: null, stream: null, facility: null };
 
-        /* populate the form/dept filter */
         var groups = [];
         roster.forEach(function(p){ if(groups.indexOf(p.group) === -1) groups.push(p.group); });
         groups.forEach(function(g){
-          var opt = document.createElement('option');
-          opt.value = g; opt.textContent = g;
-          groupFilter.appendChild(opt);
+          var o = document.createElement('option'); o.value = g; o.textContent = g;
+          groupFilter.appendChild(o);
         });
 
         function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-        function effectiveStatus(p){
-          if(p.status === 'out' && p.late) return 'late';
-          return p.status;
-        }
+        function effStatus(p){ return (p.status === 'out' && p.late) ? 'late' : p.status; }
 
         function getFiltered(){
           var q = (rosterSearch.value || '').trim().toLowerCase();
-          var kind = peopleFilter.value;
-          var grp = groupFilter.value;
-          var st = statusFilter.value;
+          var kind = peopleFilter.value, grp = groupFilter.value, st = statusFilter.value;
           return roster.filter(function(p){
-            var mq = !q || p.name.toLowerCase().indexOf(q) > -1;
-            var mk = !kind || p.kind === kind;
-            var mg = !grp || p.group === grp;
-            var ms = !st || effectiveStatus(p) === st;
-            return mq && mk && mg && ms;
+            return (!q || p.name.toLowerCase().indexOf(q) > -1)
+              && (!kind || p.kind === kind)
+              && (!grp || p.group === grp)
+              && (!st || effStatus(p) === st);
           });
         }
 
         function statusHtml(p){
-          var es = effectiveStatus(p);
+          var es = effStatus(p);
           var label = es === 'on' ? 'On campus' : (es === 'late' ? 'Overdue' : 'Signed out');
           var cls = es === 'on' ? 'st-on' : (es === 'late' ? 'st-late' : 'st-out');
           return '<span class="roster-status ' + cls + '"><span class="dot"></span>' + label + '</span>';
         }
 
-        /* ---- Grouped by location ---- */
-        function renderLocationView(filtered){
-          var byLoc = {};
-          filtered.forEach(function(p){
-            if(!byLoc[p.location]) byLoc[p.location] = { kind: p.locationKind, people: [] };
-            byLoc[p.location].people.push(p);
+        function tally(people){
+          var t = { total: people.length, on: 0, out: 0, late: 0 };
+          people.forEach(function(p){
+            var es = effStatus(p);
+            if(es === 'on') t.on++; else if(es === 'late') t.late++; else t.out++;
           });
-          var names = Object.keys(byLoc).sort();
-          locGroups.innerHTML = '';
-          locEmpty.style.display = names.length ? 'none' : 'block';
-
-          names.forEach(function(loc){
-            var data = byLoc[loc];
-            var onCount = data.people.filter(function(p){ return effectiveStatus(p) === 'on'; }).length;
-            var wrap = document.createElement('div');
-            wrap.className = 'loc-group';
-
-            var head = document.createElement('div');
-            head.className = 'loc-head';
-            head.innerHTML =
-              '<div class="loc-chevron"><svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>' +
-              '<div class="loc-name">' + esc(loc) + '</div>' +
-              '<div class="loc-kind">' + esc(data.kind) + '</div>' +
-              '<div class="loc-count">' + onCount + ' on site / ' + data.people.length + '</div>';
-
-            var body = document.createElement('div');
-            body.className = 'loc-body';
-            var inner = '<div class="loc-people">';
-            data.people.forEach(function(p){
-              inner += '<div class="loc-person">' +
-                '<span class="pname">' + esc(p.name) + '</span>' +
-                '<span class="pmeta">' + esc(p.group) + ' · ' + esc(p.type) + '</span>' +
-                statusHtml(p) +
-                '</div>';
-            });
-            inner += '</div>';
-            body.innerHTML = inner;
-
-            head.addEventListener('click', function(){ wrap.classList.toggle('open'); });
-            wrap.appendChild(head);
-            wrap.appendChild(body);
-            locGroups.appendChild(wrap);
-          });
+          return t;
         }
 
-        /* ---- Full paginated list ---- */
-        function renderListView(filtered){
+        var ICONS = {
+          form: '<svg viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h9l5 5v10a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.6"/><path d="M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.6"/></svg>',
+          stream: '<svg viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="1.6"/><circle cx="10" cy="7" r="4" stroke="currentColor" stroke-width="1.6"/></svg>',
+          facility: '<svg viewBox="0 0 24 24" fill="none"><path d="M3 9l9-6 9 6v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" stroke="currentColor" stroke-width="1.6"/><path d="M9 21V12h6v9" stroke="currentColor" stroke-width="1.6"/></svg>'
+        };
+
+        function makeCard(title, kindLabel, people, iconKey, onClick){
+          var t = tally(people);
+          var pct = t.total ? Math.round((t.on / t.total) * 100) : 0;
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'drill-card';
+          var alerts = '';
+          if(t.out || t.late){
+            alerts = '<div class="dc-alerts">' +
+              (t.out ? '<span class="dc-alert-out">' + t.out + ' signed out</span>' : '') +
+              (t.late ? '<span class="dc-alert-late">' + t.late + ' overdue</span>' : '') +
+              '</div>';
+          } else {
+            alerts = '<div class="dc-none">All present</div>';
+          }
+          btn.innerHTML =
+            '<div class="dc-top"><div class="dc-icon">' + ICONS[iconKey] + '</div>' +
+            '<span class="dc-kind">' + esc(kindLabel) + '</span></div>' +
+            '<div class="dc-title">' + esc(title) + '</div>' +
+            '<div class="dc-nums"><span class="dc-on">' + t.on + '</span><span class="dc-of">on site / ' + t.total + '</span></div>' +
+            '<div class="dc-bar"><div class="dc-bar-fill" style="width:' + pct + '%;"></div></div>' +
+            alerts;
+          btn.addEventListener('click', onClick);
+          return btn;
+        }
+
+        function renderBreadcrumb(){
+          breadcrumb.innerHTML = '';
+          if(drill.level === 'top'){ return; }
+          var rootBtn = document.createElement('button');
+          rootBtn.type = 'button';
+          rootBtn.textContent = 'All Locations';
+          rootBtn.addEventListener('click', function(){
+            drill = { level:'top', form:null, stream:null, facility:null };
+            renderLocationView();
+          });
+          breadcrumb.appendChild(rootBtn);
+
+          if(drill.form){
+            var sep1 = document.createElement('span'); sep1.className = 'sep'; sep1.textContent = '/';
+            breadcrumb.appendChild(sep1);
+            if(drill.level === 'streams'){
+              var cur = document.createElement('span'); cur.className = 'current'; cur.textContent = drill.form;
+              breadcrumb.appendChild(cur);
+            } else {
+              var fBtn = document.createElement('button');
+              fBtn.type = 'button'; fBtn.textContent = drill.form;
+              fBtn.addEventListener('click', function(){
+                drill = { level:'streams', form:drill.form, stream:null, facility:null };
+                renderLocationView();
+              });
+              breadcrumb.appendChild(fBtn);
+              var sep2 = document.createElement('span'); sep2.className='sep'; sep2.textContent='/';
+              breadcrumb.appendChild(sep2);
+              var cur2 = document.createElement('span'); cur2.className='current'; cur2.textContent = drill.stream;
+              breadcrumb.appendChild(cur2);
+            }
+          } else if(drill.facility){
+            var sepF = document.createElement('span'); sepF.className='sep'; sepF.textContent='/';
+            breadcrumb.appendChild(sepF);
+            var curF = document.createElement('span'); curF.className='current'; curF.textContent = drill.facility;
+            breadcrumb.appendChild(curF);
+          }
+        }
+
+        function showPeople(people){
+          cardGrid.style.display = 'none';
+          peopleList.style.display = '';
+          peopleList.innerHTML = '';
+          people.sort(function(a,b){ return a.name.localeCompare(b.name); });
+          people.forEach(function(p){
+            var row = document.createElement('div');
+            row.className = 'loc-person';
+            var right = effStatus(p) === 'on' ? '' :
+              '<span class="pmeta">' + esc(p.dest || '') + (p.back && p.back !== '—' ? ' · back ' + esc(p.back) : '') + '</span>';
+            row.innerHTML =
+              '<span class="pname">' + esc(p.name) + '</span>' +
+              '<span class="pmeta">' + esc(p.group) + ' · ' + esc(p.type) + '</span>' +
+              right + statusHtml(p);
+            peopleList.appendChild(row);
+          });
+          locEmpty.style.display = people.length ? 'none' : 'block';
+        }
+
+        function showCards(){
+          peopleList.style.display = 'none';
+          cardGrid.style.display = '';
+          cardGrid.innerHTML = '';
+        }
+
+        function renderLocationView(){
+          var filtered = getFiltered();
+          renderBreadcrumb();
+
+          if(drill.level === 'top'){
+            showCards();
+            var any = false;
+            formGroups.forEach(function(g){
+              var people = filtered.filter(function(p){ return p.kind === 'Student' && p.group === g.form; });
+              if(!people.length) return;
+              any = true;
+              cardGrid.appendChild(makeCard(g.form, 'Form', people, 'form', function(){
+                drill = { level:'streams', form:g.form, stream:null, facility:null };
+                renderLocationView();
+              }));
+            });
+            facilities.forEach(function(f){
+              var people = filtered.filter(function(p){ return p.location === f && p.kind === 'Staff'; });
+              if(!people.length) return;
+              any = true;
+              cardGrid.appendChild(makeCard(f, 'Facility', people, 'facility', function(){
+                drill = { level:'people', form:null, stream:null, facility:f };
+                renderLocationView();
+              }));
+            });
+            locEmpty.style.display = any ? 'none' : 'block';
+
+          } else if(drill.level === 'streams'){
+            showCards();
+            var g = formGroups.filter(function(x){ return x.form === drill.form; })[0];
+            var any2 = false;
+            if(g){
+              g.streams.forEach(function(stream){
+                var people = filtered.filter(function(p){ return p.stream === stream; });
+                if(!people.length) return;
+                any2 = true;
+                cardGrid.appendChild(makeCard(stream, 'Stream', people, 'stream', function(){
+                  drill = { level:'people', form:drill.form, stream:stream, facility:null };
+                  renderLocationView();
+                }));
+              });
+            }
+            locEmpty.style.display = any2 ? 'none' : 'block';
+
+          } else {
+            var people = drill.facility
+              ? filtered.filter(function(p){ return p.location === drill.facility && p.kind === 'Staff'; })
+              : filtered.filter(function(p){ return p.stream === drill.stream; });
+            showPeople(people);
+          }
+        }
+
+        function renderListView(){
+          var filtered = getFiltered();
           var totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
           if(currentPage > totalPages) currentPage = totalPages;
           var start = (currentPage - 1) * PAGE_SIZE;
@@ -1655,72 +1749,62 @@
             var tr = document.createElement('tr');
             tr.innerHTML =
               '<td class="roster-name">' + esc(p.name) + '</td>' +
-              '<td>' + esc(p.group) + '</td>' +
+              '<td>' + esc(p.stream || p.group) + '</td>' +
               '<td>' + esc(p.type) + '</td>' +
               '<td>' + statusHtml(p) + '</td>' +
-              '<td>' + (effectiveStatus(p) === 'on' ? esc(p.location) : (p.dest ? esc(p.dest) : '—')) + '</td>' +
+              '<td>' + (effStatus(p) === 'on' ? esc(p.location) : (p.dest ? esc(p.dest) : '—')) + '</td>' +
               '<td class="roster-time">' + (p.outAt ? esc(p.outAt) : '—') + '</td>' +
               '<td class="roster-time">' + (p.back ? esc(p.back) : '—') + '</td>';
             rosterBody.appendChild(tr);
           });
-
           rosterEmpty.style.display = filtered.length ? 'none' : 'block';
-          var shownFrom = filtered.length ? start + 1 : 0;
-          var shownTo = Math.min(start + PAGE_SIZE, filtered.length);
-          pagerInfo.textContent = 'Showing ' + shownFrom + '–' + shownTo + ' of ' + filtered.length;
+          var from = filtered.length ? start + 1 : 0;
+          var to = Math.min(start + PAGE_SIZE, filtered.length);
+          pagerInfo.textContent = 'Showing ' + from + '–' + to + ' of ' + filtered.length;
           pagerPrev.disabled = currentPage <= 1;
           pagerNext.disabled = currentPage >= totalPages;
         }
 
         function render(){
-          var filtered = getFiltered();
-          if(currentView === 'location'){ renderLocationView(filtered); }
-          else { renderListView(filtered); }
+          if(currentView === 'location'){ renderLocationView(); } else { renderListView(); }
         }
 
         function updateCounts(){
-          var on = 0, out = 0, late = 0;
-          roster.forEach(function(p){
-            var es = effectiveStatus(p);
-            if(es === 'on') on++;
-            else if(es === 'late') late++;
-            else out++;
-          });
-          document.getElementById('rosterTotalCount').textContent = roster.length;
-          document.getElementById('rosterOnCount').textContent = on;
-          document.getElementById('rosterOutCount').textContent = out;
-          document.getElementById('rosterLateCount').textContent = late;
+          var t = tally(roster);
+          document.getElementById('rosterTotalCount').textContent = t.total;
+          document.getElementById('rosterOnCount').textContent = t.on;
+          document.getElementById('rosterOutCount').textContent = t.out;
+          document.getElementById('rosterLateCount').textContent = t.late;
         }
 
-        [rosterSearch].forEach(function(el){
-          el.addEventListener('input', function(){ currentPage = 1; render(); });
+        rosterSearch.addEventListener('input', function(){
+          currentPage = 1;
+          if(currentView === 'location' && rosterSearch.value.trim()){
+            drill = { level:'top', form:null, stream:null, facility:null };
+          }
+          render();
         });
         [peopleFilter, groupFilter, statusFilter].forEach(function(el){
-          el.addEventListener('change', function(){ currentPage = 1; render(); });
+          el.addEventListener('change', function(){
+            currentPage = 1;
+            drill = { level:'top', form:null, stream:null, facility:null };
+            render();
+          });
         });
         tabByLocation.addEventListener('click', function(){
           currentView = 'location';
-          tabByLocation.classList.add('active');
-          tabFullList.classList.remove('active');
-          locationView.style.display = '';
-          listView.style.display = 'none';
+          tabByLocation.classList.add('active'); tabFullList.classList.remove('active');
+          locationView.style.display = ''; listView.style.display = 'none';
           render();
         });
         tabFullList.addEventListener('click', function(){
           currentView = 'list';
-          tabFullList.classList.add('active');
-          tabByLocation.classList.remove('active');
-          listView.style.display = '';
-          locationView.style.display = 'none';
-          currentPage = 1;
-          render();
+          tabFullList.classList.add('active'); tabByLocation.classList.remove('active');
+          listView.style.display = ''; locationView.style.display = 'none';
+          currentPage = 1; render();
         });
-        pagerPrev.addEventListener('click', function(){
-          if(currentPage > 1){ currentPage--; render(); }
-        });
-        pagerNext.addEventListener('click', function(){
-          currentPage++; render();
-        });
+        pagerPrev.addEventListener('click', function(){ if(currentPage > 1){ currentPage--; render(); } });
+        pagerNext.addEventListener('click', function(){ currentPage++; render(); });
 
         updateCounts();
         render();
