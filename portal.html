@@ -669,7 +669,7 @@
   nav ul a.active, .subnav a.active{color:var(--sun-3);}
   nav ul a.active{background:rgba(0,0,0,0.055);}
   /* ===== PORTAL ===== */
-  .portal-hero{background:var(--ink); color:#fff; padding:150px 0 50px;}
+  .portal-hero{background:var(--ink); color:#fff; padding:150px 0 90px;}
   .portal-welcome{display:flex; align-items:center; gap:18px; margin-bottom:8px;}
   .portal-avatar{width:54px; height:54px; border-radius:50%; background:linear-gradient(135deg,var(--sun-1),var(--sun-2)); color:#3d2a00; display:flex; align-items:center; justify-content:center; font-family:'Fraunces',serif; font-weight:700; font-size:1.3rem; flex-shrink:0;}
   .portal-hero h1{font-size:1.9rem; margin-bottom:4px;}
@@ -685,10 +685,22 @@
   #portalContent{display:none;}
   #portalContent.unlocked{display:block;}
 
-  .portal-stats{display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin:-40px 0 40px;}
-  .portal-stat-card{background:#fff; border:1px solid var(--line); border-radius:14px; padding:22px 20px; box-shadow:0 20px 40px -28px rgba(0,0,0,0.25);}
-  .portal-stat-card .num{font-family:'Fraunces',serif; font-size:1.7rem; font-weight:700; color:var(--black);}
-  .portal-stat-card .label{font-size:0.82rem; color:var(--mid); margin-top:4px;}
+  .portal-stats{display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin:-52px 0 40px; position:relative; z-index:3;}
+  .portal-stat-card{
+    background:#fff; border:1px solid var(--line); border-radius:16px; padding:22px 20px;
+    box-shadow:0 22px 44px -26px rgba(0,0,0,0.35); position:relative; overflow:hidden;
+    border-top:3px solid var(--sun-2);
+  }
+  .portal-stat-card:nth-child(1){border-top-color:#C2540B;}
+  .portal-stat-card:nth-child(2){border-top-color:#2F7D5B;}
+  .portal-stat-card:nth-child(3){border-top-color:#2B5D8B;}
+  .portal-stat-card:nth-child(4){border-top-color:#6B4FA0;}
+  .portal-stat-card .num{font-family:'Fraunces',serif; font-size:1.9rem; font-weight:700; color:var(--black); line-height:1.1;}
+  .portal-stat-card:nth-child(1) .num{color:#C2540B;}
+  .portal-stat-card:nth-child(2) .num{color:#2F7D5B;}
+  .portal-stat-card:nth-child(3) .num{color:#2B5D8B;}
+  .portal-stat-card:nth-child(4) .num{color:#6B4FA0;}
+  .portal-stat-card .label{font-size:0.82rem; color:var(--mid); margin-top:5px;}
   .portal-grid{display:grid; grid-template-columns:1.4fr 1fr; gap:26px; align-items:start;}
   .portal-card{background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:28px; margin-bottom:26px;}
   .portal-card h3{font-family:'Fraunces',serif; font-size:1.2rem; margin-bottom:18px;}
@@ -776,7 +788,15 @@
   .drill-card.c4{background:linear-gradient(145deg,#6B4FA0,#8C6CC4);}
   .drill-card.c5{background:linear-gradient(145deg,#B4442D,#D65F44);}
   .drill-card.c6{background:linear-gradient(145deg,#33415c,#4A5C80);}
-  .drill-card.cf{background:linear-gradient(145deg,#8B5E34,#AE7A4A);}
+  .drill-card.cf1{background:linear-gradient(145deg,#8B5E34,#B07C4C);}
+  .drill-card.cf2{background:linear-gradient(145deg,#1F7A6E,#2FA396);}
+  .drill-card.cf3{background:linear-gradient(145deg,#A03860,#C4547F);}
+  .drill-card.cf4{background:linear-gradient(145deg,#3D6B2E,#55913F);}
+  .drill-card.cf5{background:linear-gradient(145deg,#1E6A96,#2E8CC0);}
+  .drill-card.cf6{background:linear-gradient(145deg,#8A5A16,#B37A26);}
+  .drill-card.cf7{background:linear-gradient(145deg,#5A4A8C,#7A66B5);}
+  .drill-card.cf8{background:linear-gradient(145deg,#96442E,#BE6045);}
+  .drill-card.cf9{background:linear-gradient(145deg,#2C5766,#3E7789);}
   .drill-card .dc-top{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:16px; position:relative; z-index:1;}
   .drill-card .dc-icon{
     width:38px; height:38px; border-radius:11px; background:rgba(255,255,255,0.2);
@@ -819,6 +839,45 @@
   .pager-btn:hover:not(:disabled){border-color:var(--ink); background:var(--fog);}
   .pager-btn:disabled{opacity:0.4; cursor:not-allowed;}
   .pager-info{font-family:'JetBrains Mono',monospace; font-size:0.8rem; color:var(--mid);}
+
+  /* ===== DATA ENTRY ===== */
+  .entry-tabs{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:18px;}
+  .entry-tab{
+    padding:9px 16px; border-radius:100px; border:1.5px solid var(--line); background:#fff;
+    font-family:'Inter',sans-serif; font-weight:600; font-size:0.82rem; color:var(--mid);
+    cursor:pointer; transition:all .2s ease; display:flex; align-items:center; gap:7px;
+  }
+  .entry-tab svg{width:14px; height:14px;}
+  .entry-tab:hover{border-color:var(--ink);}
+  .entry-tab.active{background:var(--ink); border-color:var(--ink); color:#fff;}
+  .entry-form{display:none;}
+  .entry-form.active{display:block;}
+  .entry-row{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  .entry-field{display:flex; flex-direction:column; gap:6px; margin-bottom:14px;}
+  .entry-field.full{grid-column:1/-1;}
+  .entry-field label{font-size:0.78rem; font-weight:600; color:var(--ink);}
+  .entry-field input, .entry-field select, .entry-field textarea{
+    border:1.5px solid var(--line); border-radius:10px; padding:10px 13px;
+    font-family:'Inter',sans-serif; font-size:0.9rem; color:var(--ink); background:#fff; outline:none;
+    transition:border-color .2s ease;
+  }
+  .entry-field input:focus, .entry-field select:focus, .entry-field textarea:focus{border-color:var(--ink);}
+  .entry-field textarea{resize:vertical; min-height:70px;}
+  .entry-toast{
+    display:none; align-items:center; gap:9px; margin-top:14px; padding:11px 16px; border-radius:10px;
+    background:rgba(47,125,91,0.12); border:1.5px solid rgba(47,125,91,0.35); color:#2F7D5B;
+    font-size:0.85rem; font-weight:600;
+  }
+  .entry-toast.show{display:flex;}
+  .entry-toast svg{width:15px; height:15px; flex-shrink:0;}
+  .log-badge{
+    display:inline-block; font-size:0.68rem; font-weight:700; padding:3px 9px; border-radius:100px;
+    background:rgba(47,125,91,0.13); color:#2F7D5B; margin-left:8px;
+  }
+  .sev-high{background:rgba(180,40,40,0.13) !important; color:#B42828 !important;}
+  .sev-med{background:rgba(194,84,11,0.13) !important; color:#C2540B !important;}
+  .empty-line{font-size:0.86rem; color:var(--mid); padding:6px 0;}
+  @media (max-width:640px){ .entry-row{grid-template-columns:1fr;} }
   @media (max-width:700px){ .roster-summary{grid-template-columns:repeat(2,1fr);} }
   @media (max-width:900px){ .portal-grid{grid-template-columns:1fr;} .portal-stats{grid-template-columns:repeat(2,1fr); margin-top:0;} }
 </style>
@@ -1239,31 +1298,129 @@
           </div>
         </div>
         <div class="portal-card">
-          <h3>Visitor log</h3>
+          <h3>Visitor log <span class="log-badge" id="visitorCountBadge">0 today</span></h3>
           <table class="portal-table">
             <thead><tr><th>Visitor</th><th>Purpose</th><th>Time In</th></tr></thead>
-            <tbody>
-              <tr><td>Courier delivery</td><td>Business Office</td><td>9:14 AM</td></tr>
-              <tr><td>Parent visit</td><td>Meeting — Admissions</td><td>11:30 AM</td></tr>
-              <tr><td>Maintenance contractor</td><td>Boarding House repairs</td><td>1:05 PM</td></tr>
-            </tbody>
+            <tbody id="visitorLogBody"></tbody>
           </table>
+          <div class="empty-line" id="visitorEmpty" style="display:none;">No visitors logged yet today.</div>
+        </div>
+        <div class="portal-card">
+          <h3>Add to the log</h3>
+          <div class="entry-tabs">
+            <button class="entry-tab active" data-entry="visitor" type="button">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="1.8"/><circle cx="10" cy="7" r="4" stroke="currentColor" stroke-width="1.8"/></svg>
+              Visitor
+            </button>
+            <button class="entry-tab" data-entry="incident" type="button">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/></svg>
+              Incident
+            </button>
+            <button class="entry-tab" data-entry="maintenance" type="button">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M9 3h6v3l1.5 3v10a2 2 0 01-2 2h-5a2 2 0 01-2-2V9L9 6V3z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+              Maintenance
+            </button>
+          </div>
+
+          <form class="entry-form active" id="formVisitor" onsubmit="return false;">
+            <div class="entry-row">
+              <div class="entry-field">
+                <label for="vName">Visitor name</label>
+                <input type="text" id="vName" placeholder="e.g. J. Molefe" required>
+              </div>
+              <div class="entry-field">
+                <label for="vPurpose">Purpose of visit</label>
+                <input type="text" id="vPurpose" placeholder="e.g. Meeting — Admissions" required>
+              </div>
+              <div class="entry-field">
+                <label for="vHost">Visiting / host</label>
+                <input type="text" id="vHost" placeholder="e.g. Business Office">
+              </div>
+              <div class="entry-field">
+                <label for="vVehicle">Vehicle reg. (optional)</label>
+                <input type="text" id="vVehicle" placeholder="e.g. B 123 ABC">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Log Visitor →</button>
+          </form>
+
+          <form class="entry-form" id="formIncident" onsubmit="return false;">
+            <div class="entry-row">
+              <div class="entry-field">
+                <label for="iType">Incident type</label>
+                <select id="iType">
+                  <option>Unauthorised access attempt</option>
+                  <option>Lost property</option>
+                  <option>Minor injury</option>
+                  <option>Property damage</option>
+                  <option>Traffic / parking</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="entry-field">
+                <label for="iSeverity">Severity</label>
+                <select id="iSeverity">
+                  <option value="low">Low — logged for record</option>
+                  <option value="med">Medium — needs follow-up</option>
+                  <option value="high">High — escalate now</option>
+                </select>
+              </div>
+              <div class="entry-field full">
+                <label for="iLocation">Location on campus</label>
+                <input type="text" id="iLocation" placeholder="e.g. Main Gate, Sports Fields">
+              </div>
+              <div class="entry-field full">
+                <label for="iNotes">What happened</label>
+                <textarea id="iNotes" placeholder="Brief factual description"></textarea>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Log Incident →</button>
+          </form>
+
+          <form class="entry-form" id="formMaintenance" onsubmit="return false;">
+            <div class="entry-row">
+              <div class="entry-field">
+                <label for="mLocation">Location</label>
+                <input type="text" id="mLocation" placeholder="e.g. Boarding House B" required>
+              </div>
+              <div class="entry-field">
+                <label for="mPriority">Priority</label>
+                <select id="mPriority">
+                  <option value="low">Low</option>
+                  <option value="med">Medium</option>
+                  <option value="high">Urgent</option>
+                </select>
+              </div>
+              <div class="entry-field full">
+                <label for="mIssue">Issue</label>
+                <input type="text" id="mIssue" placeholder="e.g. Broken gate latch" required>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Submit Request →</button>
+          </form>
+
+          <div class="entry-toast" id="entryToast">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span id="entryToastText">Saved</span>
+          </div>
         </div>
       </div>
       <div>
         <div class="portal-card">
-          <h3>Maintenance requests</h3>
-          <ul class="portal-list">
-            <li><span>Broken gate latch — Boarding House B</span><span class="due">Open</span></li>
-          </ul>
+          <h3>Incidents today <span class="log-badge" id="incidentCountBadge">0</span></h3>
+          <ul class="portal-list" id="incidentList"></ul>
+          <div class="empty-line" id="incidentEmpty">No incidents logged today.</div>
+        </div>
+        <div class="portal-card">
+          <h3>Maintenance requests <span class="log-badge" id="maintCountBadge">0 open</span></h3>
+          <ul class="portal-list" id="maintList"></ul>
+          <div class="empty-line" id="maintEmpty" style="display:none;">No open requests.</div>
         </div>
         <div class="portal-card">
           <h3>Quick actions</h3>
           <div class="portal-quick-actions">
-            <a href="#" onclick="return false;"><svg viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="1.6"/><circle cx="10" cy="7" r="4" stroke="currentColor" stroke-width="1.6"/></svg>Log a Visitor</a>
-            <a href="#" onclick="return false;"><svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>Report an Incident</a>
-            <a href="#" onclick="return false;"><svg viewBox="0 0 24 24" fill="none"><path d="M9 3h6v3l1.5 3v10a2 2 0 01-2 2h-5a2 2 0 01-2-2V9L9 6V3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>Submit Maintenance Request</a>
             <a href="contact.html"><svg viewBox="0 0 24 24" fill="none"><path d="M4 4h16v16H4z" stroke="currentColor" stroke-width="1.6"/><path d="M4 6l8 7 8-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Contact the Office</a>
+            <a href="#" id="clearLogsBtn" onclick="return false;"><svg viewBox="0 0 24 24" fill="none"><path d="M3 12a9 9 0 109-9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M3 4v5h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Reset Today's Logs</a>
           </div>
         </div>
       </div>
@@ -1459,6 +1616,202 @@
       });
     }
 
+    /* ---------- Security data entry: visitors, incidents, maintenance ---------- */
+    if(session.role === 'nonteaching'){
+      var LOG_KEY = 'mapSecurityLogs';
+      var defaultLogs = {
+        visitors: [
+          { name:"Courier delivery", purpose:"Business Office", host:"Business Office", time:"9:14 AM" },
+          { name:"Parent visit", purpose:"Meeting — Admissions", host:"Admissions", time:"11:30 AM" },
+          { name:"Maintenance contractor", purpose:"Boarding House repairs", host:"Facilities", time:"1:05 PM" }
+        ],
+        incidents: [],
+        maintenance: [
+          { issue:"Broken gate latch", location:"Boarding House B", priority:"med", time:"8:40 AM" }
+        ]
+      };
+
+      function loadLogs(){
+        try {
+          var raw = window.localStorage.getItem(LOG_KEY);
+          return raw ? JSON.parse(raw) : JSON.parse(JSON.stringify(defaultLogs));
+        } catch(e){ return JSON.parse(JSON.stringify(defaultLogs)); }
+      }
+      function saveLogs(){
+        try { window.localStorage.setItem(LOG_KEY, JSON.stringify(logs)); } catch(e){}
+      }
+      var logs = loadLogs();
+
+      function esc2(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+      function nowTime(){
+        var d = new Date();
+        var h = d.getHours(), m = d.getMinutes();
+        var ap = h >= 12 ? 'PM' : 'AM';
+        h = h % 12; if(h === 0) h = 12;
+        return h + ':' + (m < 10 ? '0' + m : m) + ' ' + ap;
+      }
+      var sevLabel = { low:'Low', med:'Medium', high:'Urgent' };
+      var sevClass = { low:'', med:'sev-med', high:'sev-high' };
+
+      function renderVisitors(){
+        var body = document.getElementById('visitorLogBody');
+        var empty = document.getElementById('visitorEmpty');
+        var badge = document.getElementById('visitorCountBadge');
+        if(!body) return;
+        body.innerHTML = '';
+        logs.visitors.forEach(function(v){
+          var tr = document.createElement('tr');
+          tr.innerHTML = '<td class="roster-name">' + esc2(v.name) + '</td>' +
+            '<td>' + esc2(v.purpose) + '</td>' +
+            '<td class="roster-time">' + esc2(v.time) + '</td>';
+          body.appendChild(tr);
+        });
+        empty.style.display = logs.visitors.length ? 'none' : 'block';
+        badge.textContent = logs.visitors.length + ' today';
+      }
+
+      function renderIncidents(){
+        var list = document.getElementById('incidentList');
+        var empty = document.getElementById('incidentEmpty');
+        var badge = document.getElementById('incidentCountBadge');
+        if(!list) return;
+        list.innerHTML = '';
+        logs.incidents.forEach(function(it){
+          var li = document.createElement('li');
+          li.innerHTML = '<span>' + esc2(it.type) +
+            (it.location ? ' — ' + esc2(it.location) : '') +
+            '<span class="log-badge ' + (sevClass[it.severity] || '') + '">' + (sevLabel[it.severity] || 'Low') + '</span></span>' +
+            '<span class="due">' + esc2(it.time) + '</span>';
+          list.appendChild(li);
+        });
+        empty.style.display = logs.incidents.length ? 'none' : 'block';
+        badge.textContent = logs.incidents.length;
+        var statCard = document.querySelector('#viewNonteaching .portal-stats .portal-stat-card:nth-child(4) .num');
+        if(statCard) statCard.textContent = logs.incidents.length;
+      }
+
+      function renderMaintenance(){
+        var list = document.getElementById('maintList');
+        var empty = document.getElementById('maintEmpty');
+        var badge = document.getElementById('maintCountBadge');
+        if(!list) return;
+        list.innerHTML = '';
+        logs.maintenance.forEach(function(m){
+          var li = document.createElement('li');
+          li.innerHTML = '<span>' + esc2(m.issue) + ' — ' + esc2(m.location) +
+            '<span class="log-badge ' + (sevClass[m.priority] || '') + '">' + (sevLabel[m.priority] || 'Low') + '</span></span>' +
+            '<span class="due">Open</span>';
+          list.appendChild(li);
+        });
+        empty.style.display = logs.maintenance.length ? 'none' : 'block';
+        badge.textContent = logs.maintenance.length + ' open';
+        var statCard = document.querySelector('#viewNonteaching .portal-stats .portal-stat-card:nth-child(3) .num');
+        if(statCard) statCard.textContent = logs.maintenance.length;
+      }
+
+      function renderVisitorStat(){
+        var statCard = document.querySelector('#viewNonteaching .portal-stats .portal-stat-card:nth-child(2) .num');
+        if(statCard) statCard.textContent = logs.visitors.length;
+      }
+
+      function renderAllLogs(){
+        renderVisitors(); renderIncidents(); renderMaintenance(); renderVisitorStat();
+      }
+
+      function toast(msg){
+        var t = document.getElementById('entryToast');
+        var tx = document.getElementById('entryToastText');
+        if(!t) return;
+        tx.textContent = msg;
+        t.classList.add('show');
+        setTimeout(function(){ t.classList.remove('show'); }, 2600);
+      }
+
+      /* tab switching */
+      var entryTabs = document.querySelectorAll('.entry-tab');
+      var entryForms = {
+        visitor: document.getElementById('formVisitor'),
+        incident: document.getElementById('formIncident'),
+        maintenance: document.getElementById('formMaintenance')
+      };
+      entryTabs.forEach(function(tab){
+        tab.addEventListener('click', function(){
+          var key = tab.getAttribute('data-entry');
+          entryTabs.forEach(function(t){ t.classList.toggle('active', t === tab); });
+          Object.keys(entryForms).forEach(function(k){
+            if(entryForms[k]) entryForms[k].classList.toggle('active', k === key);
+          });
+        });
+      });
+
+      /* visitor submit */
+      if(entryForms.visitor){
+        entryForms.visitor.addEventListener('submit', function(e){
+          e.preventDefault();
+          var name = document.getElementById('vName').value.trim();
+          var purpose = document.getElementById('vPurpose').value.trim();
+          if(!name || !purpose){ toast('Name and purpose are required.'); return; }
+          logs.visitors.unshift({
+            name: name, purpose: purpose,
+            host: document.getElementById('vHost').value.trim(),
+            vehicle: document.getElementById('vVehicle').value.trim(),
+            time: nowTime()
+          });
+          saveLogs(); renderAllLogs();
+          entryForms.visitor.reset();
+          toast('Visitor logged at ' + nowTime());
+        });
+      }
+
+      /* incident submit */
+      if(entryForms.incident){
+        entryForms.incident.addEventListener('submit', function(e){
+          e.preventDefault();
+          logs.incidents.unshift({
+            type: document.getElementById('iType').value,
+            severity: document.getElementById('iSeverity').value,
+            location: document.getElementById('iLocation').value.trim(),
+            notes: document.getElementById('iNotes').value.trim(),
+            time: nowTime()
+          });
+          saveLogs(); renderAllLogs();
+          entryForms.incident.reset();
+          toast('Incident logged at ' + nowTime());
+        });
+      }
+
+      /* maintenance submit */
+      if(entryForms.maintenance){
+        entryForms.maintenance.addEventListener('submit', function(e){
+          e.preventDefault();
+          var issue = document.getElementById('mIssue').value.trim();
+          var loc = document.getElementById('mLocation').value.trim();
+          if(!issue || !loc){ toast('Issue and location are required.'); return; }
+          logs.maintenance.unshift({
+            issue: issue, location: loc,
+            priority: document.getElementById('mPriority').value,
+            time: nowTime()
+          });
+          saveLogs(); renderAllLogs();
+          entryForms.maintenance.reset();
+          toast('Maintenance request submitted.');
+        });
+      }
+
+      var clearBtn = document.getElementById('clearLogsBtn');
+      if(clearBtn){
+        clearBtn.addEventListener('click', function(e){
+          e.preventDefault();
+          try { window.localStorage.removeItem(LOG_KEY); } catch(err){}
+          logs = JSON.parse(JSON.stringify(defaultLogs));
+          renderAllLogs();
+          toast('Logs reset to sample data.');
+        });
+      }
+
+      renderAllLogs();
+    }
+
     /* ---------- Campus roster (non-teaching / security only) ---------- */
     if(session.role === 'nonteaching'){
       /* Generated demo roster — invented people, not real students or staff. */
@@ -1615,7 +1968,10 @@
         };
 
         function colourFor(title, kindLabel){
-          if(kindLabel === 'Facility') return 'cf';
+          if(kindLabel === 'Facility'){
+            var idx = facilities.indexOf(title);
+            return 'cf' + ((idx > -1 ? idx : 0) % 9 + 1);
+          }
           var m = String(title).match(/(\d)/);
           if(m) return 'c' + m[1];
           if(/^(L6|U6)/.test(title)) return 'c6';
