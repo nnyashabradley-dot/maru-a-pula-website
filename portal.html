@@ -956,7 +956,7 @@
   </div>
 
   <!-- ===== STAFF VIEW ===== -->
-  <div id="viewStaff" style="display:none;">
+  <div id="viewTeacher" style="display:none;">
     <div class="portal-stats">
       <div class="portal-stat-card"><div class="num">4</div><div class="label">Classes today</div></div>
       <div class="portal-stat-card"><div class="num">118</div><div class="label">Total students</div></div>
@@ -996,6 +996,110 @@
         <div class="portal-card">
           <h3>This week's focus</h3>
           <p style="font-size:0.9rem; color:var(--mid);">Term 2 reports close Friday — grade entry for all Form 3 and Form 4 classes should be finalised before then.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PRINCIPAL VIEW ===== -->
+  <div id="viewPrincipal" style="display:none;">
+    <div class="portal-stats">
+      <div class="portal-stat-card"><div class="num">750+</div><div class="label">Total enrolment</div></div>
+      <div class="portal-stat-card"><div class="num">70+</div><div class="label">Staff members</div></div>
+      <div class="portal-stat-card"><div class="num">94%</div><div class="label">School-wide attendance</div></div>
+      <div class="portal-stat-card"><div class="num">6</div><div class="label">Pending approvals</div></div>
+    </div>
+    <div class="portal-grid">
+      <div>
+        <div class="portal-card">
+          <h3>Pending approvals</h3>
+          <ul class="portal-list">
+            <li><span>Leave request — Mathematics Dept.</span><span class="due">Review</span></li>
+            <li><span>Purchase order — new lab equipment, P12,400</span><span class="due">Review</span></li>
+            <li><span>Budget variance — boarding house catering</span><span class="due">Review</span></li>
+            <li><span>Leave request — Facilities team</span><span class="due">Review</span></li>
+          </ul>
+        </div>
+        <div class="portal-card">
+          <h3>Department snapshot</h3>
+          <table class="portal-table">
+            <thead><tr><th>Department</th><th>Students</th><th>Avg. Grade</th></tr></thead>
+            <tbody>
+              <tr><td>Sciences</td><td>210</td><td><span class="grade-pill">B+</span></td></tr>
+              <tr><td>Mathematics</td><td>210</td><td><span class="grade-pill">B</span></td></tr>
+              <tr><td>Humanities</td><td>195</td><td><span class="grade-pill">B+</span></td></tr>
+              <tr><td>Languages</td><td>180</td><td><span class="grade-pill">A-</span></td></tr>
+              <tr><td>Arts</td><td>90</td><td><span class="grade-pill">A-</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div class="portal-card">
+          <h3>Upcoming</h3>
+          <ul class="portal-list">
+            <li><span>Cambridge Oct/Nov Exam Series Begins</span><span class="due">5 Oct</span></li>
+            <li><span>Speech Day &amp; Prize-Giving</span><span class="due">20 Nov</span></li>
+          </ul>
+        </div>
+        <div class="portal-card">
+          <h3>Admin tools</h3>
+          <div class="portal-quick-actions">
+            <a href="#" onclick="return false;"><svg viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h9l5 5v10a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.6"/><path d="M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.6"/></svg>Post School-Wide Announcement</a>
+            <a href="#" onclick="return false;"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Approve Budget Items</a>
+            <a href="contact.html"><svg viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="1.6"/><circle cx="10" cy="7" r="4" stroke="currentColor" stroke-width="1.6"/></svg>Staff Directory</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== NON-TEACHING STAFF VIEW ===== -->
+  <div id="viewNonteaching" style="display:none;">
+    <div class="portal-stats">
+      <div class="portal-stat-card"><div class="num">Day</div><div class="label">Shift today</div></div>
+      <div class="portal-stat-card"><div class="num">3</div><div class="label">Visitors logged today</div></div>
+      <div class="portal-stat-card"><div class="num">1</div><div class="label">Open maintenance request</div></div>
+      <div class="portal-stat-card"><div class="num">0</div><div class="label">Open incidents</div></div>
+    </div>
+    <div class="portal-grid">
+      <div>
+        <div class="portal-card">
+          <h3>Today's shift schedule</h3>
+          <div class="portal-timetable">
+            <div class="tt-row"><div class="tt-time">6:00 AM</div><div class="tt-subject">Main Gate — Check-in Duty</div></div>
+            <div class="tt-row"><div class="tt-time">10:00 AM</div><div class="tt-subject">Campus Patrol — Academic Block</div></div>
+            <div class="tt-row"><div class="tt-time">2:00 PM</div><div class="tt-subject">Boarding House Perimeter Check</div></div>
+            <div class="tt-row"><div class="tt-time">6:00 PM</div><div class="tt-subject">Main Gate — Evening Handover</div></div>
+          </div>
+        </div>
+        <div class="portal-card">
+          <h3>Visitor log</h3>
+          <table class="portal-table">
+            <thead><tr><th>Visitor</th><th>Purpose</th><th>Time In</th></tr></thead>
+            <tbody>
+              <tr><td>Courier delivery</td><td>Business Office</td><td>9:14 AM</td></tr>
+              <tr><td>Parent visit</td><td>Meeting — Admissions</td><td>11:30 AM</td></tr>
+              <tr><td>Maintenance contractor</td><td>Boarding House repairs</td><td>1:05 PM</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div class="portal-card">
+          <h3>Maintenance requests</h3>
+          <ul class="portal-list">
+            <li><span>Broken gate latch — Boarding House B</span><span class="due">Open</span></li>
+          </ul>
+        </div>
+        <div class="portal-card">
+          <h3>Quick actions</h3>
+          <div class="portal-quick-actions">
+            <a href="#" onclick="return false;"><svg viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="1.6"/><circle cx="10" cy="7" r="4" stroke="currentColor" stroke-width="1.6"/></svg>Log a Visitor</a>
+            <a href="#" onclick="return false;"><svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>Report an Incident</a>
+            <a href="#" onclick="return false;"><svg viewBox="0 0 24 24" fill="none"><path d="M9 3h6v3l1.5 3v10a2 2 0 01-2 2h-5a2 2 0 01-2-2V9L9 6V3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>Submit Maintenance Request</a>
+            <a href="contact.html"><svg viewBox="0 0 24 24" fill="none"><path d="M4 4h16v16H4z" stroke="currentColor" stroke-width="1.6"/><path d="M4 6l8 7 8-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Contact the Office</a>
+          </div>
         </div>
       </div>
     </div>
@@ -1163,14 +1267,20 @@
     locked.style.display = 'none';
     content.classList.add('unlocked');
 
-    var roleLabels = { parent: 'Parent Portal', student: 'Student Portal', staff: 'Staff Portal' };
+    var roleLabels = {
+      parent: 'Parent Portal', student: 'Student Portal',
+      teacher: 'Teacher Portal', principal: 'Principal Portal', nonteaching: 'Staff Portal'
+    };
     var initials = session.name.trim().split(/\s+/).map(function(w){ return w[0]; }).slice(0,2).join('').toUpperCase();
 
     document.getElementById('portalAvatar').textContent = initials;
     document.getElementById('portalWelcome').textContent = 'Welcome back, ' + session.name.split(' ')[0] + '.';
     document.getElementById('portalRoleLabel').textContent = roleLabels[session.role] || 'Portal';
 
-    var views = { parent: 'viewParent', student: 'viewStudent', staff: 'viewStaff' };
+    var views = {
+      parent: 'viewParent', student: 'viewStudent',
+      teacher: 'viewTeacher', principal: 'viewPrincipal', nonteaching: 'viewNonteaching'
+    };
     Object.keys(views).forEach(function(r){
       var el = document.getElementById(views[r]);
       if(el) el.style.display = (r === session.role) ? 'block' : 'none';

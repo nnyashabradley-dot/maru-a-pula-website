@@ -671,9 +671,16 @@
   /* ===== SIGN IN ===== */
   .signin-hero{background:var(--fog); padding:150px 0 80px; min-height:70vh; display:flex; align-items:center;}
   .signin-wrap{display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; width:100%;}
-  .role-tabs{display:flex; gap:8px; background:#fff; border:1px solid var(--line); border-radius:100px; padding:5px; margin-bottom:32px;}
+  .role-tabs{display:flex; gap:8px; background:#fff; border:1px solid var(--line); border-radius:100px; padding:5px; margin-bottom:14px;}
   .role-tab{flex:1; padding:11px 14px; border-radius:100px; border:none; background:transparent; font-family:'Inter',sans-serif; font-weight:600; font-size:0.86rem; color:var(--mid); cursor:pointer; transition:all .2s ease;}
   .role-tab.active{background:var(--ink); color:#fff;}
+  .staff-subrole-row{display:none; gap:8px; margin-bottom:28px; flex-wrap:wrap;}
+  .staff-subrole-row.show{display:flex;}
+  .subrole-chip{
+    flex:1; min-width:120px; padding:9px 12px; border-radius:100px; border:1.5px solid var(--line); background:#fff;
+    font-family:'Inter',sans-serif; font-weight:600; font-size:0.8rem; color:var(--mid); cursor:pointer; transition:all .2s ease;
+  }
+  .subrole-chip.active{border-color:var(--sun-3); background:rgba(194,84,11,0.08); color:var(--sun-3);}
   .signin-card{background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:40px; box-shadow:0 30px 60px -34px rgba(0,0,0,0.25);}
   .signin-card h2{font-family:'Fraunces',serif; font-size:1.5rem; margin-bottom:6px;}
   .signin-card > p{color:var(--mid); font-size:0.92rem; margin-bottom:28px;}
@@ -817,6 +824,11 @@
         <button class="role-tab active" data-role="parent" type="button">Parent</button>
         <button class="role-tab" data-role="student" type="button">Student</button>
         <button class="role-tab" data-role="staff" type="button">Staff</button>
+      </div>
+      <div class="staff-subrole-row" id="staffSubroleRow">
+        <button class="subrole-chip active" data-subrole="teacher" type="button">Teacher</button>
+        <button class="subrole-chip" data-subrole="principal" type="button">Principal</button>
+        <button class="subrole-chip" data-subrole="nonteaching" type="button">Non-Teaching Staff</button>
       </div>
       <div class="signin-card">
         <h2 id="signinHeading">Parent sign in</h2>
@@ -994,35 +1006,71 @@
 <script>
   (function(){
     var tabs = document.querySelectorAll('#roleTabs .role-tab');
+    var subroleRow = document.getElementById('staffSubroleRow');
+    var subroleChips = document.querySelectorAll('#staffSubroleRow .subrole-chip');
     var heading = document.getElementById('signinHeading');
     var sub = document.getElementById('signinSub');
     var copy = {
       parent: { h: 'Parent sign in', s: 'Access grades, fees, and school updates for your child.' },
       student: { h: 'Student sign in', s: 'Check your timetable, grades, and the library catalogue.' },
-      staff: { h: 'Staff sign in', s: 'Access class lists, the staff directory, and admin tools.' }
+      teacher: { h: 'Teacher sign in', s: 'Access class lists, grades, and admin tools.' },
+      principal: { h: 'Principal sign in', s: 'A school-wide view: enrolment, staffing, and approvals.' },
+      nonteaching: { h: 'Non-Teaching Staff sign in', s: 'Shift schedules, visitor logs, and facilities tools.' }
     };
     var demoNames = {
       parent: 'Kesitegile Modise',
       student: 'Thabo K.',
-      staff: 'Otsile Ramotswe'
+      teacher: 'Otsile Ramotswe',
+      principal: 'Nametso Kgosidintsi',
+      nonteaching: 'Kabo Sedimo'
     };
+    var staffSubroles = ['teacher', 'principal', 'nonteaching'];
     var currentRole = 'parent';
+    var currentStaffSubrole = 'teacher';
 
-    tabs.forEach(function(tab){
-      tab.addEventListener('click', function(){ selectRole(tab.getAttribute('data-role')); });
-    });
-
-    function selectRole(role){
+    function applyCopy(role){
       if(!copy[role]) return;
-      currentRole = role;
-      tabs.forEach(function(t){ t.classList.toggle('active', t.getAttribute('data-role') === role); });
       heading.textContent = copy[role].h;
       sub.textContent = copy[role].s;
     }
 
+    function selectMainRole(role){
+      tabs.forEach(function(t){ t.classList.toggle('active', t.getAttribute('data-role') === role); });
+      if(role === 'staff'){
+        subroleRow.classList.add('show');
+        currentRole = currentStaffSubrole;
+      } else {
+        subroleRow.classList.remove('show');
+        currentRole = role;
+      }
+      applyCopy(currentRole);
+    }
+
+    function selectStaffSubrole(subrole){
+      if(staffSubroles.indexOf(subrole) === -1) return;
+      currentStaffSubrole = subrole;
+      currentRole = subrole;
+      subroleChips.forEach(function(c){ c.classList.toggle('active', c.getAttribute('data-subrole') === subrole); });
+      applyCopy(currentRole);
+    }
+
+    tabs.forEach(function(tab){
+      tab.addEventListener('click', function(){ selectMainRole(tab.getAttribute('data-role')); });
+    });
+    subroleChips.forEach(function(chip){
+      chip.addEventListener('click', function(){ selectStaffSubrole(chip.getAttribute('data-subrole')); });
+    });
+
     var params = new URLSearchParams(window.location.search);
     var initialRole = params.get('role');
-    if(initialRole && copy[initialRole]) selectRole(initialRole);
+    if(initialRole === 'parent' || initialRole === 'student'){
+      selectMainRole(initialRole);
+    } else if(initialRole === 'staff'){
+      selectMainRole('staff');
+    } else if(staffSubroles.indexOf(initialRole) > -1){
+      selectMainRole('staff');
+      selectStaffSubrole(initialRole);
+    }
 
     var signinForm = document.getElementById('signinForm');
     if(signinForm){
