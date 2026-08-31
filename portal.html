@@ -715,7 +715,6 @@
   .portal-quick-actions svg{width:16px; height:16px; color:var(--sun-3); flex-shrink:0;}
 
   /* ===== CAMPUS ROSTER (security) ===== */
-  .roster-summary{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:22px;}
   .roster-sum-card{border:1px solid var(--line); border-radius:12px; padding:16px 18px;}
   .roster-sum-card .n{font-family:'Fraunces',serif; font-size:1.5rem; font-weight:700; line-height:1;}
   .roster-sum-card .l{font-size:0.78rem; color:var(--mid); margin-top:5px;}
@@ -744,6 +743,41 @@
   .st-late{color:#B42828;} .st-late .dot{background:#B42828;}
   .roster-empty{padding:40px 20px; text-align:center; color:var(--mid); font-size:0.9rem;}
   .roster-time{font-family:'JetBrains Mono',monospace; font-size:0.8rem; color:var(--mid);}
+  .roster-summary{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:22px;}
+  .roster-sum-card.total{background:var(--fog);}
+  .roster-view-tabs{display:inline-flex; background:var(--fog); border-radius:100px; padding:4px; gap:2px; margin-bottom:16px;}
+  .roster-view-tab{padding:8px 18px; border-radius:100px; border:none; background:transparent; font-family:'Inter',sans-serif; font-weight:600; font-size:0.82rem; color:var(--mid); cursor:pointer; transition:all .2s ease;}
+  .roster-view-tab.active{background:#fff; color:var(--ink); box-shadow:0 3px 10px -4px rgba(0,0,0,0.2);}
+  /* grouped-by-location view */
+  .loc-group{border:1px solid var(--line); border-radius:12px; margin-bottom:12px; overflow:hidden;}
+  .loc-head{
+    display:flex; align-items:center; gap:14px; padding:14px 18px; background:#fff; cursor:pointer;
+    transition:background .15s ease;
+  }
+  .loc-head:hover{background:var(--fog);}
+  .loc-chevron{width:22px; height:22px; border-radius:50%; border:1.5px solid var(--line); display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:transform .25s ease;}
+  .loc-chevron svg{width:11px; height:11px; color:var(--mid);}
+  .loc-group.open .loc-chevron{transform:rotate(180deg);}
+  .loc-name{font-weight:600; font-size:0.94rem; flex:1; min-width:0;}
+  .loc-kind{font-size:0.72rem; color:var(--mid); background:var(--fog); padding:3px 10px; border-radius:100px; flex-shrink:0;}
+  .loc-count{font-family:'JetBrains Mono',monospace; font-size:0.84rem; color:var(--mid); flex-shrink:0;}
+  .loc-body{max-height:0; overflow:hidden; transition:max-height .3s ease; background:var(--fog);}
+  .loc-group.open .loc-body{max-height:1400px; overflow-y:auto;}
+  .loc-people{padding:6px 18px 14px;}
+  .loc-person{display:flex; align-items:center; gap:12px; padding:9px 0; border-bottom:1px solid var(--line); font-size:0.87rem;}
+  .loc-person:last-child{border-bottom:none;}
+  .loc-person .pname{font-weight:600; flex:1; min-width:0;}
+  .loc-person .pmeta{font-size:0.78rem; color:var(--mid); flex-shrink:0;}
+  .roster-pager{display:flex; align-items:center; justify-content:space-between; gap:14px; margin-top:16px; flex-wrap:wrap;}
+  .roster-pager-btns{display:flex; gap:8px;}
+  .pager-btn{
+    padding:8px 16px; border-radius:100px; border:1.5px solid var(--line); background:#fff;
+    font-family:'Inter',sans-serif; font-weight:600; font-size:0.82rem; cursor:pointer; transition:all .2s ease;
+  }
+  .pager-btn:hover:not(:disabled){border-color:var(--ink); background:var(--fog);}
+  .pager-btn:disabled{opacity:0.4; cursor:not-allowed;}
+  .pager-info{font-family:'JetBrains Mono',monospace; font-size:0.8rem; color:var(--mid);}
+  @media (max-width:700px){ .roster-summary{grid-template-columns:repeat(2,1fr);} }
   @media (max-width:900px){ .portal-grid{grid-template-columns:1fr;} .portal-stats{grid-template-columns:repeat(2,1fr); margin-top:0;} }
 </style>
 </head>
@@ -1097,16 +1131,28 @@
     <div class="portal-card">
       <h3>Campus roster — who's on site right now</h3>
       <div class="roster-summary">
+        <div class="roster-sum-card total"><div class="n" id="rosterTotalCount">0</div><div class="l">Total on register</div></div>
         <div class="roster-sum-card on"><div class="n" id="rosterOnCount">0</div><div class="l">On campus</div></div>
         <div class="roster-sum-card out"><div class="n" id="rosterOutCount">0</div><div class="l">Signed out</div></div>
         <div class="roster-sum-card late"><div class="n" id="rosterLateCount">0</div><div class="l">Overdue return</div></div>
       </div>
+
+      <div class="roster-view-tabs">
+        <button class="roster-view-tab active" id="tabByLocation" type="button">By Location</button>
+        <button class="roster-view-tab" id="tabFullList" type="button">Full List</button>
+      </div>
+
       <div class="roster-controls">
         <div class="roster-search">
           <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-          <input type="text" id="rosterSearch" placeholder="Search by student name…">
+          <input type="text" id="rosterSearch" placeholder="Search by name…">
         </div>
-        <select class="roster-filter" id="rosterFormFilter"><option value="">All forms</option></select>
+        <select class="roster-filter" id="rosterPeopleFilter">
+          <option value="">Students &amp; staff</option>
+          <option value="Student">Students only</option>
+          <option value="Staff">Staff only</option>
+        </select>
+        <select class="roster-filter" id="rosterGroupFilter"><option value="">All forms / depts</option></select>
         <select class="roster-filter" id="rosterStatusFilter">
           <option value="">All statuses</option>
           <option value="on">On campus</option>
@@ -1114,18 +1160,34 @@
           <option value="late">Overdue return</option>
         </select>
       </div>
-      <div class="roster-table-wrap">
-        <table class="roster-table">
-          <thead>
-            <tr><th>Student</th><th>Form</th><th>Type</th><th>Status</th><th>Signed Out</th><th>Destination</th><th>Expected Back</th></tr>
-          </thead>
-          <tbody id="rosterBody"></tbody>
-        </table>
-        <div class="roster-empty" id="rosterEmpty" style="display:none;">No students match this search.</div>
+
+      <div id="rosterLocationView">
+        <div id="locGroups"></div>
+        <div class="roster-empty" id="locEmpty" style="display:none;">No one matches this search.</div>
       </div>
+
+      <div id="rosterListView" style="display:none;">
+        <div class="roster-table-wrap">
+          <table class="roster-table">
+            <thead>
+              <tr><th>Name</th><th>Form / Dept</th><th>Type</th><th>Status</th><th>Location</th><th>Signed Out</th><th>Expected Back</th></tr>
+            </thead>
+            <tbody id="rosterBody"></tbody>
+          </table>
+          <div class="roster-empty" id="rosterEmpty" style="display:none;">No one matches this search.</div>
+        </div>
+        <div class="roster-pager">
+          <div class="pager-info" id="pagerInfo"></div>
+          <div class="roster-pager-btns">
+            <button class="pager-btn" id="pagerPrev" type="button">← Prev</button>
+            <button class="pager-btn" id="pagerNext" type="button">Next →</button>
+          </div>
+        </div>
+      </div>
+
       <div class="draft-note" style="margin-top:18px;">
         <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
-        Sample roster data for demonstration only — these are invented names, not real students. A live version would need to connect to the school's actual sign-in/sign-out system, and access should be restricted to staff who genuinely need it.
+        Sample roster data for demonstration only — these are generated names, not real students or staff. A live version would need to connect to the school's actual sign-in/sign-out system, and access should be restricted to staff who genuinely need it.
       </div>
     </div>
 
@@ -1363,102 +1425,305 @@
 
     /* ---------- Campus roster (non-teaching / security only) ---------- */
     if(session.role === 'nonteaching'){
-      var roster = [
-        {name:"Amantle Kgosi", form:"Form 1", type:"Day", status:"on"},
-        {name:"Boitumelo Sekgoma", form:"Form 1", type:"Boarder", status:"on"},
-        {name:"Kagiso Dintwe", form:"Form 1", type:"Day", status:"out", outAt:"1:15 PM", dest:"Medical appointment", back:"3:30 PM"},
-        {name:"Lesego Baruti", form:"Form 2", type:"Day", status:"on"},
-        {name:"Naledi Phiri", form:"Form 2", type:"Boarder", status:"on"},
-        {name:"Onalenna Moeti", form:"Form 2", type:"Day", status:"on"},
-        {name:"Refilwe Tau", form:"Form 2", type:"Boarder", status:"out", outAt:"12:40 PM", dest:"Dental appointment", back:"2:00 PM", late:true},
-        {name:"Thabo Kefilwe", form:"Form 3", type:"Day", status:"on"},
-        {name:"Tumelo Rankopo", form:"Form 3", type:"Boarder", status:"on"},
-        {name:"Katlego Mogale", form:"Form 3", type:"Day", status:"on"},
-        {name:"Gorata Selepe", form:"Form 3", type:"Day", status:"out", outAt:"2:05 PM", dest:"Service placement — Old Naledi", back:"4:30 PM"},
-        {name:"Mpho Letsholo", form:"Form 4", type:"Boarder", status:"on"},
-        {name:"Neo Bogosi", form:"Form 4", type:"Day", status:"on"},
-        {name:"Tebogo Marumo", form:"Form 4", type:"Day", status:"on"},
-        {name:"Kefilwe Zibani", form:"Form 4", type:"Boarder", status:"out", outAt:"2:05 PM", dest:"Service placement — Old Naledi", back:"4:30 PM"},
-        {name:"Bonolo Segwai", form:"Form 5", type:"Day", status:"on"},
-        {name:"Tshepo Nkwe", form:"Form 5", type:"Boarder", status:"on"},
-        {name:"Larona Motsumi", form:"Form 5", type:"Day", status:"out", outAt:"11:20 AM", dest:"Sports fixture — away", back:"5:00 PM"},
-        {name:"Warona Diteko", form:"Upper Six", type:"Boarder", status:"on"},
-        {name:"Oarabile Mmusi", form:"Upper Six", type:"Day", status:"on"},
-        {name:"Pako Ntsima", form:"Upper Six", type:"Day", status:"out", outAt:"11:20 AM", dest:"Sports fixture — away", back:"5:00 PM"},
-        {name:"Sethunya Kabo", form:"Upper Six", type:"Boarder", status:"on"}
+      /* Generate a realistic roster of ~800 students + staff.
+         Names are generated from Setswana/Botswana name pools — these are
+         invented people for demonstration, not real students or staff. */
+      var firstNames = ["Amantle","Boitumelo","Kagiso","Lesego","Naledi","Onalenna","Refilwe","Thabo","Tumelo","Katlego",
+        "Gorata","Mpho","Neo","Tebogo","Kefilwe","Bonolo","Tshepo","Larona","Warona","Oarabile",
+        "Pako","Sethunya","Kabo","Goitseone","Lorato","Masego","Tiro","Bokang","Kelebogile","Reneilwe",
+        "Segomotso","Thato","Wame","Yaone","Boago","Dineo","Gaone","Itumeleng","Kitso","Lebogang",
+        "Mmoloki","Nkosi","Ofentse","Phenyo","Resego","Tefo","Tlotlo","Unami","Bakang","Chedza"];
+      var surnames = ["Kgosi","Sekgoma","Dintwe","Baruti","Phiri","Moeti","Tau","Kefilwe","Rankopo","Mogale",
+        "Selepe","Letsholo","Bogosi","Marumo","Zibani","Segwai","Nkwe","Motsumi","Diteko","Mmusi",
+        "Ntsima","Kabo","Sedimo","Modise","Ramotswe","Kgosidintsi","Molefe","Tshekiso","Pilane","Seretse",
+        "Mothibi","Ditshego","Gaborone","Khama","Masire","Mogae","Seretse","Balopi","Chilisa","Dikgang"];
+
+      var formGroups = [
+        { form:"Form 1", classes:["1A","1B","1C","1D"] },
+        { form:"Form 2", classes:["2A","2B","2C","2D"] },
+        { form:"Form 3", classes:["3A","3B","3C","3D"] },
+        { form:"Form 4", classes:["4A","4B","4C","4D"] },
+        { form:"Form 5", classes:["5A","5B","5C"] },
+        { form:"Upper Six", classes:["6A","6B","6C"] }
       ];
+      var departments = ["Sciences","Mathematics","Humanities","Languages","Arts & Maitisong",
+        "Physical Education","Administration","Boarding","Facilities","Library"];
+
+      var facilities = ["Library","Maitisong Theatre","Science Laboratories","Sports Fields",
+        "Swimming Pool","Dining Hall","Boarding House A","Boarding House B","Administration Block"];
+
+      var outReasons = [
+        { dest:"Medical appointment", out:"1:15 PM", back:"3:30 PM" },
+        { dest:"Dental appointment", out:"12:40 PM", back:"2:00 PM" },
+        { dest:"Service placement — Old Naledi", out:"2:05 PM", back:"4:30 PM" },
+        { dest:"Service placement — SOS Children's Village", out:"2:05 PM", back:"4:30 PM" },
+        { dest:"Sports fixture — away", out:"11:20 AM", back:"5:00 PM" },
+        { dest:"Family collection", out:"10:05 AM", back:"—" },
+        { dest:"Maitisong rehearsal — off site", out:"1:00 PM", back:"4:00 PM" }
+      ];
+
+      /* Deterministic pseudo-random so the roster is stable between renders */
+      var seed = 20260817;
+      function rnd(){
+        seed = (seed * 1103515245 + 12345) % 2147483648;
+        return seed / 2147483648;
+      }
+      function pick(arr){ return arr[Math.floor(rnd() * arr.length)]; }
+
+      var roster = [];
+      var usedNames = {};
+      function makeName(){
+        var n, guard = 0;
+        do {
+          n = pick(firstNames) + ' ' + pick(surnames);
+          guard++;
+        } while(usedNames[n] && guard < 40);
+        usedNames[n] = true;
+        return n;
+      }
+
+      /* ~730 students across forms and classes */
+      formGroups.forEach(function(g){
+        g.classes.forEach(function(cls){
+          var size = 32 + Math.floor(rnd() * 5); // 32-36 per class
+          for(var i = 0; i < size; i++){
+            var r = rnd();
+            var status = 'on', extra = null;
+            if(r > 0.94){
+              status = 'out';
+              extra = outReasons[Math.floor(rnd() * outReasons.length)];
+            }
+            var entry = {
+              name: makeName(),
+              kind: 'Student',
+              group: g.form,
+              location: 'Classroom ' + cls,
+              locationKind: 'Classroom',
+              type: rnd() > 0.75 ? 'Boarder' : 'Day',
+              status: status
+            };
+            if(extra){
+              entry.dest = extra.dest;
+              entry.outAt = extra.out;
+              entry.back = extra.back;
+              if(rnd() > 0.8) entry.late = true;
+            }
+            roster.push(entry);
+          }
+        });
+      });
+
+      /* ~70 staff across departments and facilities */
+      departments.forEach(function(dept){
+        var size = 5 + Math.floor(rnd() * 4); // 5-8 per dept
+        for(var i = 0; i < size; i++){
+          var r = rnd();
+          var status = 'on', extra = null;
+          if(r > 0.9){
+            status = 'out';
+            extra = { dest:"Off-site meeting", out:"9:30 AM", back:"3:00 PM" };
+          }
+          var entry = {
+            name: makeName(),
+            kind: 'Staff',
+            group: dept,
+            location: pick(facilities),
+            locationKind: 'Facility',
+            type: 'Staff',
+            status: status
+          };
+          if(extra){
+            entry.dest = extra.dest;
+            entry.outAt = extra.out;
+            entry.back = extra.back;
+          }
+          roster.push(entry);
+        }
+      });
 
       var rosterBody = document.getElementById('rosterBody');
       var rosterEmpty = document.getElementById('rosterEmpty');
+      var locGroups = document.getElementById('locGroups');
+      var locEmpty = document.getElementById('locEmpty');
       var rosterSearch = document.getElementById('rosterSearch');
-      var formFilter = document.getElementById('rosterFormFilter');
+      var peopleFilter = document.getElementById('rosterPeopleFilter');
+      var groupFilter = document.getElementById('rosterGroupFilter');
       var statusFilter = document.getElementById('rosterStatusFilter');
+      var locationView = document.getElementById('rosterLocationView');
+      var listView = document.getElementById('rosterListView');
+      var tabByLocation = document.getElementById('tabByLocation');
+      var tabFullList = document.getElementById('tabFullList');
+      var pagerPrev = document.getElementById('pagerPrev');
+      var pagerNext = document.getElementById('pagerNext');
+      var pagerInfo = document.getElementById('pagerInfo');
 
-      if(rosterBody){
-        var forms = [];
-        roster.forEach(function(s){ if(forms.indexOf(s.form) === -1) forms.push(s.form); });
-        forms.forEach(function(fm){
+      if(rosterBody && locGroups){
+        var PAGE_SIZE = 50;
+        var currentPage = 1;
+        var currentView = 'location';
+
+        /* populate the form/dept filter */
+        var groups = [];
+        roster.forEach(function(p){ if(groups.indexOf(p.group) === -1) groups.push(p.group); });
+        groups.forEach(function(g){
           var opt = document.createElement('option');
-          opt.value = fm; opt.textContent = fm;
-          formFilter.appendChild(opt);
+          opt.value = g; opt.textContent = g;
+          groupFilter.appendChild(opt);
         });
 
         function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-
-        function effectiveStatus(s){
-          if(s.status === 'out' && s.late) return 'late';
-          return s.status;
+        function effectiveStatus(p){
+          if(p.status === 'out' && p.late) return 'late';
+          return p.status;
         }
 
-        function renderRoster(){
+        function getFiltered(){
           var q = (rosterSearch.value || '').trim().toLowerCase();
-          var fm = formFilter.value;
+          var kind = peopleFilter.value;
+          var grp = groupFilter.value;
           var st = statusFilter.value;
-
-          var filtered = roster.filter(function(s){
-            var matchQ = !q || s.name.toLowerCase().indexOf(q) > -1;
-            var matchF = !fm || s.form === fm;
-            var matchS = !st || effectiveStatus(s) === st;
-            return matchQ && matchF && matchS;
+          return roster.filter(function(p){
+            var mq = !q || p.name.toLowerCase().indexOf(q) > -1;
+            var mk = !kind || p.kind === kind;
+            var mg = !grp || p.group === grp;
+            var ms = !st || effectiveStatus(p) === st;
+            return mq && mk && mg && ms;
           });
+        }
+
+        function statusHtml(p){
+          var es = effectiveStatus(p);
+          var label = es === 'on' ? 'On campus' : (es === 'late' ? 'Overdue' : 'Signed out');
+          var cls = es === 'on' ? 'st-on' : (es === 'late' ? 'st-late' : 'st-out');
+          return '<span class="roster-status ' + cls + '"><span class="dot"></span>' + label + '</span>';
+        }
+
+        /* ---- Grouped by location ---- */
+        function renderLocationView(filtered){
+          var byLoc = {};
+          filtered.forEach(function(p){
+            if(!byLoc[p.location]) byLoc[p.location] = { kind: p.locationKind, people: [] };
+            byLoc[p.location].people.push(p);
+          });
+          var names = Object.keys(byLoc).sort();
+          locGroups.innerHTML = '';
+          locEmpty.style.display = names.length ? 'none' : 'block';
+
+          names.forEach(function(loc){
+            var data = byLoc[loc];
+            var onCount = data.people.filter(function(p){ return effectiveStatus(p) === 'on'; }).length;
+            var wrap = document.createElement('div');
+            wrap.className = 'loc-group';
+
+            var head = document.createElement('div');
+            head.className = 'loc-head';
+            head.innerHTML =
+              '<div class="loc-chevron"><svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>' +
+              '<div class="loc-name">' + esc(loc) + '</div>' +
+              '<div class="loc-kind">' + esc(data.kind) + '</div>' +
+              '<div class="loc-count">' + onCount + ' on site / ' + data.people.length + '</div>';
+
+            var body = document.createElement('div');
+            body.className = 'loc-body';
+            var inner = '<div class="loc-people">';
+            data.people.forEach(function(p){
+              inner += '<div class="loc-person">' +
+                '<span class="pname">' + esc(p.name) + '</span>' +
+                '<span class="pmeta">' + esc(p.group) + ' · ' + esc(p.type) + '</span>' +
+                statusHtml(p) +
+                '</div>';
+            });
+            inner += '</div>';
+            body.innerHTML = inner;
+
+            head.addEventListener('click', function(){ wrap.classList.toggle('open'); });
+            wrap.appendChild(head);
+            wrap.appendChild(body);
+            locGroups.appendChild(wrap);
+          });
+        }
+
+        /* ---- Full paginated list ---- */
+        function renderListView(filtered){
+          var totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+          if(currentPage > totalPages) currentPage = totalPages;
+          var start = (currentPage - 1) * PAGE_SIZE;
+          var pageItems = filtered.slice(start, start + PAGE_SIZE);
 
           rosterBody.innerHTML = '';
-          filtered.forEach(function(s){
-            var es = effectiveStatus(s);
-            var label = es === 'on' ? 'On campus' : (es === 'late' ? 'Overdue' : 'Signed out');
-            var cls = es === 'on' ? 'st-on' : (es === 'late' ? 'st-late' : 'st-out');
+          pageItems.forEach(function(p){
             var tr = document.createElement('tr');
             tr.innerHTML =
-              '<td class="roster-name">' + esc(s.name) + '</td>' +
-              '<td>' + esc(s.form) + '</td>' +
-              '<td>' + esc(s.type) + '</td>' +
-              '<td><span class="roster-status ' + cls + '"><span class="dot"></span>' + label + '</span></td>' +
-              '<td class="roster-time">' + (s.outAt ? esc(s.outAt) : '—') + '</td>' +
-              '<td>' + (s.dest ? esc(s.dest) : '—') + '</td>' +
-              '<td class="roster-time">' + (s.back ? esc(s.back) : '—') + '</td>';
+              '<td class="roster-name">' + esc(p.name) + '</td>' +
+              '<td>' + esc(p.group) + '</td>' +
+              '<td>' + esc(p.type) + '</td>' +
+              '<td>' + statusHtml(p) + '</td>' +
+              '<td>' + (effectiveStatus(p) === 'on' ? esc(p.location) : (p.dest ? esc(p.dest) : '—')) + '</td>' +
+              '<td class="roster-time">' + (p.outAt ? esc(p.outAt) : '—') + '</td>' +
+              '<td class="roster-time">' + (p.back ? esc(p.back) : '—') + '</td>';
             rosterBody.appendChild(tr);
           });
+
           rosterEmpty.style.display = filtered.length ? 'none' : 'block';
+          var shownFrom = filtered.length ? start + 1 : 0;
+          var shownTo = Math.min(start + PAGE_SIZE, filtered.length);
+          pagerInfo.textContent = 'Showing ' + shownFrom + '–' + shownTo + ' of ' + filtered.length;
+          pagerPrev.disabled = currentPage <= 1;
+          pagerNext.disabled = currentPage >= totalPages;
+        }
+
+        function render(){
+          var filtered = getFiltered();
+          if(currentView === 'location'){ renderLocationView(filtered); }
+          else { renderListView(filtered); }
         }
 
         function updateCounts(){
           var on = 0, out = 0, late = 0;
-          roster.forEach(function(s){
-            var es = effectiveStatus(s);
+          roster.forEach(function(p){
+            var es = effectiveStatus(p);
             if(es === 'on') on++;
             else if(es === 'late') late++;
             else out++;
           });
+          document.getElementById('rosterTotalCount').textContent = roster.length;
           document.getElementById('rosterOnCount').textContent = on;
           document.getElementById('rosterOutCount').textContent = out;
           document.getElementById('rosterLateCount').textContent = late;
         }
 
-        rosterSearch.addEventListener('input', renderRoster);
-        formFilter.addEventListener('change', renderRoster);
-        statusFilter.addEventListener('change', renderRoster);
+        [rosterSearch].forEach(function(el){
+          el.addEventListener('input', function(){ currentPage = 1; render(); });
+        });
+        [peopleFilter, groupFilter, statusFilter].forEach(function(el){
+          el.addEventListener('change', function(){ currentPage = 1; render(); });
+        });
+        tabByLocation.addEventListener('click', function(){
+          currentView = 'location';
+          tabByLocation.classList.add('active');
+          tabFullList.classList.remove('active');
+          locationView.style.display = '';
+          listView.style.display = 'none';
+          render();
+        });
+        tabFullList.addEventListener('click', function(){
+          currentView = 'list';
+          tabFullList.classList.add('active');
+          tabByLocation.classList.remove('active');
+          listView.style.display = '';
+          locationView.style.display = 'none';
+          currentPage = 1;
+          render();
+        });
+        pagerPrev.addEventListener('click', function(){
+          if(currentPage > 1){ currentPage--; render(); }
+        });
+        pagerNext.addEventListener('click', function(){
+          currentPage++; render();
+        });
+
         updateCounts();
-        renderRoster();
+        render();
       }
     }
   })();
