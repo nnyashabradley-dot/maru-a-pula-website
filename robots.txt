@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Portal and sign-in pages hold no public content
+Disallow: /portal.html
+Disallow: /signin.html
+
+Sitemap: https://nnyashabradley-dot.github.io/maru-a-pula-website/sitemap.xml
