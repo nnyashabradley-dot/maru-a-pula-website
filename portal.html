@@ -926,6 +926,40 @@
   .task-name{flex:1; min-width:0; font-weight:600; font-size:0.9rem;}
   .task-row.done .task-name{text-decoration:line-through; color:var(--mid);}
   .task-zone{font-size:0.76rem; color:var(--mid); flex-shrink:0;}
+
+  /* ===== TERM ACTIVITIES (sport + service) ===== */
+  .act-item{
+    display:flex; gap:16px; align-items:flex-start; padding:16px 0; border-bottom:1px solid var(--line);
+  }
+  .act-item:last-child{border-bottom:none; padding-bottom:0;}
+  .act-icon{
+    width:42px; height:42px; border-radius:12px; flex-shrink:0; display:flex;
+    align-items:center; justify-content:center; color:#fff;
+  }
+  .act-icon svg{width:19px; height:19px;}
+  .act-sport{background:linear-gradient(140deg,#2F7D5B,#3FA076);}
+  .act-service{background:linear-gradient(140deg,#C2540B,#E0761F);}
+  .act-body{flex:1; min-width:0;}
+  .act-name{font-weight:600; font-size:0.98rem; color:var(--black); margin-bottom:3px;}
+  .act-meta{font-size:0.82rem; color:var(--mid); line-height:1.5;}
+  .act-when{
+    font-family:'JetBrains Mono',monospace; font-size:0.74rem; color:var(--sun-3);
+    background:rgba(194,84,11,0.09); padding:3px 10px; border-radius:100px; display:inline-block; margin-top:6px;
+  }
+  .act-sport .act-when{color:#2F7D5B;}
+  .act-item.is-sport .act-when{background:rgba(47,125,91,0.1); color:#2F7D5B;}
+  .act-role{
+    font-size:0.68rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em;
+    padding:3px 9px; border-radius:100px; background:var(--fog); color:var(--mid); margin-left:8px;
+  }
+  .act-role.captain{background:rgba(242,167,59,0.2); color:#8a5a16;}
+  .term-banner{
+    display:flex; align-items:center; gap:10px; padding:12px 16px; border-radius:10px;
+    background:var(--fog); font-size:0.84rem; color:var(--mid); margin-bottom:18px;
+  }
+  .term-banner strong{color:var(--ink);}
+  .hours-bar{height:6px; border-radius:100px; background:var(--fog); overflow:hidden; margin:10px 0 6px;}
+  .hours-fill{height:100%; border-radius:100px; background:linear-gradient(90deg,#C2540B,#E0761F);}
   @media (max-width:640px){ .entry-row{grid-template-columns:1fr;} }
   @media (max-width:700px){ .roster-summary{grid-template-columns:repeat(2,1fr);} }
   @media (max-width:900px){ .portal-grid{grid-template-columns:1fr;} .portal-stats{grid-template-columns:repeat(2,1fr); margin-top:0;} }
@@ -1064,7 +1098,7 @@
       <div class="portal-stat-card"><div class="num">96%</div><div class="label">Attendance this term</div></div>
       <div class="portal-stat-card"><div class="num">B+</div><div class="label">Average grade</div></div>
       <div class="portal-stat-card"><div class="num">P0.00</div><div class="label">Fees balance</div></div>
-      <div class="portal-stat-card"><div class="num">4</div><div class="label">Books read this term</div></div>
+      <div class="portal-stat-card"><div class="num" id="parentServiceHours">18</div><div class="label">Service hours logged</div></div>
     </div>
     <div class="portal-grid">
       <div>
@@ -1080,6 +1114,14 @@
               <tr><td>Life Skills</td><td>Term 2</td><td><span class="grade-pill">A</span></td></tr>
             </tbody>
           </table>
+        </div>
+        <div class="portal-card">
+          <h3>Thabo's sport &amp; service this term</h3>
+          <div class="term-banner">
+            <svg viewBox="0 0 24 24" fill="none" width="15" height="15" style="flex-shrink:0; color:var(--mid);"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.8"/></svg>
+            <span><strong>Term 3, 2026</strong> — 20 July to 4 December</span>
+          </div>
+          <div id="parentActivities"></div>
         </div>
         <div class="portal-card">
           <h3>Fees &amp; billing</h3>
@@ -1114,8 +1156,8 @@
     <div class="portal-stats">
       <div class="portal-stat-card"><div class="num">Day 3</div><div class="label">of 6, this week</div></div>
       <div class="portal-stat-card"><div class="num">B+</div><div class="label">Average grade</div></div>
-      <div class="portal-stat-card"><div class="num">4</div><div class="label">Books read this term</div></div>
-      <div class="portal-stat-card"><div class="num">2</div><div class="label">Assignments due</div></div>
+      <div class="portal-stat-card"><div class="num">2</div><div class="label">Sports this term</div></div>
+      <div class="portal-stat-card"><div class="num" id="studentServiceHours">18</div><div class="label">Service hours logged</div></div>
     </div>
     <div class="portal-grid">
       <div>
@@ -1143,6 +1185,14 @@
         </div>
       </div>
       <div>
+        <div class="portal-card">
+          <h3>My sport &amp; service this term</h3>
+          <div class="term-banner">
+            <svg viewBox="0 0 24 24" fill="none" width="15" height="15" style="flex-shrink:0; color:var(--mid);"><rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.8"/></svg>
+            <span><strong>Term 3, 2026</strong> — 20 July to 4 December</span>
+          </div>
+          <div id="studentActivities"></div>
+        </div>
         <div class="portal-card">
           <h3>Library account</h3>
           <p style="font-size:0.9rem; margin-bottom:6px;"><strong>Currently borrowed:</strong> The Kite Runner</p>
@@ -1889,6 +1939,114 @@
         try { window.localStorage.removeItem(SESSION_KEY); } catch(e){}
         window.location.href = 'index.html';
       });
+    }
+
+    /* ---------- Term activities: sport & service (student + parent) ---------- */
+    if(session.role === 'student' || session.role === 'parent'){
+      /* One shared record — the student sees "My", the parent sees the same
+         for their child. In a live version this would come from the school's
+         activity records rather than being hardcoded here. */
+      var termActivities = {
+        studentFirstName: 'Thabo',
+        term: 'Term 3, 2026',
+        serviceHoursLogged: 18,
+        serviceHoursTarget: 30,
+        items: [
+          {
+            kind: 'sport',
+            name: 'Football — 1st XI',
+            detail: 'Coach: Mr Ramotswe · Sports Fields',
+            when: 'Tue & Thu, 4:00–5:30 PM',
+            role: null
+          },
+          {
+            kind: 'sport',
+            name: 'Swimming — Junior Squad',
+            detail: 'Coach: Ms Baruti · 25m Pool',
+            when: 'Mon & Wed, 6:30–7:30 AM',
+            role: 'Captain'
+          },
+          {
+            kind: 'service',
+            name: 'Old Naledi Outreach',
+            detail: 'Weekly food hamper delivery and homework support',
+            when: 'Fridays, 2:00–4:30 PM',
+            role: null
+          },
+          {
+            kind: 'service',
+            name: 'Gabane Primary — Reading Support',
+            detail: 'Paired reading with Standard 3 learners',
+            when: 'Wednesdays, 2:00–4:00 PM',
+            role: null
+          }
+        ]
+      };
+
+      var ICON_SPORT = '<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.9"/><path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="1.6"/></svg>';
+      var ICON_SERVICE = '<svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-5-7-11a7 7 0 0114 0c0 6-7 11-7 11z" stroke="currentColor" stroke-width="1.9"/></svg>';
+
+      function escA(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+      function renderActivities(targetId, isParent){
+        var host = document.getElementById(targetId);
+        if(!host) return;
+        var d = termActivities;
+        var sports = d.items.filter(function(i){ return i.kind === 'sport'; });
+        var services = d.items.filter(function(i){ return i.kind === 'service'; });
+        var who = isParent ? (d.studentFirstName + "'s") : 'your';
+
+        var html = '';
+
+        html += '<h4 style="font-size:0.78rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--mid); margin-bottom:4px;">Sport</h4>';
+        if(sports.length){
+          sports.forEach(function(a){
+            html += '<div class="act-item is-sport">' +
+              '<div class="act-icon act-sport">' + ICON_SPORT + '</div>' +
+              '<div class="act-body"><div class="act-name">' + escA(a.name) +
+              (a.role ? '<span class="act-role captain">' + escA(a.role) + '</span>' : '') + '</div>' +
+              '<div class="act-meta">' + escA(a.detail) + '</div>' +
+              '<span class="act-when">' + escA(a.when) + '</span></div></div>';
+          });
+        } else {
+          html += '<p class="empty-line">No sport selected for this term.</p>';
+        }
+
+        html += '<h4 style="font-size:0.78rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--mid); margin:22px 0 4px;">Community Service</h4>';
+        if(services.length){
+          services.forEach(function(a){
+            html += '<div class="act-item">' +
+              '<div class="act-icon act-service">' + ICON_SERVICE + '</div>' +
+              '<div class="act-body"><div class="act-name">' + escA(a.name) + '</div>' +
+              '<div class="act-meta">' + escA(a.detail) + '</div>' +
+              '<span class="act-when">' + escA(a.when) + '</span></div></div>';
+          });
+        } else {
+          html += '<p class="empty-line">No service placement recorded for this term.</p>';
+        }
+
+        var pct = Math.min(100, Math.round((d.serviceHoursLogged / d.serviceHoursTarget) * 100));
+        html += '<div style="margin-top:22px; padding-top:18px; border-top:1px solid var(--line);">' +
+          '<div style="display:flex; justify-content:space-between; align-items:baseline; font-size:0.86rem;">' +
+          '<span style="font-weight:600;">Service hours this term</span>' +
+          '<span class="roster-time">' + d.serviceHoursLogged + ' of ' + d.serviceHoursTarget + ' hrs</span></div>' +
+          '<div class="hours-bar"><div class="hours-fill" style="width:' + pct + '%;"></div></div>' +
+          '<p style="font-size:0.8rem; color:var(--mid);">Service is required of every MaP student, every week. ' +
+          (pct >= 100 ? 'This term\'s commitment is complete.' : 'On track for ' + who + ' Term 3 commitment.') +
+          '</p></div>';
+
+        host.innerHTML = html;
+      }
+
+      if(session.role === 'student'){
+        renderActivities('studentActivities', false);
+        var sh = document.getElementById('studentServiceHours');
+        if(sh) sh.textContent = termActivities.serviceHoursLogged;
+      } else {
+        renderActivities('parentActivities', true);
+        var ph = document.getElementById('parentServiceHours');
+        if(ph) ph.textContent = termActivities.serviceHoursLogged;
+      }
     }
 
     /* ---------- Technical team: website content manager ---------- */
