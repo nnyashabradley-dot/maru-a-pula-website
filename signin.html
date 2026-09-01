@@ -828,7 +828,10 @@
       <div class="staff-subrole-row" id="staffSubroleRow">
         <button class="subrole-chip active" data-subrole="teacher" type="button">Teacher</button>
         <button class="subrole-chip" data-subrole="principal" type="button">Principal</button>
-        <button class="subrole-chip" data-subrole="nonteaching" type="button">Non-Teaching Staff</button>
+        <button class="subrole-chip" data-subrole="security" type="button">Security</button>
+        <button class="subrole-chip" data-subrole="technical" type="button">Technical</button>
+        <button class="subrole-chip" data-subrole="cleaning" type="button">Cleaning</button>
+        <button class="subrole-chip" data-subrole="catering" type="button">Catering</button>
       </div>
       <div class="signin-card">
         <h2 id="signinHeading">Parent sign in</h2>
@@ -1015,16 +1018,22 @@
       student: { h: 'Student sign in', s: 'Check your timetable, grades, and the library catalogue.' },
       teacher: { h: 'Teacher sign in', s: 'Access class lists, grades, and admin tools.' },
       principal: { h: 'Principal sign in', s: 'A school-wide view: enrolment, staffing, and approvals.' },
-      nonteaching: { h: 'Non-Teaching Staff sign in', s: 'Shift schedules, visitor logs, and facilities tools.' }
+      security: { h: 'Security sign in', s: 'Campus roster, visitor logs, and incident reporting.' },
+      technical: { h: 'Technical Team sign in', s: 'Manage website content: news, shop items, and images.' },
+      cleaning: { h: 'Cleaning Team sign in', s: 'Room schedules, supplies, and completed-task tracking.' },
+      catering: { h: 'Catering Team sign in', s: 'Meal counts, weekly menu, and dietary requirements.' }
     };
     var demoNames = {
       parent: 'Kesitegile Modise',
       student: 'Thabo K.',
       teacher: 'Otsile Ramotswe',
       principal: 'Nametso Kgosidintsi',
-      nonteaching: 'Kabo Sedimo'
+      security: 'Kabo Sedimo',
+      technical: 'Tefo Molefe',
+      cleaning: 'Gaone Pilane',
+      catering: 'Lorato Seretse'
     };
-    var staffSubroles = ['teacher', 'principal', 'nonteaching'];
+    var staffSubroles = ['teacher', 'principal', 'security', 'technical', 'cleaning', 'catering'];
     var currentRole = 'parent';
     var currentStaffSubrole = 'teacher';
 

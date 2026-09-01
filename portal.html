@@ -877,6 +877,55 @@
   .sev-high{background:rgba(180,40,40,0.13) !important; color:#B42828 !important;}
   .sev-med{background:rgba(194,84,11,0.13) !important; color:#C2540B !important;}
   .empty-line{font-size:0.86rem; color:var(--mid); padding:6px 0;}
+
+  /* ===== CMS / TEAM PANELS ===== */
+  .cms-panel{display:none;}
+  .cms-panel.active{display:block;}
+  .cms-item{
+    display:flex; align-items:flex-start; gap:14px; padding:14px 16px; border:1px solid var(--line);
+    border-radius:10px; margin-bottom:10px; background:#fff;
+  }
+  .cms-item-main{flex:1; min-width:0;}
+  .cms-item-title{font-weight:600; font-size:0.92rem; color:var(--black); margin-bottom:3px;}
+  .cms-item-meta{font-size:0.78rem; color:var(--mid); word-break:break-word;}
+  .cms-del{
+    border:1.5px solid var(--line); background:#fff; border-radius:8px; width:30px; height:30px;
+    cursor:pointer; flex-shrink:0; display:flex; align-items:center; justify-content:center; color:var(--mid);
+    transition:all .18s ease;
+  }
+  .cms-del:hover{border-color:#B42828; color:#B42828; background:rgba(180,40,40,0.06);}
+  .cms-del svg{width:13px; height:13px;}
+  .cms-new-badge{
+    display:inline-block; font-size:0.64rem; font-weight:700; padding:2px 8px; border-radius:100px;
+    background:rgba(47,125,91,0.14); color:#2F7D5B; margin-left:8px;
+  }
+  .cms-publish{
+    display:flex; align-items:center; justify-content:space-between; gap:18px; flex-wrap:wrap;
+    margin-top:26px; padding:20px; border-radius:14px; background:var(--fog); border:1px solid var(--line);
+  }
+  .cms-publish strong{display:block; font-size:0.95rem; margin-bottom:4px;}
+  .cms-publish p{font-size:0.82rem; color:var(--mid); margin:0; max-width:460px;}
+  .cms-export-box{
+    width:100%; margin-top:16px; min-height:180px; border:1.5px solid var(--line); border-radius:10px;
+    padding:14px; font-family:'JetBrains Mono',monospace; font-size:0.76rem; resize:vertical; background:#fff;
+  }
+  /* task checklist */
+  .task-row{
+    display:flex; align-items:center; gap:14px; padding:13px 14px; border:1px solid var(--line);
+    border-radius:10px; margin-bottom:9px; cursor:pointer; transition:all .18s ease; background:#fff;
+  }
+  .task-row:hover{border-color:var(--ink);}
+  .task-row.done{background:rgba(47,125,91,0.07); border-color:rgba(47,125,91,0.35);}
+  .task-check{
+    width:22px; height:22px; border-radius:6px; border:2px solid var(--line); flex-shrink:0;
+    display:flex; align-items:center; justify-content:center; transition:all .18s ease;
+  }
+  .task-row.done .task-check{background:#2F7D5B; border-color:#2F7D5B;}
+  .task-check svg{width:12px; height:12px; color:#fff; opacity:0;}
+  .task-row.done .task-check svg{opacity:1;}
+  .task-name{flex:1; min-width:0; font-weight:600; font-size:0.9rem;}
+  .task-row.done .task-name{text-decoration:line-through; color:var(--mid);}
+  .task-zone{font-size:0.76rem; color:var(--mid); flex-shrink:0;}
   @media (max-width:640px){ .entry-row{grid-template-columns:1fr;} }
   @media (max-width:700px){ .roster-summary{grid-template-columns:repeat(2,1fr);} }
   @media (max-width:900px){ .portal-grid{grid-template-columns:1fr;} .portal-stats{grid-template-columns:repeat(2,1fr); margin-top:0;} }
@@ -1217,7 +1266,7 @@
   </div>
 
   <!-- ===== NON-TEACHING STAFF VIEW ===== -->
-  <div id="viewNonteaching" style="display:none;">
+  <div id="viewSecurity" style="display:none;">
     <div class="portal-stats">
       <div class="portal-stat-card"><div class="num">Day</div><div class="label">Shift today</div></div>
       <div class="portal-stat-card"><div class="num">3</div><div class="label">Visitors logged today</div></div>
@@ -1426,6 +1475,229 @@
       </div>
     </div>
   </div>
+
+  <!-- ===== TECHNICAL TEAM VIEW ===== -->
+  <div id="viewTechnical" style="display:none;">
+    <div class="portal-stats">
+      <div class="portal-stat-card"><div class="num" id="cmsNewsCount">0</div><div class="label">News articles</div></div>
+      <div class="portal-stat-card"><div class="num" id="cmsShopCount">0</div><div class="label">Shop items</div></div>
+      <div class="portal-stat-card"><div class="num" id="cmsImageCount">0</div><div class="label">Site images</div></div>
+      <div class="portal-stat-card"><div class="num" id="cmsDraftCount">0</div><div class="label">Unpublished edits</div></div>
+    </div>
+
+    <div class="portal-card">
+      <h3>Website content manager</h3>
+      <div class="entry-tabs">
+        <button class="entry-tab active" data-cms="news" type="button">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h9l5 5v10a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.8"/><path d="M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.8"/></svg>
+          News
+        </button>
+        <button class="entry-tab" data-cms="shop" type="button">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M6 8h12l-1 12H7L6 8z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 8V6a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.8"/></svg>
+          Shop Items
+        </button>
+        <button class="entry-tab" data-cms="images" type="button">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" stroke-width="1.8"/><circle cx="9" cy="10" r="1.6" fill="currentColor"/><path d="M4 16l5-5 4 4 3-3 4 4" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          Images
+        </button>
+      </div>
+
+      <div class="cms-panel active" id="cmsNews">
+        <form class="entry-form active" id="formNews" onsubmit="return false;">
+          <div class="entry-row">
+            <div class="entry-field full">
+              <label for="nTitle">Headline</label>
+              <input type="text" id="nTitle" placeholder="e.g. Marimba Band wins regional award" required>
+            </div>
+            <div class="entry-field">
+              <label for="nTag">Category</label>
+              <select id="nTag"><option>Academics</option><option>Arts</option><option>Community</option><option>Alumni</option><option>Sport</option></select>
+            </div>
+            <div class="entry-field">
+              <label for="nDate">Date</label>
+              <input type="text" id="nDate" placeholder="e.g. 20 August 2026">
+            </div>
+            <div class="entry-field full">
+              <label for="nBody">Summary</label>
+              <textarea id="nBody" placeholder="One or two sentences for the news card"></textarea>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Add News Article →</button>
+        </form>
+        <h4 style="margin:26px 0 12px; font-size:0.86rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--mid);">Current articles</h4>
+        <div id="cmsNewsList"></div>
+      </div>
+
+      <div class="cms-panel" id="cmsShop">
+        <form class="entry-form active" id="formShop" onsubmit="return false;">
+          <div class="entry-row">
+            <div class="entry-field full">
+              <label for="sName">Product name</label>
+              <input type="text" id="sName" placeholder="e.g. 50th Anniversary Scarf" required>
+            </div>
+            <div class="entry-field">
+              <label for="sPrice">Price (Pula)</label>
+              <input type="number" id="sPrice" min="1" placeholder="e.g. 180" required>
+            </div>
+            <div class="entry-field">
+              <label for="sStock">Stock status</label>
+              <select id="sStock"><option>In stock</option><option>Low stock</option><option>Sold out</option></select>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Add Shop Item →</button>
+        </form>
+        <h4 style="margin:26px 0 12px; font-size:0.86rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--mid);">Current items</h4>
+        <div id="cmsShopList"></div>
+      </div>
+
+      <div class="cms-panel" id="cmsImages">
+        <form class="entry-form active" id="formImage" onsubmit="return false;">
+          <div class="entry-row">
+            <div class="entry-field">
+              <label for="imgPage">Page</label>
+              <select id="imgPage"><option>Homepage</option><option>About</option><option>Academics</option><option>Student Life</option><option>Community &amp; Arts</option><option>News</option><option>Shop</option></select>
+            </div>
+            <div class="entry-field">
+              <label for="imgSlot">Position</label>
+              <input type="text" id="imgSlot" placeholder="e.g. Hero banner, Gallery 2">
+            </div>
+            <div class="entry-field full">
+              <label for="imgUrl">Image URL</label>
+              <input type="url" id="imgUrl" placeholder="https://..." required>
+            </div>
+            <div class="entry-field full">
+              <label for="imgAlt">Alt text (for screen readers)</label>
+              <input type="text" id="imgAlt" placeholder="Describe what's in the photo">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Add / Replace Image →</button>
+        </form>
+        <h4 style="margin:26px 0 12px; font-size:0.86rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--mid);">Queued image changes</h4>
+        <div id="cmsImageList"></div>
+      </div>
+
+      <div class="entry-toast" id="cmsToast">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span id="cmsToastText">Saved</span>
+      </div>
+
+      <div class="cms-publish">
+        <div>
+          <strong>Ready to publish?</strong>
+          <p>Changes are saved to this browser only — they don't appear on the live site yet. Export them and send the file to whoever manages the site.</p>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="btn btn-primary" id="cmsExportBtn" type="button">Export Changes</button>
+          <button class="pager-btn" id="cmsResetBtn" type="button">Reset</button>
+        </div>
+      </div>
+      <textarea class="cms-export-box" id="cmsExportBox" readonly style="display:none;"></textarea>
+    </div>
+  </div>
+
+  <!-- ===== CLEANING TEAM VIEW ===== -->
+  <div id="viewCleaning" style="display:none;">
+    <div class="portal-stats">
+      <div class="portal-stat-card"><div class="num" id="cleanDoneCount">0</div><div class="label">Areas completed</div></div>
+      <div class="portal-stat-card"><div class="num" id="cleanPendingCount">0</div><div class="label">Still to do</div></div>
+      <div class="portal-stat-card"><div class="num">Morning</div><div class="label">Shift today</div></div>
+      <div class="portal-stat-card"><div class="num" id="cleanSupplyCount">0</div><div class="label">Supplies to reorder</div></div>
+    </div>
+    <div class="portal-grid">
+      <div>
+        <div class="portal-card">
+          <h3>Today's cleaning schedule</h3>
+          <p style="color:var(--mid); font-size:0.88rem; margin-bottom:16px;">Tick each area as you finish it.</p>
+          <div id="cleaningTaskList"></div>
+        </div>
+      </div>
+      <div>
+        <div class="portal-card">
+          <h3>Report low supplies</h3>
+          <form class="entry-form active" id="formSupply" onsubmit="return false;">
+            <div class="entry-field">
+              <label for="supItem">Item</label>
+              <input type="text" id="supItem" placeholder="e.g. Hand soap" required>
+            </div>
+            <div class="entry-field">
+              <label for="supArea">Where</label>
+              <input type="text" id="supArea" placeholder="e.g. Boarding House A">
+            </div>
+            <div class="entry-field">
+              <label for="supUrgency">Urgency</label>
+              <select id="supUrgency"><option value="low">Can wait</option><option value="med">This week</option><option value="high">Urgent</option></select>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Report →</button>
+          </form>
+          <div class="entry-toast" id="cleanToast">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span id="cleanToastText">Saved</span>
+          </div>
+        </div>
+        <div class="portal-card">
+          <h3>Supplies to reorder</h3>
+          <ul class="portal-list" id="supplyList"></ul>
+          <div class="empty-line" id="supplyEmpty">Nothing reported.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CATERING TEAM VIEW ===== -->
+  <div id="viewCatering" style="display:none;">
+    <div class="portal-stats">
+      <div class="portal-stat-card"><div class="num" id="cateringLunchCount">0</div><div class="label">Lunches today</div></div>
+      <div class="portal-stat-card"><div class="num" id="cateringBoarderCount">0</div><div class="label">Boarders (all meals)</div></div>
+      <div class="portal-stat-card"><div class="num" id="cateringDietCount">0</div><div class="label">Dietary requirements</div></div>
+      <div class="portal-stat-card"><div class="num">3</div><div class="label">Meal services today</div></div>
+    </div>
+    <div class="portal-grid">
+      <div>
+        <div class="portal-card">
+          <h3>This week's menu</h3>
+          <table class="portal-table">
+            <thead><tr><th>Day</th><th>Lunch</th><th>Dinner</th></tr></thead>
+            <tbody id="menuBody"></tbody>
+          </table>
+        </div>
+        <div class="portal-card">
+          <h3>Dietary requirements</h3>
+          <table class="portal-table">
+            <thead><tr><th>Requirement</th><th>Students</th><th>Notes</th></tr></thead>
+            <tbody id="dietBody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div class="portal-card">
+          <h3>Update a meal count</h3>
+          <form class="entry-form active" id="formMealCount" onsubmit="return false;">
+            <div class="entry-field">
+              <label for="mcService">Service</label>
+              <select id="mcService"><option>Breakfast</option><option>Lunch</option><option>Dinner</option></select>
+            </div>
+            <div class="entry-field">
+              <label for="mcCount">Expected covers</label>
+              <input type="number" id="mcCount" min="0" placeholder="e.g. 640" required>
+            </div>
+            <div class="entry-field">
+              <label for="mcNote">Note (optional)</label>
+              <input type="text" id="mcNote" placeholder="e.g. Form 4 away on fixture">
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Update Count →</button>
+          </form>
+          <div class="entry-toast" id="cateringToast">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span id="cateringToastText">Saved</span>
+          </div>
+        </div>
+        <div class="portal-card">
+          <h3>Today's services</h3>
+          <ul class="portal-list" id="serviceList"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 </div>
 
@@ -1591,7 +1863,8 @@
 
     var roleLabels = {
       parent: 'Parent Portal', student: 'Student Portal',
-      teacher: 'Teacher Portal', principal: 'Principal Portal', nonteaching: 'Staff Portal'
+      teacher: 'Teacher Portal', principal: 'Principal Portal', security: 'Security Portal',
+      technical: 'Technical Team Portal', cleaning: 'Cleaning Team Portal', catering: 'Catering Team Portal'
     };
     var initials = session.name.trim().split(/\s+/).map(function(w){ return w[0]; }).slice(0,2).join('').toUpperCase();
 
@@ -1601,7 +1874,8 @@
 
     var views = {
       parent: 'viewParent', student: 'viewStudent',
-      teacher: 'viewTeacher', principal: 'viewPrincipal', nonteaching: 'viewNonteaching'
+      teacher: 'viewTeacher', principal: 'viewPrincipal', security: 'viewSecurity',
+      technical: 'viewTechnical', cleaning: 'viewCleaning', catering: 'viewCatering'
     };
     Object.keys(views).forEach(function(r){
       var el = document.getElementById(views[r]);
@@ -1616,8 +1890,316 @@
       });
     }
 
+    /* ---------- Technical team: website content manager ---------- */
+    if(session.role === 'technical'){
+      var CMS_KEY = 'mapCmsDrafts';
+      var seededCms = {
+        news: [
+          { title:"The Maitisong Festival returns to campus this April", tag:"Arts", date:"15 August 2026", body:"Botswana's largest annual arts festival brings two weeks of music, drama, and visual art to campus.", seeded:true },
+          { title:"Class of 2009 marks its reunion weekend", tag:"Alumni", date:"12 August 2026", body:"Former classmates returned to campus for dinner, dancing, and speeches.", seeded:true },
+          { title:"OVC Mentorship Programme opens for new sign-ups", tag:"Community", date:"10 August 2026", body:"Alumni are invited to serve as mentors for this year's incoming OVC Scholars.", seeded:true }
+        ],
+        shop: [
+          { name:"50th T-Shirt (Black)", price:160, stock:"In stock", seeded:true },
+          { name:"MaP Pullover Hoodie", price:350, stock:"In stock", seeded:true },
+          { name:"50th Bottle", price:300, stock:"Low stock", seeded:true },
+          { name:"Silicone Wristband", price:15, stock:"In stock", seeded:true }
+        ],
+        images: []
+      };
+      function loadCms(){
+        try { var r = window.localStorage.getItem(CMS_KEY); return r ? JSON.parse(r) : JSON.parse(JSON.stringify(seededCms)); }
+        catch(e){ return JSON.parse(JSON.stringify(seededCms)); }
+      }
+      function saveCms(){ try { window.localStorage.setItem(CMS_KEY, JSON.stringify(cms)); } catch(e){} }
+      var cms = loadCms();
+      function ec(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+      function cmsToast(m){
+        var t=document.getElementById('cmsToast'), x=document.getElementById('cmsToastText');
+        if(!t) return; x.textContent=m; t.classList.add('show');
+        setTimeout(function(){ t.classList.remove('show'); },2600);
+      }
+      function delBtn(kind, idx){
+        return '<button class="cms-del" data-kind="' + kind + '" data-idx="' + idx + '" type="button" aria-label="Remove">' +
+          '<svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button>';
+      }
+      function renderCms(){
+        var nl=document.getElementById('cmsNewsList');
+        if(nl){
+          nl.innerHTML = cms.news.length ? '' : '<div class="empty-line">No articles.</div>';
+          cms.news.forEach(function(a,i){
+            var d=document.createElement('div'); d.className='cms-item';
+            d.innerHTML='<div class="cms-item-main"><div class="cms-item-title">' + ec(a.title) +
+              (a.seeded?'':'<span class="cms-new-badge">New</span>') + '</div>' +
+              '<div class="cms-item-meta">' + ec(a.tag) + (a.date?' · '+ec(a.date):'') + '</div></div>' + delBtn('news',i);
+            nl.appendChild(d);
+          });
+        }
+        var sl=document.getElementById('cmsShopList');
+        if(sl){
+          sl.innerHTML = cms.shop.length ? '' : '<div class="empty-line">No items.</div>';
+          cms.shop.forEach(function(p,i){
+            var d=document.createElement('div'); d.className='cms-item';
+            d.innerHTML='<div class="cms-item-main"><div class="cms-item-title">' + ec(p.name) +
+              (p.seeded?'':'<span class="cms-new-badge">New</span>') + '</div>' +
+              '<div class="cms-item-meta">P' + ec(p.price) + ' · ' + ec(p.stock) + '</div></div>' + delBtn('shop',i);
+            sl.appendChild(d);
+          });
+        }
+        var il=document.getElementById('cmsImageList');
+        if(il){
+          il.innerHTML = cms.images.length ? '' : '<div class="empty-line">No image changes queued.</div>';
+          cms.images.forEach(function(g,i){
+            var d=document.createElement('div'); d.className='cms-item';
+            d.innerHTML='<div class="cms-item-main"><div class="cms-item-title">' + ec(g.page) + ' — ' + ec(g.slot||'image') +
+              '<span class="cms-new-badge">New</span></div>' +
+              '<div class="cms-item-meta">' + ec(g.url) + '</div></div>' + delBtn('images',i);
+            il.appendChild(d);
+          });
+        }
+        var setN=function(id,v){ var e=document.getElementById(id); if(e) e.textContent=v; };
+        setN('cmsNewsCount', cms.news.length);
+        setN('cmsShopCount', cms.shop.length);
+        setN('cmsImageCount', cms.images.length);
+        var drafts = cms.news.filter(function(x){return !x.seeded;}).length
+          + cms.shop.filter(function(x){return !x.seeded;}).length + cms.images.length;
+        setN('cmsDraftCount', drafts);
+
+        document.querySelectorAll('.cms-del').forEach(function(b){
+          b.addEventListener('click', function(){
+            var k=b.getAttribute('data-kind'), i=parseInt(b.getAttribute('data-idx'),10);
+            cms[k].splice(i,1); saveCms(); renderCms(); cmsToast('Removed.');
+          });
+        });
+      }
+      document.querySelectorAll('[data-cms]').forEach(function(tab){
+        tab.addEventListener('click', function(){
+          var k=tab.getAttribute('data-cms');
+          document.querySelectorAll('[data-cms]').forEach(function(t){ t.classList.toggle('active', t===tab); });
+          ['news','shop','images'].forEach(function(p){
+            var el=document.getElementById('cms'+p.charAt(0).toUpperCase()+p.slice(1));
+            if(el) el.classList.toggle('active', p===k);
+          });
+        });
+      });
+      var fn=document.getElementById('formNews');
+      if(fn) fn.addEventListener('submit', function(e){
+        e.preventDefault();
+        var t=document.getElementById('nTitle').value.trim();
+        if(!t){ cmsToast('Headline is required.'); return; }
+        cms.news.unshift({ title:t, tag:document.getElementById('nTag').value,
+          date:document.getElementById('nDate').value.trim(), body:document.getElementById('nBody').value.trim() });
+        saveCms(); renderCms(); fn.reset(); cmsToast('Article added to drafts.');
+      });
+      var fs=document.getElementById('formShop');
+      if(fs) fs.addEventListener('submit', function(e){
+        e.preventDefault();
+        var n=document.getElementById('sName').value.trim(), p=document.getElementById('sPrice').value;
+        if(!n||!p){ cmsToast('Name and price are required.'); return; }
+        cms.shop.unshift({ name:n, price:parseInt(p,10), stock:document.getElementById('sStock').value });
+        saveCms(); renderCms(); fs.reset(); cmsToast('Shop item added to drafts.');
+      });
+      var fi=document.getElementById('formImage');
+      if(fi) fi.addEventListener('submit', function(e){
+        e.preventDefault();
+        var u=document.getElementById('imgUrl').value.trim();
+        if(!u){ cmsToast('Image URL is required.'); return; }
+        cms.images.unshift({ page:document.getElementById('imgPage').value,
+          slot:document.getElementById('imgSlot').value.trim(), url:u,
+          alt:document.getElementById('imgAlt').value.trim() });
+        saveCms(); renderCms(); fi.reset(); cmsToast('Image change queued.');
+      });
+      var ex=document.getElementById('cmsExportBtn'), box=document.getElementById('cmsExportBox');
+      if(ex) ex.addEventListener('click', function(){
+        var out={ exported:new Date().toISOString(),
+          news:cms.news.filter(function(x){return !x.seeded;}),
+          shop:cms.shop.filter(function(x){return !x.seeded;}),
+          images:cms.images };
+        box.value=JSON.stringify(out,null,2);
+        box.style.display='block';
+        box.select();
+        cmsToast('Exported — copy this and send it to whoever deploys the site.');
+      });
+      var rs=document.getElementById('cmsResetBtn');
+      if(rs) rs.addEventListener('click', function(){
+        try{ window.localStorage.removeItem(CMS_KEY); }catch(err){}
+        cms=JSON.parse(JSON.stringify(seededCms));
+        if(box){ box.style.display='none'; box.value=''; }
+        renderCms(); cmsToast('Drafts cleared.');
+      });
+      renderCms();
+    }
+
+    /* ---------- Cleaning team ---------- */
+    if(session.role === 'cleaning'){
+      var CLEAN_KEY = 'mapCleaningState';
+      var defaultClean = {
+        tasks: [
+          { name:"Classrooms 1M–1J", zone:"Academic Block", done:true },
+          { name:"Classrooms 2M–2J", zone:"Academic Block", done:true },
+          { name:"Classrooms 3M–3J", zone:"Academic Block", done:false },
+          { name:"Science Laboratories", zone:"Academic Block", done:false },
+          { name:"Library", zone:"Academic Block", done:true },
+          { name:"Dining Hall — post-breakfast", zone:"Dining", done:true },
+          { name:"Dining Hall — post-lunch", zone:"Dining", done:false },
+          { name:"Boarding House A — common areas", zone:"Boarding", done:false },
+          { name:"Boarding House B — common areas", zone:"Boarding", done:false },
+          { name:"Maitisong Theatre", zone:"Arts", done:false },
+          { name:"Administration Block", zone:"Admin", done:true },
+          { name:"Changing rooms — Sports", zone:"Sports", done:false }
+        ],
+        supplies: [
+          { item:"Hand soap", area:"Boarding House A", urgency:"med" }
+        ]
+      };
+      function loadClean(){
+        try{ var r=window.localStorage.getItem(CLEAN_KEY); return r?JSON.parse(r):JSON.parse(JSON.stringify(defaultClean)); }
+        catch(e){ return JSON.parse(JSON.stringify(defaultClean)); }
+      }
+      function saveClean(){ try{ window.localStorage.setItem(CLEAN_KEY, JSON.stringify(clean)); }catch(e){} }
+      var clean = loadClean();
+      function ecl(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+      var urg={ low:'Can wait', med:'This week', high:'Urgent' };
+      var urgCls={ low:'', med:'sev-med', high:'sev-high' };
+      function cleanToast(m){
+        var t=document.getElementById('cleanToast'), x=document.getElementById('cleanToastText');
+        if(!t) return; x.textContent=m; t.classList.add('show');
+        setTimeout(function(){ t.classList.remove('show'); },2600);
+      }
+      function renderClean(){
+        var list=document.getElementById('cleaningTaskList');
+        if(list){
+          list.innerHTML='';
+          clean.tasks.forEach(function(t,i){
+            var row=document.createElement('div');
+            row.className='task-row' + (t.done?' done':'');
+            row.innerHTML='<div class="task-check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>' +
+              '<span class="task-name">' + ecl(t.name) + '</span><span class="task-zone">' + ecl(t.zone) + '</span>';
+            row.addEventListener('click', function(){
+              clean.tasks[i].done = !clean.tasks[i].done; saveClean(); renderClean();
+            });
+            list.appendChild(row);
+          });
+        }
+        var sl=document.getElementById('supplyList'), se=document.getElementById('supplyEmpty');
+        if(sl){
+          sl.innerHTML='';
+          clean.supplies.forEach(function(s){
+            var li=document.createElement('li');
+            li.innerHTML='<span>' + ecl(s.item) + (s.area?' — '+ecl(s.area):'') +
+              '<span class="log-badge ' + (urgCls[s.urgency]||'') + '">' + (urg[s.urgency]||'Low') + '</span></span>' +
+              '<span class="due">Reported</span>';
+            sl.appendChild(li);
+          });
+          se.style.display = clean.supplies.length ? 'none' : 'block';
+        }
+        var done=clean.tasks.filter(function(t){return t.done;}).length;
+        var set=function(id,v){ var e=document.getElementById(id); if(e) e.textContent=v; };
+        set('cleanDoneCount', done);
+        set('cleanPendingCount', clean.tasks.length-done);
+        set('cleanSupplyCount', clean.supplies.length);
+      }
+      var fsup=document.getElementById('formSupply');
+      if(fsup) fsup.addEventListener('submit', function(e){
+        e.preventDefault();
+        var it=document.getElementById('supItem').value.trim();
+        if(!it){ cleanToast('Item name is required.'); return; }
+        clean.supplies.unshift({ item:it, area:document.getElementById('supArea').value.trim(),
+          urgency:document.getElementById('supUrgency').value });
+        saveClean(); renderClean(); fsup.reset(); cleanToast('Reported to the office.');
+      });
+      renderClean();
+    }
+
+    /* ---------- Catering team ---------- */
+    if(session.role === 'catering'){
+      var CATER_KEY = 'mapCateringState';
+      var defaultCater = {
+        services: [
+          { name:"Breakfast", count:118, note:"Boarders only" },
+          { name:"Lunch", count:640, note:"All students + staff" },
+          { name:"Dinner", count:118, note:"Boarders only" }
+        ]
+      };
+      var menu = [
+        { day:"Monday", lunch:"Seswaa with pap and greens", dinner:"Chicken stew, rice" },
+        { day:"Tuesday", lunch:"Beef stew, samp and beans", dinner:"Pasta bake, salad" },
+        { day:"Wednesday", lunch:"Grilled chicken, rice, veg", dinner:"Vegetable curry, rice" },
+        { day:"Thursday", lunch:"Bogobe with beef and morogo", dinner:"Fish, potatoes, greens" },
+        { day:"Friday", lunch:"Beef burgers, chips, salad", dinner:"Braai — boarders" },
+        { day:"Weekend", lunch:"Boarders' brunch", dinner:"Roast, seasonal veg" }
+      ];
+      var diets = [
+        { req:"Vegetarian", count:34, note:"Daily alternative required" },
+        { req:"Halal", count:21, note:"Separate prep area" },
+        { req:"Nut allergy", count:9, note:"Strict — no cross-contact" },
+        { req:"Lactose intolerant", count:14, note:"Dairy-free option at all services" },
+        { req:"Gluten-free", count:6, note:"Bread substitute needed" }
+      ];
+      function loadCater(){
+        try{ var r=window.localStorage.getItem(CATER_KEY); return r?JSON.parse(r):JSON.parse(JSON.stringify(defaultCater)); }
+        catch(e){ return JSON.parse(JSON.stringify(defaultCater)); }
+      }
+      function saveCater(){ try{ window.localStorage.setItem(CATER_KEY, JSON.stringify(cater)); }catch(e){} }
+      var cater = loadCater();
+      function eca(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+      function caterToast(m){
+        var t=document.getElementById('cateringToast'), x=document.getElementById('cateringToastText');
+        if(!t) return; x.textContent=m; t.classList.add('show');
+        setTimeout(function(){ t.classList.remove('show'); },2600);
+      }
+      function renderCater(){
+        var mb=document.getElementById('menuBody');
+        if(mb){
+          mb.innerHTML='';
+          menu.forEach(function(m){
+            var tr=document.createElement('tr');
+            tr.innerHTML='<td class="roster-name">' + eca(m.day) + '</td><td>' + eca(m.lunch) + '</td><td>' + eca(m.dinner) + '</td>';
+            mb.appendChild(tr);
+          });
+        }
+        var db=document.getElementById('dietBody');
+        if(db){
+          db.innerHTML='';
+          diets.forEach(function(d){
+            var tr=document.createElement('tr');
+            tr.innerHTML='<td class="roster-name">' + eca(d.req) + '</td><td>' + d.count + '</td><td>' + eca(d.note) + '</td>';
+            db.appendChild(tr);
+          });
+        }
+        var sl=document.getElementById('serviceList');
+        if(sl){
+          sl.innerHTML='';
+          cater.services.forEach(function(s){
+            var li=document.createElement('li');
+            li.innerHTML='<span>' + eca(s.name) + (s.note?' — '+eca(s.note):'') + '</span><span class="due">' + s.count + '</span>';
+            sl.appendChild(li);
+          });
+        }
+        var lunch=cater.services.filter(function(s){return s.name==='Lunch';})[0];
+        var brk=cater.services.filter(function(s){return s.name==='Breakfast';})[0];
+        var set=function(id,v){ var e=document.getElementById(id); if(e) e.textContent=v; };
+        set('cateringLunchCount', lunch?lunch.count:0);
+        set('cateringBoarderCount', brk?brk.count:0);
+        set('cateringDietCount', diets.reduce(function(a,d){return a+d.count;},0));
+      }
+      var fmc=document.getElementById('formMealCount');
+      if(fmc) fmc.addEventListener('submit', function(e){
+        e.preventDefault();
+        var svc=document.getElementById('mcService').value;
+        var cnt=parseInt(document.getElementById('mcCount').value,10);
+        if(isNaN(cnt)||cnt<0){ caterToast('Enter a valid number.'); return; }
+        var found=cater.services.filter(function(s){return s.name===svc;})[0];
+        var note=document.getElementById('mcNote').value.trim();
+        if(found){ found.count=cnt; if(note) found.note=note; }
+        else { cater.services.push({name:svc,count:cnt,note:note}); }
+        saveCater(); renderCater(); fmc.reset(); caterToast(svc + ' updated to ' + cnt + ' covers.');
+      });
+      renderCater();
+    }
+
     /* ---------- Security data entry: visitors, incidents, maintenance ---------- */
-    if(session.role === 'nonteaching'){
+    if(session.role === 'security'){
       var LOG_KEY = 'mapSecurityLogs';
       var defaultLogs = {
         visitors: [
@@ -1686,7 +2268,7 @@
         });
         empty.style.display = logs.incidents.length ? 'none' : 'block';
         badge.textContent = logs.incidents.length;
-        var statCard = document.querySelector('#viewNonteaching .portal-stats .portal-stat-card:nth-child(4) .num');
+        var statCard = document.querySelector('#viewSecurity .portal-stats .portal-stat-card:nth-child(4) .num');
         if(statCard) statCard.textContent = logs.incidents.length;
       }
 
@@ -1705,12 +2287,12 @@
         });
         empty.style.display = logs.maintenance.length ? 'none' : 'block';
         badge.textContent = logs.maintenance.length + ' open';
-        var statCard = document.querySelector('#viewNonteaching .portal-stats .portal-stat-card:nth-child(3) .num');
+        var statCard = document.querySelector('#viewSecurity .portal-stats .portal-stat-card:nth-child(3) .num');
         if(statCard) statCard.textContent = logs.maintenance.length;
       }
 
       function renderVisitorStat(){
-        var statCard = document.querySelector('#viewNonteaching .portal-stats .portal-stat-card:nth-child(2) .num');
+        var statCard = document.querySelector('#viewSecurity .portal-stats .portal-stat-card:nth-child(2) .num');
         if(statCard) statCard.textContent = logs.visitors.length;
       }
 
@@ -1813,7 +2395,7 @@
     }
 
     /* ---------- Campus roster (non-teaching / security only) ---------- */
-    if(session.role === 'nonteaching'){
+    if(session.role === 'security'){
       /* Generated demo roster — invented people, not real students or staff. */
       var firstNames = ["Amantle","Boitumelo","Kagiso","Lesego","Naledi","Onalenna","Refilwe","Thabo","Tumelo","Katlego",
         "Gorata","Mpho","Neo","Tebogo","Kefilwe","Bonolo","Tshepo","Larona","Warona","Oarabile",
