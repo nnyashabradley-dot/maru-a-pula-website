@@ -930,6 +930,7 @@
   @media (max-width:700px){ .roster-summary{grid-template-columns:repeat(2,1fr);} }
   @media (max-width:900px){ .portal-grid{grid-template-columns:1fr;} .portal-stats{grid-template-columns:repeat(2,1fr); margin-top:0;} }
 </style>
+<script src="assets/site-config.js"></script>
 </head>
 <body>
 <header>
@@ -1738,14 +1739,14 @@
       <div>
         <h5>Contact</h5>
         <ul>
-          <li>4725 Maruapula Way, Gaborone</li>
-          <li>+267 391 2953</li>
-          <li>comms@maruapula.org</li>
+          <li data-site="address">4725 Maruapula Way, Gaborone</li>
+          <li data-site="phone">+267 391 2953</li>
+          <li data-site="email">comms@maruapula.org</li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 Maru-a-Pula School. All rights reserved.</span>
+      <span>© <span data-site="copyrightYear">2026</span> <span data-site="schoolName">Maru-a-Pula School</span>. All rights reserved.</span>
       <span><a href="privacy.html">Privacy Policy</a> · <a href="accessibility.html">Accessibility</a> · <a href="safeguarding.html">Safeguarding</a> · <a href="sitemap.html">Site Map</a></span>
     </div>
 </footer>

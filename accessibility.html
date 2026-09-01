@@ -695,6 +695,7 @@
   .legal-section li{font-size:1rem; line-height:1.75; color:#2b2b2b; margin-bottom:8px;}
   @media (max-width:640px){ .legal-toc ol{columns:1;} .legal-hero h1{font-size:1.8rem;} }
 </style>
+<script src="assets/site-config.js"></script>
 </head>
 <body>
 <header>
@@ -887,14 +888,14 @@
       <div>
         <h5>Contact</h5>
         <ul>
-          <li>4725 Maruapula Way, Gaborone</li>
-          <li>+267 391 2953</li>
-          <li>comms@maruapula.org</li>
+          <li data-site="address">4725 Maruapula Way, Gaborone</li>
+          <li data-site="phone">+267 391 2953</li>
+          <li data-site="email">comms@maruapula.org</li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 Maru-a-Pula School. All rights reserved.</span>
+      <span>© <span data-site="copyrightYear">2026</span> <span data-site="schoolName">Maru-a-Pula School</span>. All rights reserved.</span>
       <span><a href="privacy.html">Privacy Policy</a> · <a href="accessibility.html">Accessibility</a> · <a href="safeguarding.html">Safeguarding</a> · <a href="sitemap.html">Site Map</a></span>
     </div>
   </div>

@@ -684,6 +684,7 @@
   .map-embed{border-radius:var(--radius); overflow:hidden; border:1px solid var(--line); box-shadow:0 20px 50px -30px rgba(0,0,0,0.25);}
   .map-embed iframe{display:block; width:100%; height:380px; border:0;}
 </style>
+<script src="assets/site-config.js"></script>
 </head>
 <body>
 <header>
@@ -820,12 +821,12 @@
       <div class="pillar-card">
         <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3-8.7A2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .3 2 .7 3a2 2 0 01-.5 2L8 10a16 16 0 006 6l1.3-1.3a2 2 0 012-.5c1 .4 2 .6 3 .7a2 2 0 011.7 2z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
         <h4>Phone</h4>
-        <p>+267 391 2953</p>
+        <p data-site="phone">+267 391 2953</p>
       </div>
       <div class="pillar-card">
         <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-5-7-11a7 7 0 0114 0c0 6-7 11-7 11z" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="1.6"/></svg></div>
         <h4>Address</h4>
-        <p>Plot 4725 Maruapula Way, Gaborone, Botswana</p>
+        <p data-site="addressFull">Plot 4725 Maruapula Way, Gaborone, Botswana</p>
       </div>
     </div>
   </div>
@@ -838,38 +839,38 @@
         <div class="eyebrow reveal">Get to the right office</div>
         <h2 class="reveal d1">Department contacts</h2>
       </div>
-      <p class="reveal-fade d2">For telephone extensions, dial +267 391 2953 and ask to be transferred to the department you need.</p>
+      <p class="reveal-fade d2">For telephone extensions, dial <span data-site="phone">+267 391 2953</span> and ask to be transferred to the department you need.</p>
     </div>
     <div class="pillar-grid">
       <a href="admissions.html" class="pillar-card" style="display:block;">
         <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V9l-5-6z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 3v6h5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
         <h4>Admissions</h4>
-        <p>admissions@maruapula.org</p>
+        <p data-site="emailAdmissions">admissions@maruapula.org</p>
       </a>
       <a href="academics.html" class="pillar-card" style="display:block;">
         <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 19V6a2 2 0 012-2h9l5 5v10a2 2 0 01-2 2H6a2 2 0 01-2-2z" stroke="currentColor" stroke-width="1.6"/><path d="M8 12h8M8 16h5" stroke="currentColor" stroke-width="1.6"/></svg></div>
         <h4>Academics</h4>
-        <p>academics@maruapula.org</p>
+        <p data-site="emailAcademics">academics@maruapula.org</p>
       </a>
       <a href="community-service.html" class="pillar-card" style="display:block;">
         <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-5-7-11a7 7 0 0114 0c0 6-7 11-7 11z" stroke="currentColor" stroke-width="1.6"/></svg></div>
         <h4>Service Programme</h4>
-        <p>service@maruapula.org</p>
+        <p data-site="emailService">service@maruapula.org</p>
       </a>
       <a href="maitisong-arts.html" class="pillar-card" style="display:block;">
         <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 19V6l10-2v13" stroke="currentColor" stroke-width="1.6"/><circle cx="7" cy="19" r="2" stroke="currentColor" stroke-width="1.6"/><circle cx="17" cy="17" r="2" stroke="currentColor" stroke-width="1.6"/></svg></div>
         <h4>Maitisong Box Office</h4>
-        <p>maitisong@maruapula.org</p>
+        <p data-site="emailMaitisong">maitisong@maruapula.org</p>
       </a>
       <a href="alumni.html#contact" class="pillar-card" style="display:block;">
         <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="1.6"/><circle cx="10" cy="7" r="4" stroke="currentColor" stroke-width="1.6"/><path d="M22 21v-2a4 4 0 00-3-3.87" stroke="currentColor" stroke-width="1.6"/><path d="M16 3.13a4 4 0 010 7.75" stroke="currentColor" stroke-width="1.6"/></svg></div>
         <h4>Alumni Office</h4>
-        <p>alumni@maruapula.org</p>
+        <p data-site="emailAlumni">alumni@maruapula.org</p>
       </a>
       <div class="pillar-card">
         <div class="icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="7" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2" stroke="currentColor" stroke-width="1.6"/></svg></div>
         <h4>Business &amp; Finance Office</h4>
-        <p>finance@maruapula.org</p>
+        <p data-site="emailFinance">finance@maruapula.org</p>
       </div>
     </div>
     <div class="draft-note reveal-fade d3" style="margin-top:32px;">
@@ -885,7 +886,7 @@
       <div class="eyebrow reveal">Come see it in person</div>
       <h3 class="reveal d1">Visit the campus</h3>
       <p class="reveal-fade d2">MaP sits on 50 acres on the edge of Gaborone. Campus tours run for prospective families throughout the year, and the front office can help direct visitors to the right building on arrival.</p>
-      <p class="reveal-fade d3"><strong>Office hours (term time):</strong> Monday–Friday, 7:30 AM – 4:30 PM</p>
+      <p class="reveal-fade d3"><strong>Office hours (term time):</strong> <span data-site="officeHours">Monday–Friday, 7:30 AM – 4:30 PM</span></p>
       <a href="#" class="btn btn-ghost reveal-fade d3" style="margin-top:8px;">Book a Campus Tour →</a>
       <div class="draft-note reveal-fade d3">
         <svg viewBox="0 0 24 24" fill="none"><path d="M12 9v4M12 16.5h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/></svg>
@@ -996,14 +997,14 @@
       <div>
         <h5>Contact</h5>
         <ul>
-          <li>4725 Maruapula Way, Gaborone</li>
-          <li>+267 391 2953</li>
-          <li>comms@maruapula.org</li>
+          <li data-site="address">4725 Maruapula Way, Gaborone</li>
+          <li data-site="phone">+267 391 2953</li>
+          <li data-site="email">comms@maruapula.org</li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 Maru-a-Pula School. All rights reserved.</span>
+      <span>© <span data-site="copyrightYear">2026</span> <span data-site="schoolName">Maru-a-Pula School</span>. All rights reserved.</span>
       <span><a href="privacy.html">Privacy Policy</a> · <a href="accessibility.html">Accessibility</a> · <a href="safeguarding.html">Safeguarding</a> · <a href="sitemap.html">Site Map</a></span>
     </div>
   </div>
